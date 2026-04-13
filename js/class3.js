@@ -104,15 +104,43 @@ const MathGen3 = {
   },
 
   // Porównywanie liczb
-  comparison() {
-    const a = randInt(10, 999);
-    let b;
-    do { b = randInt(10, 999); } while (b === a);
+  // Porównywanie liczb — 3 tiery
+  comparison(floor) {
+    if (floor === 1) {
+      // Tier 1: dwucyfrowe
+      const a = randInt(10, 99);
+      let b; do { b = randInt(10, 99); } while (b === a);
+      return this._compResult(a, b);
+    } else if (floor === 2) {
+      // Tier 2: trzycyfrowe
+      const a = randInt(100, 999);
+      let b; do { b = randInt(100, 999); } while (b === a);
+      return this._compResult(a, b);
+    } else {
+      // Tier 3: porównywanie wyrażeń
+      const templates = [
+        () => { const a = randInt(2, 8); const b = randInt(2, 8); const c = randInt(10, 50); return { left: `${a} · ${b}`, lVal: a*b, right: String(c), rVal: c }; },
+        () => { const a = randInt(10, 50); const b = randInt(10, 50); const c = randInt(10, 99); return { left: `${a} + ${b}`, lVal: a+b, right: String(c), rVal: c }; },
+        () => { const a = randInt(2, 6); const b = randInt(2, 6); const c = randInt(2, 6); const d = randInt(2, 6); return { left: `${a} · ${b}`, lVal: a*b, right: `${c} · ${d}`, rVal: c*d }; },
+      ];
+      const t = templates[Math.floor(Math.random() * templates.length)]();
+      const correct = t.lVal > t.rVal ? '>' : t.lVal < t.rVal ? '<' : '=';
+      return {
+        text: `Który znak pasuje?\n\n${t.left}  ☐  ${t.right}`,
+        type: 'quiz', answers: ['<', '>', '='],
+        correctIndex: correct === '<' ? 0 : correct === '>' ? 1 : 2,
+        hint: `${t.left} = ${t.lVal}, ${t.right} = ${t.rVal}`,
+        answer: correct === '<' ? 'A' : correct === '>' ? 'B' : 'C',
+        cssClass: 'word-problem'
+      };
+    }
+  },
+
+  _compResult(a, b) {
     const correct = a > b ? '>' : a < b ? '<' : '=';
     return {
       text: `Który znak pasuje?\n\n${a}  ☐  ${b}`,
-      type: 'quiz',
-      answers: ['<', '>', '='],
+      type: 'quiz', answers: ['<', '>', '='],
       correctIndex: correct === '<' ? 0 : correct === '>' ? 1 : 2,
       hint: `Porównaj: ${a} i ${b}`,
       answer: correct === '<' ? 'A' : correct === '>' ? 'B' : 'C',
@@ -120,13 +148,24 @@ const MathGen3 = {
     };
   },
 
-  // Ułamki z figury (proste: 1/2, 1/3, 1/4, 2/4, 3/4)
-  fractionFigure() {
-    const denOptions = [2, 3, 4];
-    const den = denOptions[Math.floor(Math.random() * denOptions.length)];
-    const num = randInt(1, den - 1);
+  // Ułamki z figury — 3 tiery
+  fractionFigure(floor) {
     const shapes = ['circle', 'rect', 'bar'];
     const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    let den, num;
+    if (floor === 1) {
+      // Tier 1: połówki i ćwiartki
+      den = [2, 4][Math.floor(Math.random() * 2)];
+      num = den === 2 ? 1 : randInt(1, 3);
+    } else if (floor === 2) {
+      // Tier 2: trzecie, szóste
+      den = [3, 6][Math.floor(Math.random() * 2)];
+      num = randInt(1, den - 1);
+    } else {
+      // Tier 3: piąte, ósme
+      den = [5, 8][Math.floor(Math.random() * 2)];
+      num = randInt(1, den - 1);
+    }
     return {
       text: '',
       type: 'fractionFigure',
@@ -180,30 +219,72 @@ const MathGen3 = {
     }
   },
 
-  // Kolejność działań (proste, bez nawiasów lub z jednym nawiasem)
-  orderOfOps() {
-    const templates = [
-      () => { const a = randInt(2, 15); const b = randInt(2, 8); const c = randInt(2, 8); return { text: `${a} + ${b} · ${c} = ?`, answer: String(a + b * c) }; },
-      () => { const a = randInt(2, 8); const b = randInt(2, 8); const c = randInt(2, 15); return { text: `${a} · ${b} + ${c} = ?`, answer: String(a * b + c) }; },
-      () => { const b = randInt(2, 6); const c = randInt(2, 6); const a = b * c + randInt(3, 20); return { text: `${a} − ${b} · ${c} = ?`, answer: String(a - b * c) }; },
-      () => { const a = randInt(2, 10); const b = randInt(2, 10); const c = randInt(2, 6); return { text: `(${a} + ${b}) · ${c} = ?`, answer: String((a + b) * c) }; },
-      () => { const c = randInt(2, 8); const b = c + randInt(2, 10); const a = randInt(2, 6); return { text: `${a} · (${b} − ${c}) = ?`, answer: String(a * (b - c)) }; },
-    ];
-    const gen = templates[Math.floor(Math.random() * templates.length)];
-    const q = gen();
+  // Kolejność działań — 3 tiery
+  orderOfOps(floor) {
+    let templates;
+    if (floor === 1) {
+      // Tier 1: dwa działania, bez nawiasów, małe liczby
+      templates = [
+        () => { const a = randInt(2, 10); const b = randInt(2, 5); const c = randInt(2, 5); return { text: `${a} + ${b} · ${c} = ?`, answer: String(a + b * c) }; },
+        () => { const a = randInt(2, 5); const b = randInt(2, 5); const c = randInt(2, 10); return { text: `${a} · ${b} + ${c} = ?`, answer: String(a * b + c) }; },
+        () => { const b = randInt(2, 5); const c = randInt(2, 5); const a = b * c + randInt(3, 15); return { text: `${a} − ${b} · ${c} = ?`, answer: String(a - b * c) }; },
+      ];
+    } else if (floor === 2) {
+      // Tier 2: z jednym nawiasem
+      templates = [
+        () => { const a = randInt(2, 10); const b = randInt(2, 10); const c = randInt(2, 6); return { text: `(${a} + ${b}) · ${c} = ?`, answer: String((a + b) * c) }; },
+        () => { const c = randInt(2, 8); const b = c + randInt(2, 10); const a = randInt(2, 6); return { text: `${a} · (${b} − ${c}) = ?`, answer: String(a * (b - c)) }; },
+        () => { const a = randInt(2, 8); const b = randInt(2, 8); const c = randInt(2, 6); return { text: `(${a} − ${b > a ? a - 1 : b}) · ${c} = ?`, answer: String((a - Math.min(b, a - 1)) * c) }; },
+      ];
+    } else {
+      // Tier 3: trzy działania lub zagnieżdżone nawiasy
+      templates = [
+        () => { const a = randInt(2, 6); const b = randInt(2, 6); const c = randInt(2, 6); const d = randInt(2, 10); return { text: `${a} · ${b} + ${c} · ${d} = ?`, answer: String(a * b + c * d) }; },
+        () => { const a = randInt(2, 10); const b = randInt(2, 10); const c = randInt(2, 6); const d = randInt(2, 10); return { text: `(${a} + ${b}) · ${c} − ${d} = ?`, answer: String((a + b) * c - d) }; },
+        () => { const a = randInt(10, 30); const b = randInt(2, 5); const c = randInt(2, 5); const d = randInt(2, 5); return { text: `${a} − ${b} · ${c} + ${d} = ?`, answer: String(a - b * c + d) }; },
+        () => { const a = randInt(2, 5); const b = randInt(2, 5); const c = randInt(2, 8); const d = randInt(2, 5); return { text: `${a} · (${b} + ${c}) − ${d} = ?`, answer: String(a * (b + c) - d) }; },
+      ];
+    }
+    const q = templates[Math.floor(Math.random() * templates.length)]();
     return { text: q.text, answer: q.answer, type: 'number' };
   },
 
-  // Ciągi liczbowe
-  numberSequence() {
-    const patterns = [
-      () => { const start = randInt(2, 20); const step = randInt(2, 8); const seq = []; for (let i = 0; i < 6; i++) seq.push(start + i * step); const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?'; return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans) }; },
-      () => { const start = randInt(50, 100); const step = randInt(3, 10); const seq = []; for (let i = 0; i < 6; i++) seq.push(start - i * step); const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?'; return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans) }; },
-      () => { const start = randInt(1, 5); const mult = randInt(2, 3); const seq = []; let val = start; for (let i = 0; i < 6; i++) { seq.push(val); val *= mult; } const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?'; return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans) }; },
-    ];
-    const gen = patterns[Math.floor(Math.random() * patterns.length)];
-    const q = gen();
-    return { text: q.text, answer: q.answer, type: 'number' };
+  // Ciągi liczbowe — 3 tiery
+  numberSequence(floor) {
+    if (floor === 1) {
+      // Tier 1: rosnący arytmetyczny, mały krok
+      const start = randInt(2, 20); const step = randInt(2, 5);
+      const seq = []; for (let i = 0; i < 6; i++) seq.push(start + i * step);
+      const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?';
+      return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans), type: 'number' };
+    } else if (floor === 2) {
+      // Tier 2: malejący lub większy krok
+      if (Math.random() < 0.5) {
+        const start = randInt(50, 100); const step = randInt(4, 12);
+        const seq = []; for (let i = 0; i < 6; i++) seq.push(start - i * step);
+        const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?';
+        return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans), type: 'number' };
+      } else {
+        const start = randInt(5, 30); const step = randInt(5, 15);
+        const seq = []; for (let i = 0; i < 6; i++) seq.push(start + i * step);
+        const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?';
+        return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans), type: 'number' };
+      }
+    } else {
+      // Tier 3: geometryczny lub naprzemienne kroki
+      if (Math.random() < 0.5) {
+        const start = randInt(1, 4); const mult = randInt(2, 3);
+        const seq = []; let val = start; for (let i = 0; i < 6; i++) { seq.push(val); val *= mult; }
+        const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?';
+        return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans), type: 'number' };
+      } else {
+        // Naprzemiennie +a, +b
+        const start = randInt(1, 10); const stepA = randInt(2, 5); const stepB = randInt(3, 8);
+        const seq = [start]; for (let i = 1; i < 6; i++) seq.push(seq[i-1] + (i % 2 === 1 ? stepA : stepB));
+        const miss = randInt(2, 4); const ans = seq[miss]; seq[miss] = '?';
+        return { text: `Uzupełnij ciąg:\n\n${seq.join(', ')}`, answer: String(ans), type: 'number' };
+      }
+    }
   },
 
   // Zadania z treścią — 3 tiery
@@ -1024,11 +1105,11 @@ Subjects.register('class3', {
   categories: [
     { id: 'addSub100', icon: '➕', name: 'Dodawanie i odejmowanie do 100', desc: 'Bez progu / z progiem / brakująca liczba', gen: (f) => MathGen3.addSub100(f) },
     { id: 'multiplyDivide', icon: '✖️', name: 'Tabliczka mnożenia i dzielenie', desc: '×÷ do 5 / do 10 / brakujący czynnik', gen: (f) => MathGen3.multiplyDivide(f) },
-    { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: 'Który znak: < > =', gen: (f) => MathGen3.comparison() },
-    { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: 'Jaka część figury jest zakolorowana?', gen: (f) => MathGen3.fractionFigure() },
+    { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: '2-cyfrowe / 3-cyfrowe / wyrażenia', gen: (f) => MathGen3.comparison(f) },
+    { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: '½,¼ / ⅓,⅙ / ⅕,⅛', gen: (f) => MathGen3.fractionFigure(f) },
     { id: 'writtenCalc3', icon: '📝', name: 'Działania pisemne', desc: '2-cyfrowe / 3-cyfrowe / trzy liczby i odejmowanie', gen: (f) => MathGen3.writtenCalc(f) },
-    { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: (f) => MathGen3.orderOfOps() },
-    { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: (f) => MathGen3.numberSequence() },
+    { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Bez nawiasów / nawiasy / 3 działania', gen: (f) => MathGen3.orderOfOps(f) },
+    { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Rosnące / malejące / geometryczne', gen: (f) => MathGen3.numberSequence(f) },
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Jedno- / dwu- / wieloetapowe', gen: (f) => MathGen3.wordProblem(f) },
     { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
     { id: 'digits', icon: '🔢', name: 'Cyfry i liczby', desc: 'Ile cyfr, suma cyfr, układanie liczb', gen: (f) => DigitsGen.digitsAndNumbers(f) },
@@ -1051,8 +1132,8 @@ Subjects.register('class3', {
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
-    { id: 'comparison', gen: () => MathGen3.comparison() },
-    { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'comparison', gen: () => MathGen3.comparison(1) },
+    { id: 'comparison', gen: () => MathGen3.comparison(1) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(1) },
@@ -1078,16 +1159,16 @@ Subjects.register('class3', {
     { id: 'addSub100', gen: () => MathGen3.addSub100(2) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(2) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(2) },
-    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
-    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
+    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure(2) },
+    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure(2) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps(2) },
+    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps(2) },
+    { id: 'sequence', gen: () => MathGen3.numberSequence(2) },
+    { id: 'sequence', gen: () => MathGen3.numberSequence(2) },
+    { id: 'comparison', gen: () => MathGen3.comparison(2) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(2) },
@@ -1119,10 +1200,10 @@ Subjects.register('class3', {
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
+    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps(3) },
+    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps(3) },
+    { id: 'sequence', gen: () => MathGen3.numberSequence(3) },
+    { id: 'sequence', gen: () => MathGen3.numberSequence(3) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(3) },
