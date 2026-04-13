@@ -320,6 +320,67 @@ const PolishGen3 = {
       cssClass: 'word-problem'
     };
   },
+
+  // P1: Ortografia ó/u
+  ortografiaOU(floor) {
+    const tier = floor === 1 ? ORTHO_OU.tier1
+               : floor === 2 ? ORTHO_OU.tier2
+               : ORTHO_OU.tier3;
+    const item = tier[Math.floor(Math.random() * tier.length)];
+    return {
+      text: `📝 Wpisz ó lub u\n\n„${item.word}"`,
+      type: 'quiz',
+      answers: ['ó', 'u'],
+      correctIndex: item.answer === 'ó' ? 0 : 1,
+      hint: item.hint,
+      answer: item.answer === 'ó' ? 'A' : 'B',
+      cssClass: 'word-problem'
+    };
+  },
+};
+
+// ─── P1: ORTOGRAFIA ó/u ───
+const ORTHO_OU = {
+  tier1: [
+    { word: "st_ł",     answer: "ó", hint: "stół → stoły (ó→o)" },
+    { word: "m_j",      answer: "ó", hint: "mój → moja, moje (ó→o)" },
+    { word: "tw_j",     answer: "ó", hint: "twój → twoja, twoje (ó→o)" },
+    { word: "w_z",      answer: "ó", hint: "wóz → wozy (ó→o)" },
+    { word: "l_d",      answer: "ó", hint: "lód → lody (ó→o)" },
+    { word: "d_ży",     answer: "u", hint: "duży — u nie wymienia się" },
+    { word: "b_ty",     answer: "u", hint: "buty — u nie wymienia się" },
+    { word: "m_r",      answer: "u", hint: "mur — u nie wymienia się" },
+    { word: "d_ch",     answer: "u", hint: "duch — u nie wymienia się" },
+    { word: "kl_cz",    answer: "u", hint: "klucz — u nie wymienia się" },
+  ],
+  tier2: [
+    { word: "ogr_d",    answer: "ó", hint: "ogród → ogrody (ó→o)" },
+    { word: "mr_z",     answer: "ó", hint: "mróz → mrozy (ó→o)" },
+    { word: "r_g",      answer: "ó", hint: "róg → rogu, rogi (ó→o)" },
+    { word: "poch_d",   answer: "ó", hint: "pochód → pochody (ó→o)" },
+    { word: "dw_r",     answer: "ó", hint: "dwór → dwory (ó→o)" },
+    { word: "samoch_d", answer: "ó", hint: "samochód → samochody (ó→o)" },
+    { word: "pi_rnik",  answer: "ó", hint: "piórnik → pióro → pierze (ó→e)" },
+    { word: "k_ra",     answer: "u", hint: "kura — u nie wymienia się" },
+    { word: "g_zik",    answer: "u", hint: "guzik — u nie wymienia się" },
+    { word: "r_ra",     answer: "u", hint: "rura — u nie wymienia się" },
+    { word: "p_dło",    answer: "u", hint: "pudło — u nie wymienia się" },
+    { word: "k_rczak",  answer: "u", hint: "kurczak — u nie wymienia się" },
+  ],
+  tier3: [
+    { word: "nar_d",    answer: "ó", hint: "naród → narody (ó→o)" },
+    { word: "wsch_d",   answer: "ó", hint: "wschód → wschody (ó→o)" },
+    { word: "pow_d",    answer: "ó", hint: "powód → powody (ó→o)" },
+    { word: "dow_d",    answer: "ó", hint: "dowód → dowody (ó→o)" },
+    { word: "sp_d",     answer: "ó", hint: "spód → spody (ó→o)" },
+    { word: "s_l",      answer: "ó", hint: "sól → soli, solić (ó→o)" },
+    { word: "kł_dka",   answer: "ó", hint: "kłódka → kłoda (ó→o)" },
+    { word: "p_łka",    answer: "ó", hint: "półka → pół, połowa (ó→o)" },
+    { word: "k_chnia",  answer: "u", hint: "kuchnia — u nie wymienia się" },
+    { word: "pod_szka", answer: "u", hint: "poduszka — u nie wymienia się" },
+    { word: "brz_ch",   answer: "u", hint: "brzuch — u nie wymienia się" },
+    { word: "s_chy",    answer: "u", hint: "suchy — u nie wymienia się" },
+  ],
 };
 
 // ─── MONTHS DATA ───
@@ -779,6 +840,7 @@ Subjects.register('class3', {
     { id: 'units', icon: '⚖️', name: 'Jednostki miary (masa)', desc: 'kg, dag, g — przeliczanie i zadania', gen: (f) => UnitsGen.units(f) },
     { id: 'roman', icon: '🏛️', name: 'Cyfry rzymskie', desc: 'I–XII: odczytaj, zapisz, posortuj', gen: (f) => RomanGen.roman(f) },
     // POLSKI
+    { id: 'orthoOU', icon: '✏️', name: 'Ortografia ó/u', desc: 'Wpisz ó lub u w brakujące miejsce', gen: (f) => PolishGen3.ortografiaOU(f) },
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
 
@@ -793,6 +855,8 @@ Subjects.register('class3', {
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
@@ -820,6 +884,8 @@ Subjects.register('class3', {
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
@@ -847,6 +913,8 @@ Subjects.register('class3', {
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
+    { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
