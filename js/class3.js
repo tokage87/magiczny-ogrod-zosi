@@ -321,6 +321,23 @@ const PolishGen3 = {
     };
   },
 
+  // P2: Ortografia rz/ż
+  ortografiaRZZ(floor) {
+    const tier = floor === 1 ? ORTHO_RZZ.tier1
+               : floor === 2 ? ORTHO_RZZ.tier2
+               : ORTHO_RZZ.tier3;
+    const item = tier[Math.floor(Math.random() * tier.length)];
+    return {
+      text: `📝 Wpisz rz lub ż\n\n„${item.word}"`,
+      type: 'quiz',
+      answers: ['rz', 'ż'],
+      correctIndex: item.answer === 'rz' ? 0 : 1,
+      hint: item.hint,
+      answer: item.answer === 'rz' ? 'A' : 'B',
+      cssClass: 'word-problem'
+    };
+  },
+
   // P1: Ortografia ó/u
   ortografiaOU(floor) {
     const tier = floor === 1 ? ORTHO_OU.tier1
@@ -380,6 +397,50 @@ const ORTHO_OU = {
     { word: "pod_szka", answer: "u", hint: "poduszka — u nie wymienia się" },
     { word: "brz_ch",   answer: "u", hint: "brzuch — u nie wymienia się" },
     { word: "s_chy",    answer: "u", hint: "suchy — u nie wymienia się" },
+  ],
+};
+
+// ─── P2: ORTOGRAFIA rz/ż ───
+const ORTHO_RZZ = {
+  tier1: [
+    { word: "mo_e",      answer: "rz", hint: "morze → morski (rz wymienia się na r)" },
+    { word: "dwo_ec",    answer: "rz", hint: "dworzec → dwory (rz→r)" },
+    { word: "pieka_",    answer: "rz", hint: "piekarz → piekarnia (rz→r)" },
+    { word: "kucha_",    answer: "rz", hint: "kucharz → kucharka (rz→r)" },
+    { word: "leka_",     answer: "rz", hint: "lekarz → lekarstwo (rz→r)" },
+    { word: "du_y",      answer: "ż",  hint: "duży — ż (nie wymienia się na r)" },
+    { word: "wie_a",     answer: "ż",  hint: "wieża — ż (nie wymienia się na r)" },
+    { word: "je_",       answer: "ż",  hint: "jeż — ż (nie wymienia się na r)" },
+    { word: "no_yk",     answer: "ż",  hint: "nożyk → nóż — ż (nie wymienia się na r)" },
+    { word: "wa_ny",     answer: "ż",  hint: "ważny — ż (nie wymienia się na r)" },
+  ],
+  tier2: [
+    { word: "b_oza",     answer: "rz", hint: "brzoza — rz po B" },
+    { word: "b_uch",     answer: "rz", hint: "brzuch — rz po B" },
+    { word: "d_ewo",     answer: "rz", hint: "drzewo — rz po D" },
+    { word: "t_eba",     answer: "rz", hint: "trzeba — rz po T" },
+    { word: "g_yb",      answer: "rz", hint: "grzyb — rz po G" },
+    { word: "k_ak",      answer: "rz", hint: "krzak — rz po K" },
+    { word: "k_esło",    answer: "rz", hint: "krzesło — rz po K" },
+    { word: "ch_est",    answer: "rz", hint: "chrzest — rz po CH" },
+    { word: "w_os",      answer: "rz", hint: "wrzos — rz po W" },
+    { word: "w_esień",   answer: "rz", hint: "wrzesień — rz po W" },
+    { word: "łó_eczko",  answer: "ż",  hint: "łóżeczko → łóżko — ż" },
+    { word: "dru_yna",   answer: "ż",  hint: "drużyna → druh (ż→h)" },
+  ],
+  tier3: [
+    { word: "p_epis",    answer: "rz", hint: "przepis — rz po P" },
+    { word: "p_yjaciel", answer: "rz", hint: "przyjaciel — rz po P" },
+    { word: "p_ód",      answer: "rz", hint: "przód — rz po P" },
+    { word: "d_emka",    answer: "rz", hint: "drzemka — rz po D" },
+    { word: "g_mot",     answer: "rz", hint: "grzmot — rz po G" },
+    { word: "t_y",       answer: "rz", hint: "trzy — rz po T" },
+    { word: "odwa_ny",   answer: "ż",  hint: "odważny → odwaga (ż→g)" },
+    { word: "ksią_ka",   answer: "ż",  hint: "książka → księga (ż→g)" },
+    { word: "pie_ama",   answer: "ż",  hint: "piżama — ż (zapamiętaj)" },
+    { word: "ka_dy",     answer: "ż",  hint: "każdy — ż (zapamiętaj)" },
+    { word: "ostro_ny",  answer: "ż",  hint: "ostrożny — ż" },
+    { word: "łó_ko",     answer: "ż",  hint: "łóżko — ż" },
   ],
 };
 
@@ -841,6 +902,7 @@ Subjects.register('class3', {
     { id: 'roman', icon: '🏛️', name: 'Cyfry rzymskie', desc: 'I–XII: odczytaj, zapisz, posortuj', gen: (f) => RomanGen.roman(f) },
     // POLSKI
     { id: 'orthoOU', icon: '✏️', name: 'Ortografia ó/u', desc: 'Wpisz ó lub u w brakujące miejsce', gen: (f) => PolishGen3.ortografiaOU(f) },
+    { id: 'orthoRZZ', icon: '✏️', name: 'Ortografia rz/ż', desc: 'Wpisz rz lub ż w brakujące miejsce', gen: (f) => PolishGen3.ortografiaRZZ(f) },
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
 
@@ -857,6 +919,8 @@ Subjects.register('class3', {
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(1) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
@@ -886,6 +950,8 @@ Subjects.register('class3', {
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(2) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
@@ -915,6 +981,8 @@ Subjects.register('class3', {
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(3) },
+    { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
