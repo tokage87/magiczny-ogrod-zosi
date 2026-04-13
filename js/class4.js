@@ -790,8 +790,6 @@ const quizBank4 = [
     { q: 'Co oznacza Parent w skrypcie?', a: ['Główny serwer gry', 'Obiekt który zawiera inny obiekt w sobie', 'Pierwsza linia kodu', 'Nazwa gracza'], correct: 1, hint: 'Parent = rodzic' },
     { q: 'Co robi part.Touched:Connect(zniknij)?', a: ['Tworzy nowy Part', 'Kasuje Part po 3s', 'Gdy ktoś dotknie Part, odpala funkcję zniknij', 'Zmienia nazwę Part'], correct: 2, hint: 'Connect = podłącz funkcję pod zdarzenie' },
     { q: 'Co robi task.wait(3)?', a: ['Tworzy 3 obiekty', 'Zatrzymuje skrypt na 3 sekundy', 'Ustawia Transparency na 3', 'Powtarza kod 3 razy'], correct: 1, hint: 'Wait = czekaj' },
-  ],
-  _usedQuiz: [],
 ];
 let _usedQuiz4 = [];
 

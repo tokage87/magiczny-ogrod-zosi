@@ -2451,6 +2451,7 @@ body {
 <!-- PRACTICE: CATEGORY SELECT -->
 <div id="practice-screen">
   <div class="practice-title">📝 WYBIERZ KATEGORIĘ</div>
+  <div id="practice-class-tabs" style="display:flex;gap:8px;margin-bottom:12px;"></div>
   <div class="practice-categories" id="practice-categories"></div>
   <button class="menu-btn" onclick="Practice.back()" style="margin-top:10px;">← WRÓĆ</button>
 </div>
@@ -5769,7 +5770,28 @@ const Practice = {
   showCategories() {
     document.getElementById('title-screen').style.display = 'none';
     document.getElementById('practice-screen').style.display = 'flex';
+    this.renderClassTabs();
+    this.renderCategoryButtons();
+  },
 
+  renderClassTabs() {
+    const tabs = document.getElementById('practice-class-tabs');
+    const classes = Subjects.list();
+    let html = '';
+    for (const cls of classes) {
+      const active = cls.id === Game.selectedClass;
+      html += `<button class="menu-btn" onclick="Practice.switchClass('${cls.id}')" style="padding:8px 16px;font-size:9px;${active ? 'background:#3a7a2a;color:#fff;box-shadow:0 0 8px #6aff4a;' : 'opacity:0.7;'}">${cls.icon} ${cls.name}</button>`;
+    }
+    tabs.innerHTML = html;
+  },
+
+  switchClass(classId) {
+    Game.selectedClass = classId;
+    this.renderClassTabs();
+    this.renderCategoryButtons();
+  },
+
+  renderCategoryButtons() {
     const container = document.getElementById('practice-categories');
     let html = '';
     for (const cat of this.categories) {
