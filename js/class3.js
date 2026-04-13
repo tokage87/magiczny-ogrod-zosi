@@ -410,6 +410,94 @@ const ClockCalGen = {
   },
 };
 
+// ─── M12: CYFRY I LICZBY ───
+const DigitsGen = {
+  digitsAndNumbers(floor) {
+    if (floor === 1) return this._digitCount();
+    if (floor === 2) return this._digitSum();
+    const r = Math.random();
+    if (r < 0.4) return this._uniqueDigits();
+    if (r < 0.7) return this._arrangeLargest();
+    return this._arrangeSmallest();
+  },
+
+  _digitCount() {
+    const pools = [[1,9], [10,99], [100,999]];
+    const pool = pools[Math.floor(Math.random() * pools.length)];
+    const n = randInt(pool[0], pool[1]);
+    return {
+      text: `Ile cyfr ma liczba ${n}?`,
+      type: 'number',
+      answer: String(String(n).length),
+      hint: `Policz cyfry w liczbie ${n}`
+    };
+  },
+
+  _digitSum() {
+    const n = randInt(10, 999);
+    const sum = String(n).split('').reduce((s, d) => s + Number(d), 0);
+    return {
+      text: `Oblicz sumę cyfr liczby ${n}`,
+      type: 'number',
+      answer: String(sum),
+      hint: `Dodaj do siebie każdą cyfrę: ${String(n).split('').join(' + ')}`
+    };
+  },
+
+  _uniqueDigits() {
+    const nums = [112, 223, 355, 100, 333, 121, 455, 909, 232, 414, 505, 787, 999, 111, 252, 673, 489, 531];
+    const n = nums[Math.floor(Math.random() * nums.length)];
+    const unique = new Set(String(n).split('')).size;
+    return {
+      text: `Ile RÓŻNYCH cyfr użyto\nw liczbie ${n}?`,
+      type: 'number',
+      answer: String(unique),
+      hint: `Wypisz cyfry bez powtórzeń i policz`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _arrangeLargest() {
+    const digits = [];
+    while (digits.length < 3) {
+      const d = randInt(1, 9);
+      if (!digits.includes(d)) digits.push(d);
+    }
+    const sorted = [...digits].sort((a, b) => b - a);
+    return {
+      text: `Z cyfr ${digits.join(', ')} ułóż\nnajwiększą liczbę trzycyfrową`,
+      type: 'number',
+      answer: sorted.join(''),
+      hint: `Zacznij od największej cyfry`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _arrangeSmallest() {
+    const digits = [];
+    while (digits.length < 3) {
+      const d = randInt(1, 9);
+      if (!digits.includes(d)) digits.push(d);
+    }
+    const sorted = [...digits].sort((a, b) => a - b);
+    // Smallest 2-digit number from any 2 of the 3 digits
+    const pairs = [[0,1],[0,2],[1,2]];
+    let minVal = 99;
+    for (const [i,j] of pairs) {
+      const a = Math.min(digits[i], digits[j]), b = Math.max(digits[i], digits[j]);
+      const val = a * 10 + b;
+      if (val < minVal) minVal = val;
+    }
+    return {
+      text: `Z cyfr ${digits.join(', ')} ułóż\nnajmniejszą liczbę dwucyfrową`,
+      type: 'number',
+      answer: String(minVal),
+      hint: `Zacznij od najmniejszej cyfry`,
+      cssClass: 'word-problem'
+    };
+  },
+};
+
 // ─── REGISTER CLASS 3 ───
 Subjects.register('class3', {
   name: 'Klasa 3',
@@ -429,6 +517,7 @@ Subjects.register('class3', {
     { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: (f) => MathGen3.numberSequence() },
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: (f) => MathGen3.wordProblem() },
     { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
+    { id: 'digits', icon: '🔢', name: 'Cyfry i liczby', desc: 'Ile cyfr, suma cyfr, układanie liczb', gen: (f) => DigitsGen.digitsAndNumbers(f) },
     // POLSKI
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
@@ -454,6 +543,8 @@ Subjects.register('class3', {
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
   ],
 
   mediumPool: [
@@ -477,6 +568,8 @@ Subjects.register('class3', {
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
   ],
 
   hardPool: [
@@ -500,6 +593,8 @@ Subjects.register('class3', {
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
+    { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
   ],
 });
 
