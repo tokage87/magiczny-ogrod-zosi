@@ -4848,7 +4848,7 @@ const Battle = {
     }
 
     // ── Quiz: multiple choice ──
-    qText.textContent = q.text;
+    if (q.html) { qText.innerHTML = q.html; } else { qText.textContent = q.text; }
     qText.className = 'question-text' + (q.cssClass ? ' ' + q.cssClass : '');
 
     if (q.type === 'quiz') {
@@ -5960,7 +5960,7 @@ const Practice = {
     }
 
     // ── Quiz (Roblox, geometry basic) ──
-    qText.textContent = q.text;
+    if (q.html) { qText.innerHTML = q.html; } else { qText.textContent = q.text; }
     qText.className = 'question-text' + (q.cssClass ? ' ' + q.cssClass : '');
 
     if (q.type === 'quiz') {

@@ -249,6 +249,167 @@ const PolishGen3 = {
   },
 };
 
+// ─── MONTHS DATA ───
+const MONTHS = [
+  { name: "styczeń",    num: 1,  days: 31, quarter: "I" },
+  { name: "luty",       num: 2,  days: 28, quarter: "I" },
+  { name: "marzec",     num: 3,  days: 31, quarter: "I" },
+  { name: "kwiecień",   num: 4,  days: 30, quarter: "II" },
+  { name: "maj",        num: 5,  days: 31, quarter: "II" },
+  { name: "czerwiec",   num: 6,  days: 30, quarter: "II" },
+  { name: "lipiec",     num: 7,  days: 31, quarter: "III" },
+  { name: "sierpień",   num: 8,  days: 31, quarter: "III" },
+  { name: "wrzesień",   num: 9,  days: 30, quarter: "III" },
+  { name: "październik",num: 10, days: 31, quarter: "IV" },
+  { name: "listopad",   num: 11, days: 30, quarter: "IV" },
+  { name: "grudzień",   num: 12, days: 31, quarter: "IV" },
+];
+
+// ─── SVG CLOCK HELPER ───
+function clockSVG(hours, minutes) {
+  const s = 180, cx = s/2, cy = s/2, r = 75;
+  const hAngle = ((hours % 12) + minutes / 60) * 30 - 90;
+  const mAngle = minutes * 6 - 90;
+  const hRad = hAngle * Math.PI / 180;
+  const mRad = mAngle * Math.PI / 180;
+  const hx = cx + 45 * Math.cos(hRad), hy = cy + 45 * Math.sin(hRad);
+  const mx = cx + 60 * Math.cos(mRad), my = cy + 60 * Math.sin(mRad);
+  let svg = `<svg width="${s}" height="${s}" viewBox="0 0 ${s} ${s}" style="display:block;margin:0 auto;">`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#f8f0d0" stroke="#5a7a3a" stroke-width="3"/>`;
+  for (let i = 1; i <= 12; i++) {
+    const a = (i * 30 - 90) * Math.PI / 180;
+    const nx = cx + (r - 18) * Math.cos(a), ny = cy + (r - 18) * Math.sin(a);
+    const tx = cx + (r - 4) * Math.cos(a), ty = cy + (r - 4) * Math.sin(a);
+    const tx2 = cx + r * Math.cos(a), ty2 = cy + r * Math.sin(a);
+    svg += `<line x1="${tx.toFixed(1)}" y1="${ty.toFixed(1)}" x2="${tx2.toFixed(1)}" y2="${ty2.toFixed(1)}" stroke="#5a7a3a" stroke-width="2"/>`;
+    svg += `<text x="${nx.toFixed(1)}" y="${ny.toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="14" font-family="sans-serif" fill="#2a5a1a" font-weight="bold">${i}</text>`;
+  }
+  for (let i = 0; i < 60; i++) {
+    if (i % 5 === 0) continue;
+    const a = (i * 6 - 90) * Math.PI / 180;
+    const dx = cx + (r - 2) * Math.cos(a), dy = cy + (r - 2) * Math.sin(a);
+    svg += `<circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="1" fill="#a0b880"/>`;
+  }
+  svg += `<line x1="${cx}" y1="${cy}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#2a5a1a" stroke-width="5" stroke-linecap="round"/>`;
+  svg += `<line x1="${cx}" y1="${cy}" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#5a7a3a" stroke-width="3" stroke-linecap="round"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="5" fill="#2a5a1a"/>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+// ─── M11: ZEGAR I KALENDARZ ───
+const ClockCalGen = {
+  clockAndCalendar(floor) {
+    if (floor === 1) {
+      return this._clockQuestion([0, 30]);
+    } else if (floor === 2) {
+      return Math.random() < 0.5
+        ? this._clockQuestion([0, 15, 30, 45])
+        : this._monthQuestion();
+    } else {
+      const r = Math.random();
+      if (r < 0.33) return this._clockQuestion5min();
+      if (r < 0.66) return this._durationQuestion();
+      return this._quarterQuestion();
+    }
+  },
+
+  _clockQuestion(minuteOptions) {
+    const h = randInt(1, 12);
+    const m = minuteOptions[Math.floor(Math.random() * minuteOptions.length)];
+    const ans = `${h}:${String(m).padStart(2, '0')}`;
+    return {
+      text: '',
+      html: `<div style="text-align:center;"><div style="font-size:14px;color:#aaa;margin-bottom:8px;">🕐 Która jest godzina?</div>${clockSVG(h, m)}</div>`,
+      type: 'text',
+      answer: ans,
+      hint: `Krótka wskazówka = godziny, długa = minuty`
+    };
+  },
+
+  _clockQuestion5min() {
+    const h = randInt(1, 12);
+    const m = randInt(0, 11) * 5;
+    const ans = `${h}:${String(m).padStart(2, '0')}`;
+    return {
+      text: '',
+      html: `<div style="text-align:center;"><div style="font-size:14px;color:#aaa;margin-bottom:8px;">🕐 Która jest godzina?</div>${clockSVG(h, m)}</div>`,
+      type: 'text',
+      answer: ans,
+      hint: `Krótka wskazówka = godziny, długa = minuty`
+    };
+  },
+
+  _monthQuestion() {
+    const types = ['days', 'which'];
+    const t = types[Math.floor(Math.random() * types.length)];
+    const month = MONTHS[Math.floor(Math.random() * MONTHS.length)];
+    if (t === 'days') {
+      return {
+        text: `📅 Ile dni ma ${month.name}?`,
+        type: 'number',
+        answer: String(month.days),
+        hint: `Pomyśl o wierszyczku: "30 dni ma wrzesień…"`
+      };
+    } else {
+      return {
+        text: `📅 Który miesiąc jest ${month.num}. w roku?`,
+        type: 'text',
+        answer: month.name,
+        hint: `Policz miesiące od stycznia`
+      };
+    }
+  },
+
+  _durationQuestion() {
+    const startH = randInt(8, 17);
+    const startM = [0, 15, 30][Math.floor(Math.random() * 3)];
+    const durMin = [30, 45, 60, 90, 120][Math.floor(Math.random() * 5)];
+    const endTotal = startH * 60 + startM + durMin;
+    const endH = Math.floor(endTotal / 60);
+    const endM = endTotal % 60;
+    const fmtStart = `${startH}:${String(startM).padStart(2, '0')}`;
+    const fmtEnd = `${endH}:${String(endM).padStart(2, '0')}`;
+    const durH = Math.floor(durMin / 60);
+    const durR = durMin % 60;
+    const correct = durH > 0 && durR > 0 ? `${durH}h ${durR}min`
+                  : durH > 0 ? `${durH}h`
+                  : `${durR}min`;
+    // Build 4 wrong choices + correct
+    const options = new Set([correct]);
+    while (options.size < 4) {
+      const fakeMin = durMin + (randInt(-3, 3) * 15);
+      if (fakeMin <= 0 || fakeMin === durMin) continue;
+      const fH = Math.floor(fakeMin / 60);
+      const fR = fakeMin % 60;
+      const label = fH > 0 && fR > 0 ? `${fH}h ${fR}min` : fH > 0 ? `${fH}h` : `${fR}min`;
+      options.add(label);
+    }
+    const answers = [...options].sort(() => Math.random() - 0.5);
+    const correctIndex = answers.indexOf(correct);
+    const labels = ['A', 'B', 'C', 'D'];
+    return {
+      text: `⏱️ Lekcja zaczyna się o ${fmtStart}\ni kończy o ${fmtEnd}.\nIle trwa?`,
+      type: 'quiz',
+      answers,
+      correctIndex,
+      answer: labels[correctIndex],
+      hint: `Policz ile minut od ${fmtStart} do ${fmtEnd}`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _quarterQuestion() {
+    const month = MONTHS[Math.floor(Math.random() * MONTHS.length)];
+    return {
+      text: `📅 W którym kwartale roku jest ${month.name}?\nZapisz cyfrą rzymską.`,
+      type: 'text',
+      answer: month.quarter,
+      hint: `I kw. = sty–mar, II = kwi–cze, III = lip–wrz, IV = paź–gru`
+    };
+  },
+};
+
 // ─── REGISTER CLASS 3 ───
 Subjects.register('class3', {
   name: 'Klasa 3',
@@ -267,6 +428,7 @@ Subjects.register('class3', {
     { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: () => MathGen3.numberSequence() },
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: () => MathGen3.wordProblem() },
+    { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: () => ClockCalGen.clockAndCalendar(randInt(1,3)) },
     // POLSKI
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: () => PolishGen3.partsOfSpeech(randInt(1,3)) },
   ],
@@ -290,6 +452,8 @@ Subjects.register('class3', {
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
   ],
 
   mediumPool: [
@@ -311,6 +475,8 @@ Subjects.register('class3', {
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
   ],
 
   hardPool: [
@@ -332,6 +498,8 @@ Subjects.register('class3', {
     { id: 'multiplication', gen: () => MathGen3.multiplication() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
+    { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
   ],
 });
 
