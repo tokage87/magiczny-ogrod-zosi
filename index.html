@@ -2300,15 +2300,15 @@ body {
 <div id="hud">
   <div class="hud-left">
     <div class="hud-item" id="hud-hearts"></div>
-    <div class="hud-item" title="Szalone Mikstury — użyj w walce!">🧪 <span id="hud-potions">0</span></div>
-    <div class="hud-item">💰 <span id="hud-gold">0</span></div>
+    <div class="hud-item" title="Magiczne Mikstury — użyj przy oswajaniu!">🧪 <span id="hud-potions">0</span></div>
+    <div class="hud-item">⭐ <span id="hud-gold">0</span></div>
   </div>
   <div class="hud-right">
     <div class="hud-item" id="hud-floor">Piętro 1/3</div>
     <div class="hud-item" id="hud-level">Lv.1</div>
     <div class="hud-item" id="hud-xp">XP: 0/50</div>
     <div class="hud-item" id="hud-timer">⏱️ 0:00</div>
-    <button class="hud-hero-btn" onclick="Hero.open()">🛡️</button>
+    <button class="hud-hero-btn" onclick="Hero.open()">🌟</button>
     <button class="hud-hero-btn" onclick="Stats.open()" title="Statystyki">📊</button>
   </div>
 </div>
@@ -2357,7 +2357,7 @@ body {
 
       <div class="battle-status-box player">
         <div class="battle-status-head">
-          <div class="battle-name" id="player-battle-name">Bohater</div>
+          <div class="battle-name" id="player-battle-name">Zosia</div>
           <div class="battle-level" id="player-battle-level">Lv.1</div>
         </div>
         <div class="battle-hp-row">
@@ -2372,18 +2372,18 @@ body {
 
     <div class="battle-bottom">
       <div class="battle-box battle-message-box">
-        <div class="battle-prompt" id="battle-prompt">Co zrobi bohater?</div>
+        <div class="battle-prompt" id="battle-prompt">Jaki czar rzuci Zosia?</div>
 
         <!-- ATTACK CHOICE (phase 1) -->
         <div id="attack-choice">
           <button class="attack-choice-btn battle-attack-btn attack-easy" onclick="Battle.chooseAttack('easy')">
-            ⚔️ Lekki<br><span class="dmg-badge" id="easy-dmg-label">1 DMG</span>
+            🌸 Łatwy czar<br><span class="dmg-badge" id="easy-dmg-label">+1</span>
           </button>
           <button class="attack-choice-btn battle-attack-btn attack-medium" onclick="Battle.chooseAttack('medium')">
-            🗡️ Mocny<br><span class="dmg-badge" id="medium-dmg-label">2 DMG</span>
+            ✨ Średni czar<br><span class="dmg-badge" id="medium-dmg-label">+2</span>
           </button>
           <button class="attack-choice-btn battle-attack-btn attack-hard" onclick="Battle.chooseAttack('hard')" id="attack-hard-btn">
-            💥 Potężny<br><span class="dmg-badge" id="hard-dmg-label">3 DMG</span>
+            🌟 Mocny czar<br><span class="dmg-badge" id="hard-dmg-label">+3</span>
           </button>
           <button class="attack-choice-btn potion-btn" onclick="Battle.usePotion()" id="potion-battle-btn">
             🧪 Mikstura<br><span class="dmg-badge" id="potion-count-battle">(0)</span>
@@ -2403,7 +2403,7 @@ body {
           </div>
           <div class="answer-area" id="answer-area">
             <input type="text" class="answer-input" id="answer-input" autocomplete="off" inputmode="text">
-            <button class="attack-btn" onclick="Battle.submitAnswer()">ATAKUJ! ⚔️</button>
+            <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
           </div>
         </div>
 
@@ -2416,9 +2416,9 @@ body {
 <!-- SHOP PANEL -->
 <div id="shop-panel">
   <div class="shop-box">
-    <div class="shop-title">🏪 SKLEP KUPCA</div>
-    <div class="shop-subtitle">"Wybierz jedną rzecz, wędrowcze!"</div>
-    <div class="shop-gold" id="shop-gold">💰 0</div>
+    <div class="shop-title">🏪 SKLEPIK LEŚNY</div>
+    <div class="shop-subtitle">"Wybierz coś pięknego, Zosiu!"</div>
+    <div class="shop-gold" id="shop-gold">⭐ 0</div>
     <div class="shop-items" id="shop-items"></div>
     <button class="shop-skip-btn" onclick="Shop.skip()">PRZEJDŹ DALEJ →</button>
   </div>
@@ -2444,13 +2444,13 @@ body {
 <!-- HERO PANEL -->
 <div id="hero-panel">
   <div class="hero-box">
-    <div class="hero-title">📜 KARTA BOHATERA</div>
+    <div class="hero-title">🌟 KARTA ZOSI</div>
 
     <div class="hero-layout">
       <!-- Left: hearts -->
       <div class="hero-left">
         <div class="hero-hearts" id="hero-hearts-display"></div>
-        <div class="hero-stat-badge" title="Szalone Mikstury — użyj w walce! Losowy efekt: podwójny atak, leczenie lub eksplozja.">
+        <div class="hero-stat-badge" title="Magiczne Mikstury — użyj przy oswajaniu! Losowy efekt: mocniejszy czar, leczenie lub magia.">
           <span class="stat-label">Mikstury</span>
           <span class="stat-val" id="hero-potions-display">🧪 0</span>
         </div>
@@ -2465,11 +2465,11 @@ body {
 
       <!-- Right: gold + xp -->
       <div class="hero-right">
-        <div class="hero-stat-badge" title="Złoto — wydawaj w sklepie na ekwipunek, mikstury i leczenie.">
-          <span class="stat-label">Złoto</span>
+        <div class="hero-stat-badge" title="Gwiazdki — wydawaj w sklepie na ekwipunek, mikstury i leczenie.">
+          <span class="stat-label">Gwiazdki</span>
           <span class="stat-val" id="hero-gold-display">0</span>
         </div>
-        <div class="hero-stat-badge" title="Doświadczenie — zdobywaj za pokonanie potworów i questy. Po zapełnieniu paska awansujesz na kolejny poziom (+1 DMG, pełne leczenie).">
+        <div class="hero-stat-badge" title="Doświadczenie — zdobywaj za oswajanie zwierzątek i questy. Po zapełnieniu paska awansujesz na kolejny poziom (+1 do czarów, pełna energia).">
           <span class="stat-label">Doświadczenie</span>
           <span class="stat-val" id="hero-xp-display">0/50</span>
         </div>
@@ -2487,17 +2487,17 @@ body {
 <div id="levelup-overlay" onclick="Game.closeLevelUp()">
   <h2>POZIOM W GÓRĘ!</h2>
   <div style="font-size:48px; margin:20px;">⬆️✨</div>
-  <div style="color:#88ff88; margin-bottom:8px;">Wszystkie ataki +1 DMG!</div>
-  <div style="color:#ff8888; margin-bottom:16px;">❤️ Pełne zdrowie!</div>
-  <div style="color:#a0a0c0; font-size:12px;">Kliknij aby kontynuować.</div>
+  <div style="color:#6aaa6a; margin-bottom:8px;">Wszystkie czary +1 💖!</div>
+  <div style="color:#d4699e; margin-bottom:16px;">❤️ Pełna energia!</div>
+  <div style="color:#9a7bb5; font-size:12px;">Kliknij aby kontynuować.</div>
 </div>
 
 <!-- VICTORY SCREEN -->
 <div id="victory-screen">
   <h1>GRATULACJE!</h1>
-  <div style="font-size:64px; margin:20px;">🏆</div>
-  <div style="font-size:18px; color:#a0a0c0; margin-bottom:10px;">Pokonałeś wszystkie potwory!</div>
-  <div style="font-size:16px; color:#44ff44; margin-bottom:30px;">Jesteś gotowy na egzamin! 💪</div>
+  <div style="font-size:64px; margin:20px;">🌈</div>
+  <div style="font-size:18px; color:#9a7bb5; margin-bottom:10px;">Wszystkie zwierzątka są Twoimi przyjaciółmi!</div>
+  <div style="font-size:16px; color:#6aaa6a; margin-bottom:30px;">Jesteś najlepszą czarodziejką! 🌟</div>
   <div style="font-size:14px; color:#a0a0c0; margin-bottom:15px;" id="victory-stats"></div>
   <div id="victory-times" style="margin-bottom:15px;"></div>
   <div id="victory-ranking" style="margin-bottom:30px;"></div>
@@ -2506,9 +2506,9 @@ body {
 
 <!-- GAME OVER SCREEN -->
 <div id="gameover-screen">
-  <h2>GAME OVER</h2>
-  <div style="font-size:48px; margin:20px;">💀</div>
-  <div style="font-size:14px; color:#a0a0c0; margin-bottom:30px;">Potwory były za silne... tym razem.</div>
+  <h2>ZOSIA MUSI ODPOCZĄĆ</h2>
+  <div style="font-size:48px; margin:20px;">😴💤</div>
+  <div style="font-size:14px; color:#9a7bb5; margin-bottom:30px;">Zwierzątka poczekają... wróć gdy odpoczniesz!</div>
   <button class="menu-btn" onclick="Game.retryFloor()">SPRÓBUJ PONOWNIE</button>
   <button class="menu-btn" onclick="Game.backToTitle()">MENU GŁÓWNE</button>
 </div>
@@ -2562,307 +2562,232 @@ const PixelArt = {
   },
 
   sprites: {
-    bat: {
+    // ─── FLOOR 1: Kwiatowa Polanka ───
+    butterfly: {
       frames: [
         [ // Wings up
-          '..........',
-          'aa......aa',
-          'bba....abb',
-          'bcba..abcb',
-          '.bcbaabc..',
-          '..bcbbcb..',
-          '..bdeecb..',
-          '...bdeb...',
-          '...bccb...',
-          '....bb....',
+          '..aa....aa..',
+          '.abba..abba.',
+          'abccba.bccba',
+          'abcbbaabbcba',
+          '.abba..abba.',
+          '..aa.dd.aa..',
+          '.....dd.....',
+          '....d..d....',
+          '...d....d...',
         ],
         [ // Wings mid
           '..........',
-          '..........',
-          'aa......aa',
-          'abba..abba',
-          '.abbaaabba',
-          '..abbbba..',
-          '..adeeba..',
-          '...adea...',
-          '...abba...',
-          '....aa....',
-        ],
-        [ // Wings down
-          '..........',
-          '..........',
-          '..........',
-          '.aa....aa.',
+          '..aa..aa..',
           '.abbaabba.',
+          '.abcbbcba.',
           '..abbbba..',
-          '..adeeba..',
-          '..aadea...',
-          '..aabba...',
-          'aa..aa..aa',
-        ],
-        [ // Wings mid (back)
-          '..........',
-          '..........',
-          'aa......aa',
-          'abba..abba',
-          '.abbaaabba',
-          '..abbbba..',
-          '..adeeba..',
-          '...adea...',
-          '...abba...',
-          '....aa....',
+          '...a.da...',
+          '....dd....',
+          '...d..d...',
+          '..d....d..',
         ],
       ],
-      palette: { a: '#4a2a60', b: '#7744aa', c: '#9955cc', d: '#1a1a2a', e: '#ff2222' }
+      palette: { a: '#e088cc', b: '#f0aae0', c: '#ffccee', d: '#5a3a2a' }
     },
-    spider: {
-      frames: [
-        [ // Legs out
-          'a..............a',
-          '.a............a.',
-          '..a...aa...a...',
-          '..a..abba..a...',
-          'a..aabbbbaa..a.',
-          '.a.abcbbcba.a..',
-          '..aabbbbbbaa...',
-          '..a.abbbba.a...',
-          '.a...abba...a..',
-          'a.....aa.....a.',
-        ],
-        [ // Legs mid
-          '.a............a',
-          '..a..........a.',
-          '..a...aa...a...',
-          '...a.abba.a....',
-          '.a.aabbbbaa.a..',
-          '..a.abcbbcba.a.',
-          '..aabbbbbbaa...',
-          '...a.abba.a....',
-          '..a...aa...a...',
-          '.a..........a..',
-        ],
-      ],
-      palette: { a: '#3a3a3a', b: '#5a2a1a', c: '#ff2222' }
-    },
-    rat: {
+    bunny: {
       frames: [
         [ // Idle
-          '.....aa.aa.....',
-          '....abbaabba...',
-          '...abbbabbba...',
-          '...abbbbbbba...',
-          '..ccbbbbbbbbcc.',
-          '..abbbbbbbbbba.',
-          '...abbbbbbbba..',
-          '....abbbbbba...',
-          '.....abbbba....',
-          '......aa.aaaaaa',
+          '....aa....aa....',
+          '...abba..abba...',
+          '...abba..abba...',
+          '....abbbbba.....',
+          '...abbbbbbbba...',
+          '...abcbbbbcba...',
+          '...abbbbbbba....',
+          '....abddba......',
+          '.....abbba......',
+          '...eabbbbbbea...',
+          '...eabbbbbba....',
+          '....ebbbbbbe....',
+          '.....eeeeee.....',
         ],
-        [ // Sniff
-          '....aa..aa.....',
-          '...abba.abba...',
-          '...abbbabbba...',
-          '..aabbbbbbba...',
-          '..ccbbbbbbbbcc.',
-          '..abbbbbbbbbba.',
-          '...abbbbbbbba..',
-          '....abbbbbba...',
-          '.....abbbba....',
-          '.......aaaaaa..',
+        [ // Hop
+          '...aa....aa.....',
+          '..abba..abba....',
+          '..abba..abba....',
+          '...abbbbba......',
+          '..abbbbbbbba....',
+          '..abcbbbbcba....',
+          '..abbbbbbba.....',
+          '...abddba.......',
+          '....abbba.......',
+          '..eabbbbbbea....',
+          '...ebbbbbbe.....',
+          '....ee..ee......',
+          '................',
         ],
       ],
-      palette: { a: '#5a4a3a', b: '#8a7a6a', c: '#ff3333' }
+      palette: { a: '#d0a888', b: '#e8c8b0', c: '#442244', d: '#ffaaaa', e: '#c09878' }
     },
-    ghost: {
+    turtle: {
+      pixels: [
+        '................',
+        '....aaaaaa......',
+        '..aabbbbbbaa....',
+        '.aabccccccbaa...',
+        '.abccccccccba...',
+        '.abccccccccba...',
+        '.aabccccccbaa...',
+        '..ddbbbbbbdd....',
+        '..d.e....e.d....',
+        '.d..e....e..d...',
+      ],
+      palette: { a: '#4a8a3a', b: '#6aaa5a', c: '#88cc66', d: '#5a8a4a', e: '#4a7a3a' }
+    },
+    ladybug: {
       frames: [
-        [ // Float up
-          '....aaaaaa....',
-          '..aabbbbbbaa..',
-          '.aabbbbbbbbaa.',
-          '.abccbbbbccba.',
-          '.abccbbbbccba.',
-          '.aabbbbbbbbaa.',
-          '.aabbbbbbbbaa.',
-          '.aabbbbbbbbaa.',
-          '.ab.abba.bba..',
-          '.a...aa...aa..',
+        [
+          '......aaaa......',
+          '....aabbbbaa....',
+          '...abbbcbbba....',
+          '..abbbbbcbbba...',
+          '..abcbbbbbbba...',
+          '..abbbbbcbbba...',
+          '...abbbbbbba....',
+          '....aabbbbaa....',
+          '.....d....d.....',
+          '....d......d....',
         ],
-        [ // Float mid
-          '..............',
-          '....aaaaaa....',
-          '..aabbbbbbaa..',
-          '.aabbbbbbbbaa.',
-          '.abccbbbbccba.',
-          '.abccbbbbccba.',
-          '.aabbbbbbbbaa.',
-          '.aabbbbbbbbaa.',
-          '.aab.abba.baa.',
-          '.a....aa....a.',
-        ],
-        [ // Float down
-          '..............',
-          '..............',
-          '....aaaaaa....',
-          '..aabbbbbbaa..',
-          '.aabbbbbbbbaa.',
-          '.abccbbbbccba.',
-          '.aabbbbbbbbaa.',
-          '.aabbbbbbbbaa.',
-          '.ab..abba..ba.',
-          '.a....aa....a.',
-        ],
-        [ // Float mid (back)
-          '..............',
-          '....aaaaaa....',
-          '..aabbbbbbaa..',
-          '.aabbbbbbbbaa.',
-          '.abccbbbbccba.',
-          '.abccbbbbccba.',
-          '.aabbbbbbbbaa.',
-          '.aabbbbbbbbaa.',
-          '.aab.abba.baa.',
-          '.a....aa....a.',
+        [
+          '......aaaa......',
+          '....aabbbbaa....',
+          '...abbbbcbba....',
+          '..abcbbbbbba....',
+          '..abbbbcbbbba...',
+          '..abbbbbbbba....',
+          '...abcbbbba.....',
+          '....aabbbbaa....',
+          '....d......d....',
+          '...d........d...',
         ],
       ],
-      palette: { a: '#6666aa', b: '#aabbee', c: '#222244' }
+      palette: { a: '#cc3333', b: '#ee4444', c: '#222222', d: '#333333' }
     },
-    skeleton: {
+    // Boss Floor 1
+    unicorn: {
       pixels: [
-        '....aaaaaaaa....',
-        '...abbbbbbbba...',
-        '...bcbbbbbbcb...',
-        '...abbbbbbbba...',
-        '....abbccbba....',
-        '.....aabbaa.....',
-        '...dddbbbbbdd...',
-        '.....aabbaa.....',
-        '....abbbbbba....',
-        '.....aabbaa.....',
-        '....ab....ba....',
-        '...ab......ba...',
+        '.......a........',
+        '......aba.......',
+        '.....abba.......',
+        '....ccccccc.....',
+        '...cdddddddc...',
+        '..cdeddddeddc...',
+        '..cdddddddddc..',
+        '...cdddffdc.....',
+        '....cddddcc.....',
+        '..ggcdddddcgg...',
+        '....gddddddg....',
+        '.....gddddg.....',
+        '....gddddddg....',
+        '....g..gg..g....',
+        '...g....g...g...',
       ],
-      palette: { a: '#aaaaaa', b: '#eeeeee', c: '#222222', d: '#777777' }
+      palette: { a: '#f0d060', b: '#e0c040', c: '#e8e8f8', d: '#ffffff', e: '#8888cc', f: '#ffaacc', g: '#d8d0f0' }
     },
-    zombie: {
-      pixels: [
-        '....aaaaaaaa....',
-        '...abbbbbbbba...',
-        '..abcbbbbbcbba..',
-        '..abbbbbbbbba...',
-        '...abddddbba....',
-        '....abbbbbba....',
-        '...eebbbbbee....',
-        '....ebbbbbbe....',
-        '...aabbbbbba....',
-        '....aabbbaa.....',
-        '....ab....ba....',
-        '...ab......ba...',
+
+    // ─── FLOOR 2: Leśna Ścieżka ───
+    owl: {
+      frames: [
+        [
+          '...aaaaaa.......',
+          '..abbbbbba......',
+          '.abccbbccba.....',
+          '.abccbbccba.....',
+          '.abbddddba......',
+          '..abbebbba......',
+          '..aabbbbba......',
+          '...aabbaa.......',
+          '....f..f........',
+          '...ff..ff.......',
+        ],
+        [
+          '..aaaaaa........',
+          '.abbbbbba.......',
+          'abccbbccba......',
+          'abccbbccba......',
+          'abbddddba.......',
+          '.abbebbba.......',
+          '.aabbbbba.......',
+          '..aabbaa........',
+          '...f..f.........',
+          '..ff..ff........',
+        ],
       ],
-      palette: { a: '#2a4a2a', b: '#4a8a4a', c: '#ff2222', d: '#1a2a1a', e: '#3a5a3a' }
+      palette: { a: '#7a5a3a', b: '#a88a6a', c: '#f0d060', d: '#c8a858', e: '#ffaa44', f: '#5a4a3a' }
     },
-    ogre: {
-      pixels: [
-        '...aaaaaaaaaa....',
-        '..abbbbbbbbbba...',
-        '..abcbbbbbcbba...',
-        '..abbbbbbbbbba...',
-        '..abbddddddbba...',
-        '...abbbbbbbba....',
-        '..eebbbbbbbbee...',
-        '..eabbbbbbbbae...',
-        '...abbbbbbbba....',
-        '....abbbbbba.....',
-        '...aab....baa....',
-        '..aab......baa...',
+    kitten: {
+      frames: [
+        [
+          '..aa......aa....',
+          '.abba....abba...',
+          '.abbba..abbba...',
+          '..abbbbbbba.....',
+          '..abcbbbbcba....',
+          '..abbbbbbba.....',
+          '..abddddbba.....',
+          '...abbbbbba.....',
+          '...ebbbbbbe.....',
+          '....eeeeee......',
+          '..........aaaa..',
+        ],
+        [
+          '.aa........aa...',
+          'abba......abba..',
+          'abbba....abbba..',
+          '.abbbbbbbbba....',
+          '.abcbbbbbbcba...',
+          '.abbbbbbbbbba...',
+          '.abdddddbbba....',
+          '..abbbbbbba.....',
+          '..ebbbbbbbbe....',
+          '...eeeeeeee.....',
+          '.........aaaa...',
+        ],
       ],
-      palette: { a: '#4a3020', b: '#7a9a44', c: '#ff4444', d: '#3a5a1a', e: '#8a6a4a' }
+      palette: { a: '#d09050', b: '#e8b878', c: '#338833', d: '#ffaaaa', e: '#c08848' }
     },
-    snake: {
+    hedgehog: {
       pixels: [
-        '...aa...............',
-        '..abba..............',
-        '..accba.............',
-        '...abba.............',
-        '....abba............',
-        '.....abbba..........',
-        '......abbba.........',
-        '.......abbba........',
-        '........abbba.......',
-        '.........abba.......',
-        '..........ab........',
-      ],
-      palette: { a: '#1a6a1a', b: '#2aaa2a', c: '#ff2222' }
-    },
-    wizard: {
-      pixels: [
-        '.....aa...........',
-        '....abba..........',
-        '...abbbba.........',
-        '..abbbbbba........',
-        '...cccccccc.......',
-        '...cdcccdcc.......',
-        '...cccccccc.......',
-        '...cceecccc.......',
-        '..ffccccccff......',
-        '....cccccc........',
-        '...cccccccc.......',
-        '..cc......cc......',
-      ],
-      palette: { a: '#4444aa', b: '#6666dd', c: '#7733aa', d: '#ffff44', e: '#222222', f: '#aa44aa' }
-    },
-    demon: {
-      pixels: [
-        '.aa..........aa.',
-        '.aba........aba.',
-        '..abba..abba....',
-        '..aabbbbbbba....',
-        '.abcbbbbbbbcba..',
+        '....aaaaaaa.....',
+        '..aabbbbbbbaa...',
+        '.aabbbbbbbbba...',
         '.abbbbbbbbbba...',
-        '.abbddddddba...',
-        '..abbbbbbbba....',
-        '..ebbbbbbbbe....',
-        '...abbbbbba.....',
-        '..ab......ba....',
-        '.ab........ba...',
+        '..cbbdbbdbbc....',
+        '..cbbbbbbbc.....',
+        '...cbbebbbc.....',
+        '...ccbbbcc......',
+        '....f....f......',
+        '...ff....ff.....',
       ],
-      palette: { a: '#aa2222', b: '#dd4444', c: '#ffff00', d: '#880000', e: '#cc3333' }
+      palette: { a: '#6a5040', b: '#a08870', c: '#c8b098', d: '#222222', e: '#ff8888', f: '#8a7060' }
     },
-    scorpion: {
+    squirrel: {
       pixels: [
-        '...a................',
-        '...ab...............',
-        '....ab..............',
-        '.....ab.............',
-        '......abba..........',
-        '...aaabbbbbba.......',
-        '..abbbbbbbbbba......',
-        '.abcbbbbbbbbbcba....',
-        '..abbbbbbbbbba......',
-        '...a..abba..a.......',
-        '..a....aa....a......',
-        '.a..........a.......',
+        '..aa............',
+        '.abba...........',
+        '.abba...........',
+        '..abbbbbba......',
+        '..abcbbcbba.....',
+        '..abbbbbba......',
+        '..abdddba.......',
+        '...eabbbbea.....',
+        '...ebbbbbbe.....',
+        '....ee..ee......',
+        '......aa........',
+        '.....abba.......',
+        '....abbbba......',
+        '...aabbbbaa.....',
       ],
-      palette: { a: '#8a4a00', b: '#cc7722', c: '#222222' }
+      palette: { a: '#aa5522', b: '#cc7744', c: '#222222', d: '#ffaa88', e: '#994411' }
     },
-    werewolf: {
-      pixels: [
-        '...aa......aa...',
-        '..abba....abba..',
-        '..abbbaabbabba..',
-        '...abbbbbbbba...',
-        '...abcbbbbcba...',
-        '...abbbbbbbba...',
-        '...abdddddba...',
-        '..aabbbbbbbbaa..',
-        '..abbbbbbbbbba..',
-        '...abbbbbbbba...',
-        '...ab......ba...',
-        '..ab........ba..',
-      ],
-      palette: { a: '#3a3a3a', b: '#7a6a5a', c: '#ffcc00', d: '#ffffff' }
-    },
-    // BOSSES
-    dragon: {
+    // Boss Floor 2
+    babydragon: {
       pixels: [
         '..aa..........aa..',
         '..aba........aba..',
@@ -2877,41 +2802,126 @@ const PixelArt = {
         '...ab....ba.......',
         '..ab......ba......',
       ],
-      palette: { a: '#228822', b: '#44cc44', c: '#ff4400', d: '#ffaa00', e: '#22aa22' }
+      palette: { a: '#66aadd', b: '#88ccff', c: '#ffcc00', d: '#ffaa88', e: '#5599cc' }
     },
-    golem: {
-      pixels: [
-        '...aaaaaaaaaa...',
-        '..abbbbbbbbbba..',
-        '..abcbbbbbcbba..',
-        '..abbbbbbbbbba..',
-        '...abbbbbbbba...',
-        '.ddabbbbbbbadd..',
-        '.dabbbbbbbbad...',
-        '..dabbbbbbad....',
-        '...abbbbbbbba...',
-        '...abbbbbbbba...',
-        '...aab....baa...',
-        '..aab......baa..',
+
+    // ─── FLOOR 3: Zamek Tęczy ───
+    phoenix: {
+      frames: [
+        [
+          '..aa......aa....',
+          '.abba....abba...',
+          'abccba..abccba..',
+          'abcba....abcba..',
+          '.aba.abba.aba...',
+          '....abbbba......',
+          '...abdedbba.....',
+          '....abbbba......',
+          '....abbba.......',
+          '.....aba........',
+          '......a.........',
+        ],
+        [
+          '.aa........aa...',
+          'abba......abba..',
+          'abccba..abccba..',
+          '.abcbaabbacba...',
+          '..ababbbbbba....',
+          '...abbbbbba.....',
+          '...abdedbba.....',
+          '....abbbba......',
+          '.....abba.......',
+          '......aa........',
+          '................',
+        ],
       ],
-      palette: { a: '#4444aa', b: '#7777dd', c: '#ff00ff', d: '#5555bb' }
+      palette: { a: '#ee6622', b: '#ff9944', c: '#ffcc44', d: '#222244', e: '#ff4444' }
     },
-    overlord: {
+    pegasus: {
       pixels: [
-        '...aeeeeeeeea...',
-        '...abbbbbbbba...',
-        '..aabbbbbbbba...',
-        '..abcbbbbbcbba..',
-        '..abbbbbbbbbba..',
-        '...abdddddba....',
-        '...abbbbbbbba...',
-        '..ffbbbbbbbbff..',
-        '..fabbbbbbbba...',
-        '...abbbbbbbba...',
-        '...ab......ba...',
-        '..ab........ba..',
+        '.........aa.....',
+        '........abba....',
+        '..cc...abbbba...',
+        '.cbbc..abdbba...',
+        '.cbbbc.abbbba...',
+        '..ccc.aabbbbba..',
+        '......abbbbbba..',
+        '.....abbbbbba...',
+        '......abbbba....',
+        '......ab..ba....',
+        '.....ab....ba...',
+        '....ab......ba..',
       ],
-      palette: { a: '#440000', b: '#cc2222', c: '#ffff00', d: '#ffffff', e: '#ffaa00', f: '#880000' }
+      palette: { a: '#ddddff', b: '#ffffff', c: '#c8d8f8', d: '#6688cc' }
+    },
+    fairy: {
+      frames: [
+        [
+          '..cc......cc....',
+          '.cddc....cddc...',
+          '.cddc....cddc...',
+          '..cc..aa..cc....',
+          '.....abba.......',
+          '....abbbba......',
+          '....abeeba......',
+          '....abffba......',
+          '.....abba.......',
+          '....ggbbgg......',
+          '.....gbg........',
+          '....g...g.......',
+        ],
+        [
+          '.cc........cc...',
+          'cddc......cddc..',
+          'cddc......cddc..',
+          '.cc...aa...cc...',
+          '....aabba.......',
+          '....abbbba......',
+          '...abeebba......',
+          '....abffba......',
+          '.....abba.......',
+          '...ggbbbbgg.....',
+          '....g..g........',
+          '...g....g.......',
+        ],
+      ],
+      palette: { a: '#f8d8c0', b: '#ffe8d8', c: '#ddaaff', d: '#eeccff', e: '#4488cc', f: '#ff8888', g: '#d8a8e0' }
+    },
+    peacock: {
+      pixels: [
+        '..aabbbbbbaa....',
+        '.abcddddcbba...',
+        'abcddddddcba...',
+        'abcddddddcba...',
+        '.abcddddcba....',
+        '..aabbbbaa......',
+        '....eeeee.......',
+        '...efeeefe......',
+        '...eeeeeee......',
+        '....eeeee.......',
+        '....ef.fe.......',
+        '...ef...fe......',
+      ],
+      palette: { a: '#2266aa', b: '#44aadd', c: '#22cc88', d: '#44eebb', e: '#2244aa', f: '#f0d060' }
+    },
+    // Boss Floor 3
+    rainbowqueen: {
+      pixels: [
+        '....aaeeeaa.....',
+        '...aabbbbba.....',
+        '...abbbbbba.....',
+        '..aabbbbbba.....',
+        '..abcbbbcbba....',
+        '..abbbbbbbba....',
+        '...abddddba....',
+        '...abbbbbba.....',
+        '..ffbbbbbbff....',
+        '..fabbbbbba.....',
+        '...abbbbbba.....',
+        '...ab....ba.....',
+        '..ab......ba....',
+      ],
+      palette: { a: '#dd88cc', b: '#ffaaee', c: '#66aaff', d: '#ffffff', e: '#f0d060', f: '#cc77bb' }
     }
   },
 
@@ -4095,25 +4105,25 @@ const DungeonMap = {
   },
 
   getMonster(floor) {
-    // immune: 'easy'|'medium'|'hard' — this attack type deals 0 damage
+    // immune: 'easy'|'medium'|'hard' — this spell type deals 0 progress
     const monsters = {
       1: [
-        { sprite: 'bat', name: 'TAKtoperz', immune: null, onlyEasy: true, hpOverride: [1, 3] },
-        { sprite: 'spider', name: 'Pająk', immune: 'hard' },
-        { sprite: 'rat', name: 'Szczur', immune: null },
-        { sprite: 'ghost', name: 'Duch', immune: 'medium' },
+        { sprite: 'butterfly', name: 'Motyl', immune: null, onlyEasy: true, hpOverride: [1, 3] },
+        { sprite: 'bunny', name: 'Króliczek', immune: 'hard' },
+        { sprite: 'turtle', name: 'Żółw', immune: null },
+        { sprite: 'ladybug', name: 'Biedronka', immune: 'medium' },
       ],
       2: [
-        { sprite: 'skeleton', name: 'Szkielet', immune: 'hard' },
-        { sprite: 'zombie', name: 'Zombie', immune: 'easy' },
-        { sprite: 'ogre', name: 'Ogr', immune: 'medium' },
-        { sprite: 'snake', name: 'Wąż', immune: 'hard' },
+        { sprite: 'owl', name: 'Sowa', immune: 'hard' },
+        { sprite: 'kitten', name: 'Koteczek', immune: 'easy' },
+        { sprite: 'hedgehog', name: 'Jeż', immune: 'medium' },
+        { sprite: 'squirrel', name: 'Wiewiórka', immune: 'hard' },
       ],
       3: [
-        { sprite: 'wizard', name: 'Czarnoksiężnik', immune: 'hard' },
-        { sprite: 'demon', name: 'Demon', immune: 'easy' },
-        { sprite: 'scorpion', name: 'Skorpion', immune: 'medium' },
-        { sprite: 'werewolf', name: 'Wilkołak', immune: 'hard' },
+        { sprite: 'phoenix', name: 'Feniks', immune: 'hard' },
+        { sprite: 'pegasus', name: 'Pegaz', immune: 'easy' },
+        { sprite: 'fairy', name: 'Wróżka', immune: 'medium' },
+        { sprite: 'peacock', name: 'Paw', immune: 'hard' },
       ]
     };
     const list = monsters[floor];
@@ -4121,11 +4131,10 @@ const DungeonMap = {
   },
 
   getBossMonster(floor) {
-    // Bosses have rotating immunity — changes each turn (handled in Battle)
     const bosses = {
-      1: { sprite: 'dragon', name: 'SMOK OBLICZENIOWY', immune: null },
-      2: { sprite: 'golem', name: 'GOLEM UŁAMKÓW', immune: null },
-      3: { sprite: 'overlord', name: 'WŁADCA DUNGEONU', immune: null },
+      1: { sprite: 'unicorn', name: 'WIELKI JEDNOROŻEC', immune: null },
+      2: { sprite: 'babydragon', name: 'SMOK-MALUSZEK', immune: null },
+      3: { sprite: 'rainbowqueen', name: 'KRÓLOWA TĘCZY', immune: null },
     };
     return bosses[floor];
   },
@@ -4321,9 +4330,9 @@ const DungeonMap = {
         } else if (room.isQuest) {
           ctx.fillText('❓', cx, cy);
         } else if (room.isBoss) {
-          ctx.fillText('💀', cx, cy);
+          ctx.fillText('👑', cx, cy);
         } else {
-          ctx.fillText('⚔️', cx, cy);
+          ctx.fillText('🐾', cx, cy);
         }
         ctx.globalAlpha = 1;
       }
@@ -4400,7 +4409,7 @@ const Hero = {
     shield: {
       icon: '🛡️', name: 'Tarcza',
       levels: [
-        { label: 'Brak', stat: '', tip: 'Bez tarczy. Kup, by blokować ataki potworów.' },
+        { label: 'Brak', stat: '', tip: 'Bez peleryny. Kup, by chronić się przed błędami.' },
         { label: 'Drewniana Tarcza', stat: '25% bloku', tip: 'Dębowa tarcza. 25% szans na zablokowanie ataku po błędzie.' },
         { label: 'Tarcza z Żelaza', stat: '50% bloku', tip: 'Żelazna tarcza z herbem. 50% szans na blok.' },
         { label: 'Smocza Tarcza', stat: '75% bloku', tip: 'Tarcza z łuski smoka. 75% szans na zablokowanie obrażeń.' },
@@ -4449,7 +4458,7 @@ const Hero = {
 
     // Stats
     document.getElementById('hero-potions-display').textContent = `🧪 ${Game.player.potions}`;
-    document.getElementById('hero-gold-display').textContent = `💰 ${Game.player.gold}`;
+    document.getElementById('hero-gold-display').textContent = `⭐ ${Game.player.gold}`;
     document.getElementById('hero-xp-display').textContent = `⭐ ${Game.player.xp}/${Game.player.xpToNext}`;
     document.getElementById('hero-level-display').textContent = `Lv.${Game.player.level}`;
 
@@ -4635,7 +4644,7 @@ const Shop = {
   open(room) {
     this.currentRoom = room;
     Game.state = 'shop';
-    document.getElementById('shop-gold').textContent = `💰 ${Game.player.gold}`;
+    document.getElementById('shop-gold').textContent = `⭐ ${Game.player.gold}`;
     this.renderItems();
     document.getElementById('shop-panel').style.display = 'flex';
   },
@@ -4654,7 +4663,7 @@ const Shop = {
           <span class="shop-item-icon">${item.icon}</span>
           <div class="shop-item-name">${item.name}</div>
           <div class="shop-item-desc">${item.stat}</div>
-          <div class="shop-item-price">${owned ? 'POSIADASZ' : `💰 ${item.price}`}</div>
+          <div class="shop-item-price">${owned ? 'POSIADASZ' : `⭐ ${item.price}`}</div>
         </div>
       `;
     }
@@ -4968,7 +4977,7 @@ const Quest = {
       let rewardMsg = '';
       if (q.reward.type === 'gold') {
         Game.player.gold += q.reward.amount;
-        rewardMsg = `+${q.reward.amount} 💰`;
+        rewardMsg = `+${q.reward.amount} ⭐`;
       } else if (q.reward.type === 'xp') {
         Game.player.xp += q.reward.amount;
         rewardMsg = `+${q.reward.amount} ⭐`;
@@ -5051,12 +5060,12 @@ const Battle = {
     PixelArt._currentBattleSprite = room.monster.sprite;
     PixelArt.drawOnCanvas(document.getElementById('monster-anim-canvas'), room.monster.sprite, imgSize);
     PixelArt.startAnimation();
-    const immuneNames = { easy: 'lekki atak', medium: 'mocny atak', hard: 'potężny atak' };
+    const immuneNames = { easy: 'łatwy czar', medium: 'średni czar', hard: 'mocny czar' };
     const immuneType = room.monster.immune;
     document.getElementById('monster-name').textContent = room.monster.name;
     document.getElementById('monster-extra-info').textContent =
-      room.monster.onlyEasy ? 'Tylko lekki atak działa!'
-        : immuneType ? `Odporny na: ${immuneNames[immuneType]}` : '';
+      room.monster.onlyEasy ? 'Lubi tylko łatwe czary!'
+        : immuneType ? `Nie lubi: ${immuneNames[immuneType]}` : '';
     document.getElementById('monster-level-display').textContent = `Lv.${room.isBoss ? Game.currentFloor + 2 : Game.currentFloor}`;
     this.updatePlayerBattleUI();
     this.updateMonsterHP();
@@ -5071,7 +5080,7 @@ const Battle = {
   showAttackChoice() {
     document.getElementById('attack-choice').style.display = 'grid';
     document.getElementById('question-phase').style.display = 'none';
-    document.getElementById('battle-prompt').textContent = 'Co zrobi bohater?';
+    document.getElementById('battle-prompt').textContent = 'Jaki czar rzuci Zosia?';
     this.updatePlayerBattleUI();
 
     // Update DMG labels with level + sword bonus
@@ -5080,10 +5089,10 @@ const Battle = {
     const easyDmg = 1 + lvlBonus + swordBonus;
     const medDmg = 2 + lvlBonus + swordBonus;
     const hardDmg = 3 + lvlBonus + swordBonus;
-    document.getElementById('easy-dmg-label').textContent = `${easyDmg} DMG`;
-    document.getElementById('medium-dmg-label').textContent = `${medDmg} DMG`;
+    document.getElementById('easy-dmg-label').textContent = `+${easyDmg} 💖`;
+    document.getElementById('medium-dmg-label').textContent = `+${medDmg} 💖`;
     const hardLabel = document.getElementById('hard-dmg-label');
-    hardLabel.textContent = `${hardDmg} DMG`;
+    hardLabel.textContent = `+${hardDmg} 💖`;
 
     // Boots tier 3: show preview of available tasks
     const preview = document.getElementById('task-preview');
@@ -5096,7 +5105,7 @@ const Battle = {
       ];
       // Store previewed questions to reuse when player picks
       this._previewedQuestions = samples;
-      const labels = ['⚔️ Lekki', '🗡️ Mocny', '💥 Potężny'];
+      const labels = ['🌸 Łatwy', '✨ Średni', '🌟 Mocny'];
       let txt = '';
       for (let i = 0; i < 3; i++) {
         const q = samples[i];
@@ -5133,7 +5142,7 @@ const Battle = {
         btn.style.cursor = 'not-allowed';
         const badge = document.createElement('div');
         badge.className = 'immune-badge';
-        badge.textContent = onlyEasy && diffKeys[i] !== 'easy' ? '🛡️ ODPORNY' : '🛡️ ODPORNY';
+        badge.textContent = onlyEasy && diffKeys[i] !== 'easy' ? '💤 NIE LUBI' : '💤 NIE LUBI';
         btn.appendChild(badge);
       }
     });
@@ -5190,7 +5199,7 @@ const Battle = {
     document.getElementById('attack-choice').style.display = 'none';
     document.getElementById('question-phase').style.display = 'block';
     document.getElementById('feedback-text').textContent = '';
-    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby zaatakować!';
+    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby rzucić czar!';
 
     this.renderQuestion();
   },
@@ -5368,7 +5377,7 @@ const Battle = {
             <div class="frac-line"></div>
             <input type="number" id="frac-den" inputmode="numeric" autocomplete="off" placeholder="?">
           </div>
-          <button class="attack-btn" onclick="Battle.submitAnswer()">ATAKUJ! ⚔️</button>
+          <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
         </div>
       `;
       setTimeout(() => {
@@ -5392,7 +5401,7 @@ const Battle = {
       drawNumberLine('numline-canvas', q.marks);
       answerArea.innerHTML = `
         <input type="text" class="answer-input" id="answer-input" autocomplete="off" inputmode="numeric">
-        <button class="attack-btn" onclick="Battle.submitAnswer()">ATAKUJ! ⚔️</button>
+        <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
       `;
       setTimeout(() => {
         document.getElementById('answer-input').focus();
@@ -5561,7 +5570,7 @@ const Battle = {
         </div>
       `;
       qText.className = 'question-text';
-      answerArea.innerHTML = `<button class="attack-btn" onclick="Battle.submitAnswer()">ATAKUJ! ⚔️</button>`;
+      answerArea.innerHTML = `<button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>`;
       setTimeout(() => document.getElementById('frac-num').focus(), 100);
       qText.querySelectorAll('input').forEach(inp => {
         inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') Battle.submitAnswer(); });
@@ -5570,7 +5579,7 @@ const Battle = {
       const isText = q.type === 'text';
       answerArea.innerHTML = `
         <input type="text" class="answer-input${isText ? ' text-input' : ''}" id="answer-input" autocomplete="off" inputmode="${isText ? 'text' : 'numeric'}" placeholder="${isText ? 'wpisz słownie...' : ''}">
-        <button class="attack-btn" onclick="Battle.submitAnswer()">ATAKUJ! ⚔️</button>
+        <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
       `;
       setTimeout(() => document.getElementById('answer-input').focus(), 100);
       document.getElementById('answer-input').addEventListener('keydown', (e) => {
@@ -5596,7 +5605,7 @@ const Battle = {
       this._potionBonus = bonus;
       this.potionDoubleNext = true;
       icon = '⚔️✨';
-      text = `Następny atak +${bonus} DMG!`;
+      text = `Następny czar +${bonus} 💖!`;
     } else if (effect === 'heal') {
       const heal = _weightedRoll();
       Game.player.hp = Math.min(Game.player.hp + heal, Game.player.maxHp);
@@ -5606,8 +5615,8 @@ const Battle = {
       const dmg = _weightedRoll();
       this.monsterHP = Math.max(0, this.monsterHP - dmg);
       this.updateMonsterHP();
-      icon = '💣';
-      text = `Eksplozja! −${dmg} HP!`;
+      icon = '🌈';
+      text = `Tęczowa magia! +${dmg} oswajania!`;
 
       // Monster hit animation
       const spriteImg = document.querySelector('.monster-sprite') || document.getElementById('monster-emoji');
@@ -5730,7 +5739,7 @@ const Battle = {
       this._potionBonus = 0;
     }
     this.monsterHP = Math.max(0, this.monsterHP - dmg);
-    fb.textContent = dmg >= 4 ? `Trafienie krytyczne! −${dmg} HP 💀` : `Trafienie! −${dmg} HP 💥`;
+    fb.textContent = dmg >= 4 ? `Super czar! Oswajanie +${dmg} 💖✨` : `Udany czar! Oswajanie +${dmg} 💖`;
     fb.className = 'feedback-text feedback-hit';
     this.updateMonsterHP();
     // Track stats
@@ -5762,10 +5771,10 @@ const Battle = {
     const blocked = Math.random() < blockChance;
 
     if (blocked) {
-      fb.textContent = 'Pudło! Ale tarcza chroni! 🛡️';
+      fb.textContent = 'Oj! Ale peleryna chroni! 🛡️';
       fb.className = 'feedback-text feedback-miss';
     } else {
-      fb.textContent = 'Pudło! Potwór atakuje! 👹';
+      fb.textContent = 'Oj! Zwierzątko się wystraszyło! 😿';
       fb.className = 'feedback-text feedback-miss';
       Game.player.hp--;
       Game.updateHUD();
@@ -5847,7 +5856,7 @@ const Battle = {
     }
 
     // Show reward popup
-    let rewardText = `+${goldReward} 💰  +${xpReward} ⭐`;
+    let rewardText = `+${goldReward} ⭐  +${xpReward} XP`;
     if (potionDrop) rewardText += '  +1 🧪';
     Game.showReward(rewardText);
 
@@ -6005,9 +6014,9 @@ const Game = {
 
   showFloorIntro() {
     const names = {
-      1: ['Piętro 1: Krypta Obliczeniowa', 'Brakujące liczby, obliczenia, zapis słowny'],
-      2: ['Piętro 2: Jaskinia Ułamków', 'Działania pisemne i skracanie ułamków'],
-      3: ['Piętro 3: Wieża Bossa', 'Zadania z treścią i mix wszystkich typów']
+      1: ['🌸 Kwiatowa Polanka', 'Motyl, Króliczek, Żółw i Biedronka czekają!'],
+      2: ['🌲 Leśna Ścieżka', 'Sowa, Koteczek, Jeż i Wiewiórka potrzebują pomocy!'],
+      3: ['🌈 Zamek Tęczy', 'Feniks, Pegaz, Wróżka i Paw — magiczne spotkania!']
     };
     const [title, subtitle] = names[this.currentFloor];
 
@@ -6108,10 +6117,10 @@ const Game = {
   victory() {
     document.getElementById('victory-screen').style.display = 'flex';
     document.getElementById('victory-stats').textContent =
-      `Złoto: ${this.player.gold} 💰  |  Poziom: ${this.player.level}  |  Mikstury: ${this.player.potions}`;
+      `Gwiazdki: ${this.player.gold} ⭐  |  Poziom: ${this.player.level}  |  Mikstury: ${this.player.potions}`;
 
     // Show boss times
-    const bossNames = { 1: 'Krypta Obliczeniowa', 2: 'Jaskinia Ułamków', 3: 'Wieża Bossa' };
+    const bossNames = { 1: 'Kwiatowa Polanka', 2: 'Leśna Ścieżka', 3: 'Zamek Tęczy' };
     let timesHtml = '<div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:#f0d060;margin-bottom:8px;">⏱️ TWOJE CZASY:</div>';
     for (let f = 1; f <= 3; f++) {
       const t = this.bossTimes[f];
@@ -6843,14 +6852,14 @@ const Achievements = {
       id: 'flawless',
       icon: '⭐',
       name: 'Bezbłędny',
-      desc: 'Oczyść pokój bez żadnego błędu',
+      desc: 'Oswój zwierzątko bez żadnego błędu',
       check: (ctx) => ctx.event === 'flawlessRoom'
     },
     {
       id: 'speedrunner',
       icon: '⚡',
       name: 'Speedrunner',
-      desc: 'Pokonaj piętro w mniej niż 3 minuty',
+      desc: 'Ukończ krainę w mniej niż 3 minuty',
       check: (ctx) => ctx.event === 'bossTime' && ctx.time < 180
     },
     {
@@ -6875,8 +6884,8 @@ const Achievements = {
     {
       id: 'bossSlayer',
       icon: '🏆',
-      name: 'Pogromca Bossów',
-      desc: 'Pokonaj wszystkie 3 bossy',
+      name: 'Królowa Zoo',
+      desc: 'Zaprzyjaźnij się ze wszystkimi 3 bossami',
       check: (ctx) => {
         if (ctx.event !== 'bossDefeated') return false;
         const bt = Game.bossTimes || {};
