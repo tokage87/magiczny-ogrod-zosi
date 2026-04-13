@@ -418,19 +418,19 @@ Subjects.register('class3', {
   mathGen: MathGen3,
 
   categories: [
-    { id: 'addSub100', icon: '➕', name: 'Dodawanie i odejmowanie do 100', desc: 'Proste rachunki do 100', gen: () => MathGen3.addSub100() },
-    { id: 'multiplication', icon: '✖️', name: 'Tabliczka mnożenia', desc: 'Mnożenie w zakresie 2-10', gen: () => MathGen3.multiplication() },
-    { id: 'division', icon: '➗', name: 'Dzielenie', desc: 'Dzielenie w zakresie tabliczki mnożenia', gen: () => MathGen3.division() },
-    { id: 'missingNumber3', icon: '❓', name: 'Brakująca liczba', desc: 'Znajdź brakujący składnik', gen: () => MathGen3.missingNumber() },
-    { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: 'Który znak: < > =', gen: () => MathGen3.comparison() },
-    { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: 'Jaka część figury jest zakolorowana?', gen: () => MathGen3.fractionFigure() },
-    { id: 'writtenCalc3', icon: '📝', name: 'Pisemne +/− do 1000', desc: 'Dodawanie i odejmowanie w słupku', gen: () => MathGen3.writtenCalc() },
-    { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: () => MathGen3.orderOfOps() },
-    { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: () => MathGen3.numberSequence() },
-    { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: () => MathGen3.wordProblem() },
-    { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: () => ClockCalGen.clockAndCalendar(randInt(1,3)) },
+    { id: 'addSub100', icon: '➕', name: 'Dodawanie i odejmowanie do 100', desc: 'Proste rachunki do 100', gen: (f) => MathGen3.addSub100() },
+    { id: 'multiplication', icon: '✖️', name: 'Tabliczka mnożenia', desc: 'Mnożenie w zakresie 2-10', gen: (f) => MathGen3.multiplication() },
+    { id: 'division', icon: '➗', name: 'Dzielenie', desc: 'Dzielenie w zakresie tabliczki mnożenia', gen: (f) => MathGen3.division() },
+    { id: 'missingNumber3', icon: '❓', name: 'Brakująca liczba', desc: 'Znajdź brakujący składnik', gen: (f) => MathGen3.missingNumber() },
+    { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: 'Który znak: < > =', gen: (f) => MathGen3.comparison() },
+    { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: 'Jaka część figury jest zakolorowana?', gen: (f) => MathGen3.fractionFigure() },
+    { id: 'writtenCalc3', icon: '📝', name: 'Pisemne +/− do 1000', desc: 'Dodawanie i odejmowanie w słupku', gen: (f) => MathGen3.writtenCalc() },
+    { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: (f) => MathGen3.orderOfOps() },
+    { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: (f) => MathGen3.numberSequence() },
+    { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: (f) => MathGen3.wordProblem() },
+    { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
     // POLSKI
-    { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: () => PolishGen3.partsOfSpeech(randInt(1,3)) },
+    { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
 
   easyPool: [
