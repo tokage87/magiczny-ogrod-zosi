@@ -4997,11 +4997,13 @@ const Battle = {
     const labels = ['A', 'B', 'C', 'D'];
     document.querySelectorAll('.quiz-answer-btn').forEach((btn, i) => {
       if (i === q.correctIndex) {
-        btn.style.borderColor = '#44ff44';
-        btn.style.background = '#0a2a0a';
+        btn.style.borderColor = '#2a8a2a';
+        btn.style.background = '#d4f5d4';
+        btn.style.color = '#1a5a1a';
       } else if (labels[i] === letter && !correct) {
-        btn.style.borderColor = '#ff4444';
-        btn.style.background = '#2a0a0a';
+        btn.style.borderColor = '#cc3333';
+        btn.style.background = '#f5d4d4';
+        btn.style.color = '#8a1a1a';
       }
     });
     // Show hint after answering
@@ -6066,8 +6068,8 @@ const Practice = {
     const labels = ['A', 'B', 'C', 'D'];
     document.querySelectorAll('#practice-answer-area .quiz-answer-btn').forEach((btn, i) => {
       btn.disabled = true;
-      if (i === q.correctIndex) { btn.style.borderColor = '#44ff44'; btn.style.background = '#0a2a0a'; }
-      else if (labels[i] === letter && !correct) { btn.style.borderColor = '#ff4444'; btn.style.background = '#2a0a0a'; }
+      if (i === q.correctIndex) { btn.style.borderColor = '#2a8a2a'; btn.style.background = '#d4f5d4'; btn.style.color = '#1a5a1a'; }
+      else if (labels[i] === letter && !correct) { btn.style.borderColor = '#cc3333'; btn.style.background = '#f5d4d4'; btn.style.color = '#8a1a1a'; }
     });
     if (q.hint) {
       const area = document.getElementById('practice-answer-area');
