@@ -2207,6 +2207,173 @@ body {
   .achievement-name { font-size: 7px; }
   .achievement-desc { font-size: 10px; }
 }
+/* ─── ZOO PANEL ─── */
+#zoo-panel {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(248, 240, 255, 0.97);
+  z-index: 160;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0;
+}
+
+.zoo-box {
+  background: linear-gradient(145deg, #f0fff8 0%, #f8fff0 50%, #fffff0 100%);
+  border: 3px solid #88cc88;
+  border-radius: 16px;
+  padding: 24px 20px;
+  width: min(700px, 95vw);
+  max-height: 95vh;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(100, 200, 100, 0.12);
+}
+
+.zoo-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  color: #4a9a4a;
+  margin-bottom: 6px;
+}
+
+.zoo-subtitle {
+  font-size: 13px;
+  color: #7aaa7a;
+  margin-bottom: 4px;
+}
+
+.zoo-counter {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #d4699e;
+  margin-bottom: 18px;
+}
+
+.zoo-realm {
+  margin-bottom: 20px;
+}
+
+.zoo-realm-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #8a6aaa;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px dashed #e0d0e8;
+}
+
+.zoo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.zoo-enclosure {
+  border-radius: 14px;
+  padding: 12px 8px 10px;
+  text-align: center;
+  position: relative;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.zoo-enclosure.empty {
+  background: #f0eef4;
+  border: 2px dashed #d0c8d8;
+  opacity: 0.5;
+}
+
+.zoo-enclosure.filled {
+  border: 2px solid;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.zoo-enclosure.filled:hover {
+  transform: scale(1.04);
+}
+
+/* Enclosure themes per creature */
+.zoo-enclosure.enc-butterfly { background: linear-gradient(180deg, #fff0ff 0%, #ffe8f8 100%); border-color: #e0a0d0; }
+.zoo-enclosure.enc-bunny { background: linear-gradient(180deg, #fff8f0 0%, #f8f0e8 100%); border-color: #d8c0a0; }
+.zoo-enclosure.enc-turtle { background: linear-gradient(180deg, #f0fff0 0%, #e0f8e0 100%); border-color: #a0d0a0; }
+.zoo-enclosure.enc-ladybug { background: linear-gradient(180deg, #fff0f0 0%, #ffe8e8 100%); border-color: #e0a0a0; }
+.zoo-enclosure.enc-unicorn { background: linear-gradient(180deg, #f8f0ff 0%, #f0e8ff 100%); border-color: #c8b0e0; }
+.zoo-enclosure.enc-owl { background: linear-gradient(180deg, #f8f4e8 0%, #f0ece0 100%); border-color: #c8b890; }
+.zoo-enclosure.enc-kitten { background: linear-gradient(180deg, #fff8f0 0%, #f8f0e0 100%); border-color: #e0c098; }
+.zoo-enclosure.enc-hedgehog { background: linear-gradient(180deg, #f4f0e8 0%, #ece8e0 100%); border-color: #c0b8a0; }
+.zoo-enclosure.enc-squirrel { background: linear-gradient(180deg, #fdf4e8 0%, #f8ece0 100%); border-color: #d0a870; }
+.zoo-enclosure.enc-babydragon { background: linear-gradient(180deg, #f0f8ff 0%, #e0f0ff 100%); border-color: #a0c8e8; }
+.zoo-enclosure.enc-phoenix { background: linear-gradient(180deg, #fff4e8 0%, #ffece0 100%); border-color: #e8b080; }
+.zoo-enclosure.enc-pegasus { background: linear-gradient(180deg, #f8f8ff 0%, #f0f0ff 100%); border-color: #c0c0e8; }
+.zoo-enclosure.enc-fairy { background: linear-gradient(180deg, #fef0ff 0%, #f8e8ff 100%); border-color: #d0a8e8; }
+.zoo-enclosure.enc-peacock { background: linear-gradient(180deg, #f0fffa 0%, #e8fff4 100%); border-color: #88ccaa; }
+.zoo-enclosure.enc-rainbowqueen { background: linear-gradient(135deg, #fff0f8 0%, #f0f8ff 50%, #f8fff0 100%); border-color: #d4699e; }
+
+.zoo-sprite {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  margin-bottom: 6px;
+}
+
+.zoo-animal-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #6a5a7a;
+  margin-bottom: 2px;
+}
+
+.zoo-enclosure-label {
+  font-size: 10px;
+  color: #9a8aaa;
+  line-height: 1.3;
+}
+
+.zoo-empty-icon {
+  font-size: 32px;
+  opacity: 0.3;
+  margin-bottom: 6px;
+}
+
+.zoo-empty-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #b0a8b8;
+}
+
+.zoo-new-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #e8a0c8;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  padding: 3px 6px;
+  border-radius: 8px;
+  animation: zooNewPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes zooNewPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+@media (max-width: 768px) {
+  .zoo-box { padding: 16px 12px; width: 98vw; }
+  .zoo-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+  .zoo-enclosure { min-height: 120px; padding: 10px 6px 8px; }
+  .zoo-animal-name { font-size: 7px; }
+  .zoo-realm-title { font-size: 9px; }
+}
+
 </style>
 </head>
 <body>
@@ -2221,6 +2388,7 @@ body {
   <button class="menu-btn" id="continue-btn" onclick="Game.continueGame()" disabled>KONTYNUUJ</button>
   <button class="menu-btn" onclick="Practice.showCategories()" style="margin-top:10px;">📝 PYTANIA</button>
   <div style="display:flex;gap:10px;margin-top:8px;">
+    <button class="menu-btn" onclick="Zoo.open()" style="font-size:10px;padding:10px 18px;">🦋 MOJE ZOO</button>
     <button class="menu-btn" onclick="Achievements.open()" style="font-size:10px;padding:10px 18px;">🏆 OSIĄGNIĘCIA</button>
     <button class="menu-btn" onclick="Stats.open()" style="font-size:10px;padding:10px 18px;">📊 STATYSTYKI</button>
   </div>
@@ -2309,6 +2477,7 @@ body {
     <div class="hud-item" id="hud-xp">XP: 0/50</div>
     <div class="hud-item" id="hud-timer">⏱️ 0:00</div>
     <button class="hud-hero-btn" onclick="Hero.open()">🌟</button>
+    <button class="hud-hero-btn" onclick="Zoo.open()" title="Moje Zoo">🦋</button>
     <button class="hud-hero-btn" onclick="Stats.open()" title="Statystyki">📊</button>
   </div>
 </div>
@@ -2519,6 +2688,17 @@ body {
     <div class="achievements-title">🏆 OSIĄGNIĘCIA</div>
     <div class="achievement-grid" id="achievement-grid"></div>
     <button class="menu-btn" onclick="Achievements.close()" style="font-size:10px;padding:10px 20px;">ZAMKNIJ</button>
+  </div>
+</div>
+
+<!-- ZOO PANEL -->
+<div id="zoo-panel">
+  <div class="zoo-box">
+    <div class="zoo-title">🦋 MOJE ZOO</div>
+    <div class="zoo-subtitle">Zwierzątka, które zaprzyjaźniłaś!</div>
+    <div class="zoo-counter" id="zoo-counter">0 / 15</div>
+    <div id="zoo-content"></div>
+    <button class="menu-btn" onclick="Zoo.close()" style="font-size:10px;padding:10px 20px;margin-top:12px;">ZAMKNIJ</button>
   </div>
 </div>
 
@@ -5840,6 +6020,13 @@ const Battle = {
     const room = this.currentRoom;
     room.cleared = true;
 
+    // Add animal to zoo collection
+    const animalSprite = room.monster ? room.monster.sprite : null;
+    let isNewAnimal = false;
+    if (animalSprite) {
+      isNewAnimal = Zoo.addAnimal(animalSprite);
+    }
+
     // Rewards — scale with floor
     const fl = Game.currentFloor;
     const goldReward = room.isBoss ? 40 + fl * 30 : randInt(10, 20) + fl * 5;
@@ -5856,7 +6043,10 @@ const Battle = {
     }
 
     // Show reward popup
-    let rewardText = `+${goldReward} ⭐  +${xpReward} XP`;
+    const animalName = room.monster ? room.monster.name : '';
+    let rewardText = isNewAnimal
+      ? `🏠 ${animalName} zamieszkał w zoo!  +${goldReward} ⭐`
+      : `+${goldReward} ⭐  +${xpReward} XP`;
     if (potionDrop) rewardText += '  +1 🧪';
     Game.showReward(rewardText);
 
@@ -6721,6 +6911,124 @@ const Practice = {
 
   updateScore() {
     document.getElementById('practice-score').textContent = `✅ ${this.correct}  /  ❌ ${this.wrong}`;
+  }
+};
+
+// ─── ZOO COLLECTION ───
+const Zoo = {
+  _key: 'magiczneZoo_collection',
+
+  // All animals with their enclosure descriptions
+  allAnimals: [
+    // Floor 1
+    { sprite: 'butterfly', name: 'Motyl', realm: '🌸 Kwiatowa Polanka', enclosure: 'Ogródek kwiatowy', boss: false },
+    { sprite: 'bunny', name: 'Króliczek', realm: '🌸 Kwiatowa Polanka', enclosure: 'Norka z siankiem', boss: false },
+    { sprite: 'turtle', name: 'Żółw', realm: '🌸 Kwiatowa Polanka', enclosure: 'Sadzawka z liliami', boss: false },
+    { sprite: 'ladybug', name: 'Biedronka', realm: '🌸 Kwiatowa Polanka', enclosure: 'Listeczek koniczynki', boss: false },
+    { sprite: 'unicorn', name: 'Wielki Jednorożec', realm: '🌸 Kwiatowa Polanka', enclosure: 'Tęczowa polanka', boss: true },
+    // Floor 2
+    { sprite: 'owl', name: 'Sowa', realm: '🌲 Leśna Ścieżka', enclosure: 'Domek na drzewie', boss: false },
+    { sprite: 'kitten', name: 'Koteczek', realm: '🌲 Leśna Ścieżka', enclosure: 'Koszyczek z poduszką', boss: false },
+    { sprite: 'hedgehog', name: 'Jeż', realm: '🌲 Leśna Ścieżka', enclosure: 'Kupka liści', boss: false },
+    { sprite: 'squirrel', name: 'Wiewiórka', realm: '🌲 Leśna Ścieżka', enclosure: 'Dziupla z orzechami', boss: false },
+    { sprite: 'babydragon', name: 'Smok-Maluszek', realm: '🌲 Leśna Ścieżka', enclosure: 'Jaskinia z kryształami', boss: true },
+    // Floor 3
+    { sprite: 'phoenix', name: 'Feniks', realm: '🌈 Zamek Tęczy', enclosure: 'Ogniste gniazdo', boss: false },
+    { sprite: 'pegasus', name: 'Pegaz', realm: '🌈 Zamek Tęczy', enclosure: 'Stajnia w chmurach', boss: false },
+    { sprite: 'fairy', name: 'Wróżka', realm: '🌈 Zamek Tęczy', enclosure: 'Magiczny grzyb', boss: false },
+    { sprite: 'peacock', name: 'Paw', realm: '🌈 Zamek Tęczy', enclosure: 'Ogród różany', boss: false },
+    { sprite: 'rainbowqueen', name: 'Królowa Tęczy', realm: '🌈 Zamek Tęczy', enclosure: 'Kryształowy tron', boss: true },
+  ],
+
+  load() {
+    try {
+      const raw = localStorage.getItem(this._key);
+      return raw ? JSON.parse(raw) : [];
+    } catch(e) { return []; }
+  },
+
+  save(collected) {
+    localStorage.setItem(this._key, JSON.stringify(collected));
+  },
+
+  // Add an animal to the collection (called on monsterDefeated)
+  addAnimal(spriteName) {
+    const collected = this.load();
+    if (!collected.includes(spriteName)) {
+      collected.push(spriteName);
+      this.save(collected);
+      return true; // new animal!
+    }
+    return false; // already had it
+  },
+
+  open() {
+    if (Game.state === 'battle' || Game.state === 'quest') return;
+    this.render();
+    document.getElementById('zoo-panel').style.display = 'flex';
+  },
+
+  close() {
+    document.getElementById('zoo-panel').style.display = 'none';
+  },
+
+  render() {
+    const collected = this.load();
+    const total = this.allAnimals.length;
+    const count = collected.length;
+
+    document.getElementById('zoo-counter').textContent = `${count} / ${total} zwierzątek`;
+
+    // Group by realm
+    const realms = {};
+    for (const animal of this.allAnimals) {
+      if (!realms[animal.realm]) realms[animal.realm] = [];
+      realms[animal.realm].push(animal);
+    }
+
+    let html = '';
+    for (const [realmName, animals] of Object.entries(realms)) {
+      html += `<div class="zoo-realm">`;
+      html += `<div class="zoo-realm-title">${realmName}</div>`;
+      html += `<div class="zoo-grid">`;
+
+      for (const animal of animals) {
+        const owned = collected.includes(animal.sprite);
+        if (owned) {
+          html += `
+            <div class="zoo-enclosure filled enc-${animal.sprite}">
+              <canvas class="zoo-sprite" id="zoo-sprite-${animal.sprite}" width="64" height="64"></canvas>
+              <div class="zoo-animal-name">${animal.boss ? '👑 ' : ''}${animal.name}</div>
+              <div class="zoo-enclosure-label">${animal.enclosure}</div>
+            </div>
+          `;
+        } else {
+          html += `
+            <div class="zoo-enclosure empty">
+              <div class="zoo-empty-icon">❓</div>
+              <div class="zoo-empty-label">???</div>
+              <div class="zoo-enclosure-label" style="margin-top:4px;">${animal.enclosure}</div>
+            </div>
+          `;
+        }
+      }
+
+      html += `</div></div>`;
+    }
+
+    document.getElementById('zoo-content').innerHTML = html;
+
+    // Draw sprites on canvases after DOM update
+    setTimeout(() => {
+      for (const animal of this.allAnimals) {
+        if (collected.includes(animal.sprite)) {
+          const canvas = document.getElementById(`zoo-sprite-${animal.sprite}`);
+          if (canvas) {
+            PixelArt.drawOnCanvas(canvas, animal.sprite, 64);
+          }
+        }
+      }
+    }, 50);
   }
 };
 
