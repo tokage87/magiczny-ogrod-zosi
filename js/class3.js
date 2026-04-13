@@ -687,6 +687,78 @@ const UnitsGen = {
     return { text: q.text, answer: q.answer, type: 'number', hint: q.hint, cssClass: 'word-problem' };
   },
 };
+
+// ─── M14: CYFRY RZYMSKIE ───
+const ROMAN = {1:'I',2:'II',3:'III',4:'IV',5:'V',6:'VI',7:'VII',8:'VIII',9:'IX',10:'X',11:'XI',12:'XII'};
+const ROMAN_ENTRIES = Object.entries(ROMAN).map(([k,v]) => ({num: Number(k), rom: v}));
+
+const RomanGen = {
+  roman(floor) {
+    if (floor === 1) return this._read();
+    if (floor === 2) return Math.random() < 0.5 ? this._write() : this._romanMonth();
+    const r = Math.random();
+    if (r < 0.5) return this._sort();
+    return r < 0.75 ? this._romanQuarter() : this._compare();
+  },
+
+  _read() {
+    const e = ROMAN_ENTRIES[Math.floor(Math.random() * ROMAN_ENTRIES.length)];
+    return { text: `Co oznacza ${e.rom}?`, type: 'number', answer: String(e.num), hint: `I=1, V=5, X=10` };
+  },
+
+  _write() {
+    const e = ROMAN_ENTRIES[Math.floor(Math.random() * ROMAN_ENTRIES.length)];
+    return { text: `Zapisz ${e.num} cyframi rzymskimi`, type: 'text', answer: e.rom, hint: `I=1, V=5, X=10` };
+  },
+
+  _romanMonth() {
+    const m = MONTHS[Math.floor(Math.random() * MONTHS.length)];
+    if (Math.random() < 0.5) {
+      return { text: `Który miesiąc to ${ROMAN[m.num]}?`, type: 'text', answer: m.name, hint: `${ROMAN[m.num]} = ${m.num}. miesiąc` };
+    } else {
+      return { text: `Zapisz numer miesiąca\n${m.name} cyframi rzymskimi`, type: 'text', answer: ROMAN[m.num], hint: `${m.name} = ${m.num}. miesiąc` };
+    }
+  },
+
+  _romanQuarter() {
+    const m = MONTHS[Math.floor(Math.random() * MONTHS.length)];
+    return { text: `W którym kwartale jest ${m.name}?\nZapisz cyfrą rzymską.`, type: 'text', answer: m.quarter, hint: `I kw.=sty–mar, II=kwi–cze, III=lip–wrz, IV=paź–gru` };
+  },
+
+  _compare() {
+    let a, b;
+    do { a = randInt(1, 12); b = randInt(1, 12); } while (a === b);
+    const correct = a > b ? '>' : '<';
+    return {
+      text: `Który znak pasuje?\n\n${ROMAN[a]}  ☐  ${ROMAN[b]}`,
+      type: 'quiz',
+      answers: ['<', '>'],
+      correctIndex: correct === '<' ? 0 : 1,
+      answer: correct === '<' ? 'A' : 'B',
+      hint: `${ROMAN[a]}=${a}, ${ROMAN[b]}=${b}`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _sort() {
+    // Pick 4 distinct numbers, ask to sort ascending
+    const nums = new Set();
+    while (nums.size < 4) nums.add(randInt(1, 12));
+    const arr = [...nums];
+    const shuffled = [...arr].sort(() => Math.random() - 0.5);
+    const sorted = [...arr].sort((a, b) => a - b);
+    const display = shuffled.map(n => ROMAN[n]).join(', ');
+    const answer = sorted.map(n => ROMAN[n]).join(', ');
+    return {
+      text: `Ułóż od najmniejszego:\n\n${display}`,
+      type: 'text',
+      answer: answer,
+      hint: `Zamień na zwykłe liczby i posortuj`,
+      cssClass: 'word-problem'
+    };
+  },
+};
+
 Subjects.register('class3', {
   name: 'Klasa 3',
   icon: '🧮',
@@ -705,6 +777,7 @@ Subjects.register('class3', {
     { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
     { id: 'digits', icon: '🔢', name: 'Cyfry i liczby', desc: 'Ile cyfr, suma cyfr, układanie liczb', gen: (f) => DigitsGen.digitsAndNumbers(f) },
     { id: 'units', icon: '⚖️', name: 'Jednostki miary (masa)', desc: 'kg, dag, g — przeliczanie i zadania', gen: (f) => UnitsGen.units(f) },
+    { id: 'roman', icon: '🏛️', name: 'Cyfry rzymskie', desc: 'I–XII: odczytaj, zapisz, posortuj', gen: (f) => RomanGen.roman(f) },
     // POLSKI
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
@@ -728,6 +801,8 @@ Subjects.register('class3', {
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
     { id: 'units', gen: () => UnitsGen.units(1) },
     { id: 'units', gen: () => UnitsGen.units(1) },
+    { id: 'roman', gen: () => RomanGen.roman(1) },
+    { id: 'roman', gen: () => RomanGen.roman(1) },
   ],
 
   mediumPool: [
@@ -753,6 +828,8 @@ Subjects.register('class3', {
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
     { id: 'units', gen: () => UnitsGen.units(2) },
     { id: 'units', gen: () => UnitsGen.units(2) },
+    { id: 'roman', gen: () => RomanGen.roman(2) },
+    { id: 'roman', gen: () => RomanGen.roman(2) },
   ],
 
   hardPool: [
@@ -778,6 +855,8 @@ Subjects.register('class3', {
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
     { id: 'units', gen: () => UnitsGen.units(3) },
     { id: 'units', gen: () => UnitsGen.units(3) },
+    { id: 'roman', gen: () => RomanGen.roman(3) },
+    { id: 'roman', gen: () => RomanGen.roman(3) },
   ],
 });
 
