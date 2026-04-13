@@ -13,57 +13,92 @@
 // ─── GENERATORY PYTAŃ KLASY 3 ───
 const MathGen3 = {
 
-  // Dodawanie i odejmowanie do 100
-  addSub100() {
+  // M1: Dodawanie i odejmowanie do 100
+  addSub100(floor) {
+    if (floor === 3) return this._addSubMissing();
     const isAdd = Math.random() < 0.5;
-    if (isAdd) {
-      const a = randInt(10, 90);
-      const b = randInt(5, 99 - a);
-      return { text: `${a} + ${b} = ?`, answer: String(a + b), type: 'number' };
+    if (floor === 1) {
+      // Tier 1: bez przekroczenia progu dziesiątkowego
+      if (isAdd) {
+        let a, b;
+        do { a = randInt(10, 50); b = randInt(1, 20); } while ((a % 10) + (b % 10) >= 10 || a + b > 99);
+        return { text: `${a} + ${b} = ?`, answer: String(a + b), type: 'number' };
+      } else {
+        let a, b;
+        do { a = randInt(20, 70); b = randInt(1, 20); } while ((a % 10) < (b % 10));
+        return { text: `${a} − ${b} = ?`, answer: String(a - b), type: 'number' };
+      }
     } else {
-      const a = randInt(20, 99);
-      const b = randInt(5, a - 1);
-      return { text: `${a} − ${b} = ?`, answer: String(a - b), type: 'number' };
+      // Tier 2: z przekroczeniem progu
+      if (isAdd) {
+        let a, b;
+        do { a = randInt(20, 80); b = randInt(10, 50); } while ((a % 10) + (b % 10) < 10 || a + b > 99);
+        return { text: `${a} + ${b} = ?`, answer: String(a + b), type: 'number' };
+      } else {
+        let a, b;
+        do { a = randInt(30, 90); b = randInt(10, 50); } while ((a % 10) >= (b % 10) || a - b < 0);
+        return { text: `${a} − ${b} = ?`, answer: String(a - b), type: 'number' };
+      }
     }
   },
 
-  // Tabliczka mnożenia (2-10)
-  multiplication() {
-    const a = randInt(2, 10);
-    const b = randInt(2, 10);
-    return { text: `${a} · ${b} = ?`, answer: String(a * b), type: 'number' };
-  },
-
-  // Dzielenie w zakresie tabliczki mnożenia
-  division() {
-    const b = randInt(2, 10);
-    const a = b * randInt(2, 10);
-    return { text: `${a} : ${b} = ?`, answer: String(a / b), type: 'number' };
-  },
-
-  // Brakująca liczba (proste)
-  missingNumber() {
-    const ops = ['+', '-'];
-    const op = ops[Math.floor(Math.random() * ops.length)];
-    const pos = Math.random() < 0.5 ? 'left' : 'right';
-
-    if (op === '+') {
-      const a = randInt(5, 50);
-      const b = randInt(5, 49);
+  _addSubMissing() {
+    // Tier 3: brakująca liczba w równaniu +/−
+    const isAdd = Math.random() < 0.5;
+    const pos = randInt(0, 2); // 0=left, 1=right, 2=result
+    if (isAdd) {
+      const a = randInt(10, 60);
+      const b = randInt(10, 40);
       const result = a + b;
-      if (pos === 'left') {
-        return { text: `☐ + ${b} = ${result}`, answer: String(a), type: 'number' };
+      if (pos === 0) return { text: `☐ + ${b} = ${result}`, answer: String(a), type: 'number' };
+      if (pos === 1) return { text: `${a} + ☐ = ${result}`, answer: String(b), type: 'number' };
+      return { text: `${a} + ${b} = ☐`, answer: String(result), type: 'number' };
+    } else {
+      const a = randInt(30, 99);
+      const b = randInt(10, a - 5);
+      const result = a - b;
+      if (pos === 0) return { text: `☐ − ${b} = ${result}`, answer: String(a), type: 'number' };
+      if (pos === 1) return { text: `${a} − ☐ = ${result}`, answer: String(b), type: 'number' };
+      return { text: `${a} − ${b} = ☐`, answer: String(result), type: 'number' };
+    }
+  },
+
+  // M2: Tabliczka mnożenia i dzielenie
+  multiplyDivide(floor) {
+    if (floor === 1) {
+      // Tier 1: mnożenie do 5 × 5
+      const a = randInt(2, 5);
+      const b = randInt(2, 5);
+      return { text: `${a} · ${b} = ?`, answer: String(a * b), type: 'number' };
+    } else if (floor === 2) {
+      // Tier 2: mnożenie do 10×10 + dzielenie
+      if (Math.random() < 0.5) {
+        const a = randInt(2, 10);
+        const b = randInt(2, 10);
+        return { text: `${a} · ${b} = ?`, answer: String(a * b), type: 'number' };
       } else {
-        return { text: `${a} + ☐ = ${result}`, answer: String(b), type: 'number' };
+        const b = randInt(2, 10);
+        const a = b * randInt(2, 10);
+        return { text: `${a} : ${b} = ?`, answer: String(a / b), type: 'number' };
       }
     } else {
-      const a = randInt(20, 99);
-      const b = randInt(5, a - 5);
-      const result = a - b;
-      if (pos === 'left') {
-        return { text: `☐ − ${b} = ${result}`, answer: String(a), type: 'number' };
+      // Tier 3: brakujący czynnik / dzielnik
+      const variant = randInt(0, 2);
+      if (variant === 0) {
+        // ☐ × b = result
+        const ans = randInt(2, 10);
+        const b = randInt(2, 10);
+        return { text: `☐ · ${b} = ${ans * b}`, answer: String(ans), type: 'number' };
+      } else if (variant === 1) {
+        // a : ☐ = result
+        const ans = randInt(2, 10);
+        const result = randInt(2, 10);
+        return { text: `${ans * result} : ☐ = ${result}`, answer: String(ans), type: 'number' };
       } else {
-        return { text: `${a} − ☐ = ${result}`, answer: String(b), type: 'number' };
+        // ☐ : b = result
+        const b = randInt(2, 10);
+        const result = randInt(2, 10);
+        return { text: `☐ : ${b} = ${result}`, answer: String(b * result), type: 'number' };
       }
     }
   },
@@ -506,10 +541,8 @@ Subjects.register('class3', {
   mathGen: MathGen3,
 
   categories: [
-    { id: 'addSub100', icon: '➕', name: 'Dodawanie i odejmowanie do 100', desc: 'Proste rachunki do 100', gen: (f) => MathGen3.addSub100() },
-    { id: 'multiplication', icon: '✖️', name: 'Tabliczka mnożenia', desc: 'Mnożenie w zakresie 2-10', gen: (f) => MathGen3.multiplication() },
-    { id: 'division', icon: '➗', name: 'Dzielenie', desc: 'Dzielenie w zakresie tabliczki mnożenia', gen: (f) => MathGen3.division() },
-    { id: 'missingNumber3', icon: '❓', name: 'Brakująca liczba', desc: 'Znajdź brakujący składnik', gen: (f) => MathGen3.missingNumber() },
+    { id: 'addSub100', icon: '➕', name: 'Dodawanie i odejmowanie do 100', desc: 'Bez progu / z progiem / brakująca liczba', gen: (f) => MathGen3.addSub100(f) },
+    { id: 'multiplyDivide', icon: '✖️', name: 'Tabliczka mnożenia i dzielenie', desc: '×÷ do 5 / do 10 / brakujący czynnik', gen: (f) => MathGen3.multiplyDivide(f) },
     { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: 'Który znak: < > =', gen: (f) => MathGen3.comparison() },
     { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: 'Jaka część figury jest zakolorowana?', gen: (f) => MathGen3.fractionFigure() },
     { id: 'writtenCalc3', icon: '📝', name: 'Pisemne +/− do 1000', desc: 'Dodawanie i odejmowanie w słupku', gen: (f) => MathGen3.writtenCalc() },
@@ -523,20 +556,14 @@ Subjects.register('class3', {
   ],
 
   easyPool: [
-    { id: 'addSub100', gen: () => MathGen3.addSub100() },
-    { id: 'addSub100', gen: () => MathGen3.addSub100() },
-    { id: 'addSub100', gen: () => MathGen3.addSub100() },
-    { id: 'addSub100', gen: () => MathGen3.addSub100() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
-    { id: 'division', gen: () => MathGen3.division() },
-    { id: 'division', gen: () => MathGen3.division() },
-    { id: 'division', gen: () => MathGen3.division() },
-    { id: 'missingNumber3', gen: () => MathGen3.missingNumber() },
-    { id: 'missingNumber3', gen: () => MathGen3.missingNumber() },
-    { id: 'missingNumber3', gen: () => MathGen3.missingNumber() },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(1) },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(1) },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(1) },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(1) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(1) },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
@@ -548,21 +575,19 @@ Subjects.register('class3', {
   ],
 
   mediumPool: [
+    { id: 'addSub100', gen: () => MathGen3.addSub100(2) },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(2) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(2) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(2) },
     { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
     { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
-    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
-    { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
@@ -573,8 +598,10 @@ Subjects.register('class3', {
   ],
 
   hardPool: [
-    { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
-    { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(3) },
+    { id: 'addSub100', gen: () => MathGen3.addSub100(3) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(3) },
+    { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(3) },
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
@@ -583,12 +610,8 @@ Subjects.register('class3', {
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
-    { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'sequence', gen: () => MathGen3.numberSequence() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
-    { id: 'multiplication', gen: () => MathGen3.multiplication() },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
