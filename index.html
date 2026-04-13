@@ -4191,175 +4191,122 @@ const Quest = {
   currentRoom: null,
   currentQuest: null,
 
-  // Fantasy-themed multi-step word problems — harder than battle attacks
+  // Forest/animal-themed multi-step word problems
   generate(floor) {
-    // Multiplier to scale numbers by floor
     const m = floor === 1 ? 1 : floor === 2 ? 3 : 5;
     const quests = [
       () => {
-        const swords = randInt(4, 10);
-        const sPrice = randInt(20, 50) * m;
-        const shields = randInt(3, 8);
-        const shPrice = randInt(10, 35) * m;
-        const fullPrice = swords * sPrice + shields * shPrice;
-        const discount = randInt(20, Math.floor(fullPrice / 4));
+        const apples = randInt(3, 8); const aCost = randInt(5, 15) * m;
+        const cookies = randInt(2, 6); const cCost = randInt(3, 10) * m;
+        const total = apples * aCost + cookies * cCost;
         return {
-          npc: '🧝', name: 'Elf Kupiec',
-          story: `"Mam do sprzedania ${swords} mieczy po ${sPrice} monet i ${shields} tarcz po ${shPrice} monet.\nDaję ci rabat: ${discount} monet zniżki!\n\nIle zapłacisz za wszystko po rabacie?"`,
-          question: ``,
-          answer: String(fullPrice - discount),
+          npc: '🦊', name: 'Lisek Rudi',
+          story: `"Chcę przygotować smaczki na przyjęcie!\nPotrzebuję ${apples} jabłuszek po ${aCost} monet\ni ${cookies} ciasteczek po ${cCost} monet.\n\nIle monet wydasz na wszystkie smaczki?"`,
+          question: ``, answer: String(total),
+          reward: { type: 'gold', amount: 20 + floor * 10 }
+        };
+      },
+      () => {
+        const nests = randInt(3, 6); const eggsEach = randInt(3, 8) * m;
+        const hatched = randInt(2, Math.floor(nests * eggsEach / 3));
+        const total = nests * eggsEach;
+        return {
+          npc: '🦉', name: 'Sowa Mądralka',
+          story: `"W lesie jest ${nests} gniazd, w każdym ${eggsEach} jajek.\nZ ${hatched} jajek już wyklułe się pisklęta.\n\nIle jajek jeszcze czeka na wyklucje?"`,
+          question: ``, answer: String(total - hatched),
+          reward: { type: 'xp', amount: 15 + floor * 5 }
+        };
+      },
+      () => {
+        const groups = randInt(3, 6); const perGroup = randInt(4, 10);
+        const berriesPer = randInt(5, 15) * m;
+        return {
+          npc: '🐻', name: 'Miś Jagódka',
+          story: `"Mam ${groups} rodzin niedźwiedzi, po ${perGroup} misiów.\nKażdy miś potrzebuje ${berriesPer} jagód dziennie.\n\nIle jagód trzeba zebrać na jeden dzień?"`,
+          question: ``, answer: String(groups * perGroup * berriesPer),
           reward: { type: 'gold', amount: 25 + floor * 10 }
         };
       },
       () => {
-        const mages = randInt(4, 8);
-        const crystalsEach = randInt(15, 30) * m;
-        const bonus = randInt(30, 100) * m;
-        const gathered = mages * crystalsEach + bonus;
-        const used = randInt(Math.floor(gathered / 4), Math.floor(gathered / 2));
+        const animals = randInt(3, 6);
+        const each = randInt(10, 30) * m;
+        const realTotal = each * animals;
+        const pond1 = randInt(Math.floor(realTotal / 5), Math.floor(realTotal / 3));
+        const pond2 = randInt(Math.floor(realTotal / 5), Math.floor(realTotal / 3));
+        const pond3 = realTotal - pond1 - pond2;
         return {
-          npc: '🧙‍♂️', name: 'Stary Czarodziej',
-          story: `"Mam ${mages} magów, każdy zebrał ${crystalsEach} kryształów.\nZnaleźliśmy też skrzynię z ${bonus} dodatkowymi kryształami.\nDo zaklęcia zużyliśmy ${used} kryształów.\n\nIle nam zostało?"`,
-          question: ``,
-          answer: String(gathered - used),
-          reward: { type: 'xp', amount: 15 + floor * 5 }
-        };
-      },
-      () => {
-        const squads = randInt(3, 6);
-        const perSquad = randInt(6, 12);
-        const arrowsPer = randInt(10, 25) * m;
-        return {
-          npc: '🏹', name: 'Łuczniczka Elara',
-          story: `"Mam ${squads} oddziałów po ${perSquad} łuczników.\nKażdy łucznik potrzebuje ${arrowsPer} strzał.\n\nIle strzał muszę przygotować łącznie?\n\nWskazówka: najpierw oblicz ilu jest łuczników,\npotem pomnóż przez strzały."`,
-          question: ``,
-          answer: String(squads * perSquad * arrowsPer),
-          reward: { type: 'gold', amount: 20 + floor * 10 }
-        };
-      },
-      () => {
-        const teams = randInt(3, 6);
-        const perTeam = randInt(10, 25) * m;
-        const real = perTeam * teams;
-        const trapped = randInt(2, Math.min(5, perTeam - 3));
-        return {
-          npc: '🗺️', name: 'Kartograf Dungeonów',
-          story: `"Zmapowałem ${real} pokoi i dzielę je równo między ${teams} drużyn.\nAle ${trapped} pokoi z każdej porcji to pułapki i trzeba je odjąć.\n\nIle bezpiecznych pokoi dostanie jedna drużyna?"`,
-          question: ``,
-          answer: String(perTeam - trapped),
-          reward: { type: 'potion', amount: 1 }
-        };
-      },
-      () => {
-        const dwarves = randInt(3, 6);
-        const each = randInt(30, 80) * m;
-        const realTotal = each * dwarves;
-        const cave1 = randInt(Math.floor(realTotal / 5), Math.floor(realTotal / 3));
-        const cave2 = randInt(Math.floor(realTotal / 5), Math.floor(realTotal / 3));
-        const cave3 = realTotal - cave1 - cave2;
-        return {
-          npc: '💎', name: 'Krasnolud Górnik',
-          story: `"Wydobyliśmy klejnoty z trzech jaskiń:\n• pierwsza: ${cave1} sztuk\n• druga: ${cave2} sztuk\n• trzecia: ${cave3} sztuk\n\nDzielimy łup równo między ${dwarves} krasnoludów.\nIle klejnotów dostanie każdy?"`,
-          question: ``,
-          answer: String(each),
+          npc: '🐸', name: 'Żabka Kum',
+          story: `"Złapaliśmy muchówki z trzech stawów:\n• pierwszy: ${pond1} sztuk\n• drugi: ${pond2} sztuk\n• trzeci: ${pond3} sztuk\n\nDzielimy je równo między ${animals} żabek.\nIle muchówek dostanie każda?"`,
+          question: ``, answer: String(each),
           reward: { type: 'gold', amount: 30 + floor * 10 }
         };
       },
       () => {
-        const herbs = randInt(3, 6);
-        const herbCost = randInt(12, 35) * m;
-        const water = randInt(2, 5);
-        const waterCost = randInt(8, 20) * m;
+        const trees = randInt(4, 8); const perTree = randInt(6, 12);
+        const total = trees * perTree;
+        const squirrel = randInt(3, Math.floor(total / 4));
+        const bird = randInt(2, Math.floor(total / 4));
         return {
-          npc: '⚗️', name: 'Alchemiczka Iris',
-          story: `"Do mikstur kupiłam ${herbs} wiązek ziół po ${herbCost} monet\ni ${water} fiolki magicznej wody po ${waterCost} monet.\n\nIle wydałam na składniki łącznie?"`,
-          question: ``,
-          answer: String(herbs * herbCost + water * waterCost),
-          reward: { type: 'potion', amount: 1 }
-        };
-      },
-      () => {
-        const knights = randInt(3, 5);
-        const dmgEach = randInt(20, 40) * m;
-        const totalDmg = knights * dmgEach;
-        const dragonHP = totalDmg + randInt(50, 200) * m;
-        const heal = randInt(20, 60) * m;
-        return {
-          npc: '🛡️', name: 'Rycerz Straży',
-          story: `"Smok ma ${dragonHP} punktów życia.\nZaatakowało go ${knights} rycerzy, każdy zadał ${dmgEach} obrażeń.\nAle smok wyleczył się o ${heal} punktów!\n\nIle HP zostało smokowi?"`,
-          question: ``,
-          answer: String(dragonHP - totalDmg + heal),
-          reward: { type: 'xp', amount: 20 + floor * 5 }
-        };
-      },
-      () => {
-        const gems = randInt(6, 12);
-        const value = randInt(30, 60) * m;
-        const split = randInt(2, 4);
-        const grossValue = gems * value;
-        const each = Math.floor(grossValue / split / 10) * 10; // round to tens
-        const realProfit = each * split;
-        const tax = grossValue - realProfit;
-        return {
-          npc: '👑', name: 'Królewski Skarbnik',
-          story: `"Znaleziono ${gems} szafirów wartych po ${value} monet każdy.\nKról pobiera podatek ${tax} monet.\nResztę dzielicie po równo między ${split} poszukiwaczy.\n\nIle monet dostanie każdy poszukiwacz?"`,
-          question: ``,
-          answer: String(each),
-          reward: { type: 'gold', amount: 35 + floor * 10 }
-        };
-      },
-      () => {
-        const floors_ = randInt(4, 8);
-        const perFloor = randInt(6, 12);
-        const total = floors_ * perFloor;
-        const cleared1 = randInt(3, Math.floor(total / 4));
-        const cleared2 = randInt(2, Math.floor(total / 4));
-        return {
-          npc: '🧭', name: 'Zwiadowca Fynn',
-          story: `"Dungeon ma ${floors_} pięter po ${perFloor} pokoi.\nPierwsza drużyna oczyściła ${cleared1} pokoi,\ndruga drużyna — ${cleared2} pokoi.\n\nIle pokoi zostało do zbadania?"`,
-          question: ``,
-          answer: String(total - cleared1 - cleared2),
+          npc: '🐿️', name: 'Wiewiórka Orzeszka',
+          story: `"W sadzie jest ${trees} drzew, na każdym ${perTree} orzechów.\nZebrałam już ${squirrel} orzechów,\na dzięcioł zabrał ${bird}.\n\nIle orzechów zostało na drzewach?"`,
+          question: ``, answer: String(total - squirrel - bird),
           reward: { type: 'xp', amount: 15 + floor * 5 }
         };
       },
       () => {
-        const rows = randInt(4, 8);
-        const perRow = randInt(8, 15);
-        const archers = randInt(15, 40);
-        const cavalry = randInt(10, 30);
+        const herbs = randInt(3, 6); const herbCost = randInt(8, 20) * m;
+        const berries = randInt(2, 5); const berryCost = randInt(5, 15) * m;
         return {
-          npc: '⚔️', name: 'Kapitan Gwardii',
-          story: `"Mam piechurów ustawionych w ${rows} rzędach po ${perRow}.\nDo tego ${archers} łuczników i ${cavalry} jeźdźców.\n\nIlu żołnierzy mam łącznie?"`,
-          question: ``,
-          answer: String(rows * perRow + archers + cavalry),
+          npc: '🦔', name: 'Jeżyk Zielarz',
+          story: `"Do leśnych lekarstw potrzebuję:\n${herbs} wiązek ziół po ${herbCost} monet\ni ${berries} garści jagód po ${berryCost} monet.\n\nIle monet wydasz na składniki?"`,
+          question: ``, answer: String(herbs * herbCost + berries * berryCost),
+          reward: { type: 'potion', amount: 1 }
+        };
+      },
+      () => {
+        const day1 = randInt(20, 60) * m;
+        const diff = randInt(10, 30) * m;
+        const day2 = day1 + diff;
+        const day3 = randInt(5, Math.floor(day1 / 2));
+        return {
+          npc: '🐰', name: 'Króliczek Skok',
+          story: `"Pierwszego dnia przebiegłem ${day1} kroków.\nDrugiego o ${diff} kroków więcej.\nTrzeciego dnia tylko ${day3} — byłem zmęczony.\n\nIle kroków przebiegłem łącznie?"`,
+          question: ``, answer: String(day1 + day2 + day3),
+          reward: { type: 'xp', amount: 15 + floor * 5 }
+        };
+      },
+      () => {
+        const shelves = randInt(3, 6); const perShelf = randInt(8, 20) * m;
+        const totalSeeds = shelves * perShelf;
+        const planted = randInt(5, Math.floor(totalSeeds / 4));
+        const found = randInt(5, 30) * m;
+        return {
+          npc: '🐝', name: 'Pszczółka Bzykalka',
+          story: `"Na ${shelves} półkach mam po ${perShelf} nasionek kwiatów.\nPosadziłam ${planted} nasionek,\na ${found} nowych znalazłam na łące.\n\nIle nasionek mam teraz?"`,
+          question: ``, answer: String(totalSeeds - planted + found),
+          reward: { type: 'potion', amount: 1 }
+        };
+      },
+      () => {
+        const rows = randInt(3, 6); const perRow = randInt(5, 10);
+        const butterflies = randInt(8, 25); const dragonflies = randInt(5, 15);
+        return {
+          npc: '🦋', name: 'Motyl Tęczowy',
+          story: `"Na polance jest ${rows} rzędów kwiatów po ${perRow}.\nPrzylatuje ${butterflies} motyli i ${dragonflies} ważek.\n\nIle istot jest łącznie na polance\n(kwiaty + owady)?"`,
+          question: ``, answer: String(rows * perRow + butterflies + dragonflies),
           reward: { type: 'gold', amount: 20 + floor * 10 }
         };
       },
       () => {
-        const day1 = randInt(40, 100) * m;
-        const diff = randInt(15, 40) * m;
-        const day2 = day1 + diff;
-        const day3 = randInt(10, Math.floor(day1 / 2));
+        const teams = randInt(3, 5);
+        const perTeam = randInt(8, 20) * m;
+        const real = perTeam * teams;
+        const rotten = randInt(2, Math.min(5, perTeam - 3));
         return {
-          npc: '🐴', name: 'Jeździec Burzy',
-          story: `"Pierwszego dnia koń przebiegł ${day1} km.\nDrugiego o ${diff} km więcej.\nTrzeciego dnia tylko ${day3} km, bo był zmęczony.\n\nIle km przebiegł łącznie w trzy dni?"`,
-          question: ``,
-          answer: String(day1 + day2 + day3),
-          reward: { type: 'xp', amount: 15 + floor * 5 }
-        };
-      },
-      () => {
-        const shelves = randInt(4, 8);
-        const perShelf = randInt(15, 40) * m;
-        const totalBooks = shelves * perShelf;
-        const donated = randInt(10, Math.floor(totalBooks / 4));
-        const newBooks = randInt(10, 50) * m;
-        return {
-          npc: '📖', name: 'Bibliotekarz Wieży',
-          story: `"Na ${shelves} półkach mam po ${perShelf} ksiąg.\nOddałem ${donated} starych ksiąg i dostałem ${newBooks} nowych.\n\nIle ksiąg mam teraz?"`,
-          question: ``,
-          answer: String(totalBooks - donated + newBooks),
-          reward: { type: 'potion', amount: 1 }
+          npc: '🦡', name: 'Borsuk Strażnik',
+          story: `"Zebraliśmy ${real} grzybów i dzielimy je\nrówno między ${teams} rodzin zwierzątek.\nAle z każdej porcji ${rotten} grzybów jest zepsutych!\n\nIle dobrych grzybów dostanie każda rodzina?"`,
+          question: ``, answer: String(perTeam - rotten),
+          reward: { type: 'gold', amount: 25 + floor * 10 }
         };
       },
     ];
