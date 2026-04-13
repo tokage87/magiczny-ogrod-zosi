@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Dungeon Matematyczny</title>
+<title>Magiczne Zoo Zosi</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; touch-action: manipulation; }
 
 body {
-  background: #0a0a1a;
-  color: #f0d060;
+  background: #fdf6ff;
+  color: #d4699e;
   font-family: 'Segoe UI', Arial, sans-serif;
   overflow: hidden;
   height: 100vh;
@@ -31,20 +31,20 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: radial-gradient(ellipse at center, #1a1040 0%, #0a0a1a 70%);
+  background: radial-gradient(ellipse at center, #fff0f8 0%, #f0e6ff 50%, #e6f7f0 100%);
   animation: titlePulse 3s ease-in-out infinite;
 }
 
 @keyframes titlePulse {
-  0%, 100% { background: radial-gradient(ellipse at center, #1a1040 0%, #0a0a1a 70%); }
-  50% { background: radial-gradient(ellipse at center, #201550 0%, #0a0a1a 70%); }
+  0%, 100% { background: radial-gradient(ellipse at center, #fff0f8 0%, #f0e6ff 50%, #e6f7f0 100%); }
+  50% { background: radial-gradient(ellipse at center, #ffe8f4 0%, #ecdaff 50%, #daf5ea 100%); }
 }
 
 #title-screen h1 {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(18px, 4vw, 36px);
-  color: #f0d060;
-  text-shadow: 0 0 20px #f0d06088, 0 4px 0 #8a6020;
+  color: #d4699e;
+  text-shadow: 0 0 20px #e8a0c888, 0 4px 0 #c07ab0;
   margin-bottom: 20px;
   text-align: center;
   line-height: 1.6;
@@ -52,7 +52,7 @@ body {
 
 #title-screen .subtitle {
   font-size: 16px;
-  color: #a0a0c0;
+  color: #9a7bb5;
   margin-bottom: 50px;
 }
 
@@ -61,18 +61,19 @@ body {
   font-size: 14px;
   padding: 15px 40px;
   margin: 10px;
-  background: linear-gradient(180deg, #4a3080 0%, #2a1860 100%);
-  color: #f0d060;
-  border: 2px solid #f0d060;
+  background: linear-gradient(180deg, #e8a0c8 0%, #d480b0 100%);
+  color: #ffffff;
+  border: 2px solid #f0c0d8;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
   image-rendering: pixelated;
 }
 
 .menu-btn:hover {
-  background: linear-gradient(180deg, #6a40a0 0%, #4a2880 100%);
+  background: linear-gradient(180deg, #f0b8d8 0%, #e090c0 100%);
   transform: scale(1.05);
-  box-shadow: 0 0 20px #f0d06044;
+  box-shadow: 0 0 20px #e8a0c844;
 }
 
 .menu-btn:disabled {
@@ -100,14 +101,15 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 50px;
-  background: linear-gradient(180deg, #1a1040 0%, #0d0d2a 100%);
-  border-bottom: 2px solid #3a2060;
+  background: linear-gradient(180deg, #f8e8f4 0%, #f0ddf0 100%);
+  border-bottom: 2px solid #e0c0d8;
   padding: 0 20px;
   align-items: center;
   justify-content: space-between;
   z-index: 100;
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
+  color: #9a6088;
 }
 
 .hud-left, .hud-right {
@@ -129,7 +131,7 @@ body {
   height: calc(100vh - 50px);
   margin-top: 50px;
   position: relative;
-  background: #0a0a1a;
+  background: #f8f0ff;
 }
 
 #dungeon-canvas {
@@ -144,7 +146,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(248, 230, 255, 0.97);
   z-index: 200;
   flex-direction: column;
   align-items: center;
@@ -155,15 +157,15 @@ body {
 #floor-intro h2 {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(16px, 3vw, 28px);
-  color: #f0d060;
-  text-shadow: 0 0 20px #f0d06088;
+  color: #d4699e;
+  text-shadow: 0 0 20px #e8a0c888;
   margin-bottom: 10px;
   text-align: center;
 }
 
 #floor-intro .floor-subtitle {
   font-size: 16px;
-  color: #a0a0c0;
+  color: #9a7bb5;
   margin-bottom: 40px;
 }
 
@@ -176,7 +178,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.96);
+  background: rgba(248, 230, 255, 0.97);
   z-index: 150;
   align-items: center;
   justify-content: center;
@@ -186,24 +188,24 @@ body {
 }
 
 .challenge-box {
-  background: #080810;
-  border: 3px solid #333355;
-  border-radius: 8px;
+  background: #fff8fc;
+  border: 3px solid #e0b8d0;
+  border-radius: 16px;
   padding: 16px;
   width: min(760px, 95vw);
   max-height: 95vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 40px rgba(212, 105, 158, 0.15);
 }
 
 .battle-stage {
   position: relative;
   min-height: 280px;
   margin-bottom: 8px;
-  background: linear-gradient(180deg, #0c0c22 0%, #08081a 50%, #121228 85%, #1a1a30 100%);
-  border: 3px solid #333355;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #e8f5e8 0%, #d4f0d4 30%, #c8e8c8 60%, #b8e0c0 85%, #a8d8b0 100%);
+  border: 3px solid #b8d8c0;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -211,7 +213,7 @@ body {
 .battle-platform {
   position: absolute;
   height: 12px;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(0,100,0,0.1) 0%, transparent 70%);
   border: none;
   box-shadow: none;
   border-radius: 50%;
@@ -232,9 +234,9 @@ body {
 
 .battle-status-box {
   position: absolute;
-  background: rgba(5, 5, 15, 0.9);
-  border: 2px solid #555577;
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid #d0b8c8;
+  border-radius: 10px;
   padding: 10px 14px 8px;
   min-width: 220px;
   backdrop-filter: blur(4px);
@@ -262,14 +264,14 @@ body {
 .battle-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 12px;
-  color: #ffffff;
+  color: #7a4a6a;
   line-height: 1.3;
 }
 
 .battle-level {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #aaaacc;
+  color: #a080a0;
   white-space: nowrap;
 }
 
@@ -282,24 +284,24 @@ body {
 .battle-hp-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #aaaacc;
+  color: #a080a0;
   white-space: nowrap;
 }
 
 .battle-hp-shell {
   flex: 1;
   height: 10px;
-  background: #111122;
-  border: 2px solid #444466;
-  border-radius: 3px;
+  background: #f0e0f0;
+  border: 2px solid #d0b0c8;
+  border-radius: 5px;
   padding: 1px;
 }
 
 .battle-hp-bar {
   height: 100%;
   width: 100%;
-  background: #58b858;
-  border-radius: 1px;
+  background: #88cc88;
+  border-radius: 3px;
   transition: width 0.35s ease, background 0.35s ease;
 }
 
@@ -308,7 +310,7 @@ body {
   text-align: right;
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #8888aa;
+  color: #a080a0;
 }
 
 .monster-area {
@@ -366,7 +368,7 @@ body {
 .monster-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: #8888aa;
+  color: #a080a0;
   line-height: 1.5;
   margin: -2px 0 6px;
 }
@@ -378,9 +380,9 @@ body {
 }
 
 .battle-box {
-  background: rgba(5, 5, 15, 0.8);
-  border: 2px solid #333355;
-  border-radius: 6px;
+  background: rgba(255, 248, 252, 0.95);
+  border: 2px solid #e0c0d8;
+  border-radius: 12px;
   min-height: 0;
   padding: 14px 16px;
 }
@@ -394,7 +396,7 @@ body {
 .battle-prompt {
   font-family: 'Press Start 2P', monospace;
   font-size: 14px;
-  color: #ffffff;
+  color: #7a4a6a;
   line-height: 1.7;
   margin-bottom: 6px;
   text-align: center;
@@ -408,9 +410,9 @@ body {
 }
 
 .challenge-question {
-  background: #0a0a1a;
-  border: 2px solid #444466;
-  border-radius: 6px;
+  background: #f8f0ff;
+  border: 2px solid #d8c0e8;
+  border-radius: 10px;
   padding: 18px 20px;
   margin: 8px 0;
   min-height: 80px;
@@ -422,7 +424,7 @@ body {
 
 .question-text {
   font-size: 20px;
-  color: #ffffff;
+  color: #5a3a6a;
   line-height: 1.6;
   white-space: pre-line;
 }
@@ -456,10 +458,10 @@ body {
   font-size: 16px;
   padding: 10px 15px;
   width: 200px;
-  background: #0a0a20;
-  color: #f0d060;
-  border: 2px solid #f0d060;
-  border-radius: 4px;
+  background: #ffffff;
+  color: #7a4a6a;
+  border: 2px solid #d4699e;
+  border-radius: 8px;
   text-align: center;
   outline: none;
 }
@@ -474,7 +476,7 @@ body {
 }
 
 .answer-input:focus {
-  box-shadow: 0 0 15px #f0d06044;
+  box-shadow: 0 0 15px #e8a0c844;
 }
 
 .answer-input.fraction-input {
@@ -483,22 +485,23 @@ body {
 
 .fraction-separator {
   font-size: 24px;
-  color: #f0d060;
+  color: #d4699e;
 }
 
 .attack-btn {
   font-family: 'Press Start 2P', monospace;
   font-size: 12px;
   padding: 12px 25px;
-  background: linear-gradient(180deg, #cc4400 0%, #882200 100%);
-  color: #f0d060;
-  border: 2px solid #f0d060;
+  background: linear-gradient(180deg, #e8a0c8 0%, #d480b0 100%);
+  color: #ffffff;
+  border: 2px solid #f0c0d8;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .attack-btn:hover {
-  background: linear-gradient(180deg, #ee5500 0%, #aa3300 100%);
+  background: linear-gradient(180deg, #f0b8d8 0%, #e090c0 100%);
   transform: scale(1.05);
 }
 
@@ -507,7 +510,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(248, 240, 255, 0.95);
   z-index: 150;
   align-items: flex-start;
   justify-content: center;
@@ -517,15 +520,15 @@ body {
 }
 
 .quest-box {
-  background: linear-gradient(180deg, #1a3a1a 0%, #0e2a10 100%);
-  border: 3px solid #66cc66;
-  border-radius: 8px;
+  background: linear-gradient(180deg, #f0fff0 0%, #e8f8e8 100%);
+  border: 3px solid #88cc88;
+  border-radius: 16px;
   padding: 30px 36px;
   width: min(620px, 95vw);
   max-height: 95vh;
   overflow-y: auto;
   text-align: center;
-  box-shadow: 0 0 40px #44aa4422, inset 0 0 60px rgba(0,0,0,0.5);
+  box-shadow: 0 0 40px rgba(100, 200, 100, 0.15);
 }
 
 .quest-npc {
@@ -536,36 +539,37 @@ body {
 .quest-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
-  color: #88dd88;
+  color: #5a9a5a;
   margin-bottom: 14px;
 }
 
 .quest-story {
   font-size: 15px;
-  color: #ccddcc;
+  color: #4a6a4a;
   line-height: 1.8;
   text-align: left;
-  background: #0a1a0a;
-  border: 2px solid #2a4a2a;
-  border-radius: 6px;
+  background: #f8fff8;
+  border: 2px solid #c0e0c0;
+  border-radius: 10px;
   padding: 16px 20px;
   margin-bottom: 16px;
   white-space: pre-line;
 }
 
 .quest-question {
-  background: #0a1a0a;
-  border: 2px solid #2a5a2a;
-  border-radius: 6px;
+  background: #f8fff8;
+  border: 2px solid #b0d8b0;
+  border-radius: 10px;
   padding: 18px 22px;
   margin-bottom: 16px;
 }
 
 .quest-submit-btn {
-  background: linear-gradient(180deg, #2a7a2a 0%, #1a4a1a 100%) !important;
+  background: linear-gradient(180deg, #88cc88 0%, #6aaa6a 100%) !important;
+  border-radius: 10px !important;
 }
 .quest-submit-btn:hover {
-  background: linear-gradient(180deg, #3a9a3a 0%, #2a6a2a 100%) !important;
+  background: linear-gradient(180deg, #99dd99 0%, #7abb7a 100%) !important;
 }
 
 /* ─── FRACTION DISPLAY ─── */
@@ -579,20 +583,20 @@ body {
 
 .frac-num, .frac-den {
   font-size: 28px;
-  color: #ffffff;
+  color: #5a3a6a;
   padding: 2px 8px;
 }
 
 .frac-line {
   width: 100%;
   height: 3px;
-  background: #ffffff;
+  background: #7a4a6a;
   border-radius: 2px;
 }
 
 .frac-arrow {
   font-size: 28px;
-  color: #f0d060;
+  color: #d4699e;
   vertical-align: middle;
   margin: 0 10px;
 }
@@ -611,31 +615,31 @@ body {
   font-family: 'Press Start 2P', monospace;
   font-size: 16px;
   text-align: center;
-  background: #0a0a20;
-  color: #f0d060;
-  border: 2px solid #f0d060;
-  border-radius: 4px;
+  background: #ffffff;
+  color: #7a4a6a;
+  border: 2px solid #d4699e;
+  border-radius: 6px;
   outline: none;
   padding: 0;
 }
 
 .frac-input-stack input:focus {
-  box-shadow: 0 0 8px #f0d06066;
-  background: #1a1040;
+  box-shadow: 0 0 8px #e8a0c866;
+  background: #fff8fc;
 }
 
 .frac-input-stack .frac-line {
-  background: #f0d060;
+  background: #d4699e;
 }
 
 /* ─── IMMUNITY BADGE ─── */
 .immune-badge {
   font-family: 'Press Start 2P', monospace;
   font-size: 6px;
-  color: #ff6666;
-  background: rgba(255,0,0,0.2);
+  color: #cc6688;
+  background: rgba(212, 105, 158, 0.15);
   padding: 2px 4px;
-  border-radius: 2px;
+  border-radius: 4px;
   margin-top: 4px;
   display: block;
   text-align: center;
@@ -644,7 +648,7 @@ body {
 .monster-immune-info {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: #ff8888;
+  color: #cc6688;
   margin-top: 6px;
 }
 
@@ -666,19 +670,19 @@ body {
 .div-cell {
   width: 34px;
   height: 34px;
-  border: 2px solid #4a3860;
+  border: 2px solid #d0b8e0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Courier New', monospace;
   font-size: 20px;
-  color: #ffffff;
-  background: #0a0a20;
+  color: #5a3a6a;
+  background: #f8f0ff;
 }
 
 .div-cell.result-cell {
-  border-color: #f0d060;
-  background: #1a1040;
+  border-color: #d4699e;
+  background: #fff0f8;
 }
 
 .div-cell.empty {
@@ -705,7 +709,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  color: #f0d060;
+  color: #d4699e;
   border: none;
   background: transparent;
 }
@@ -713,9 +717,9 @@ body {
 .div-input {
   width: 34px;
   height: 34px;
-  border: 2px solid #f0d060;
-  background: #1a1040;
-  color: #f0d060;
+  border: 2px solid #d4699e;
+  background: #ffffff;
+  color: #7a4a6a;
   font-family: 'Courier New', monospace;
   font-size: 20px;
   text-align: center;
@@ -724,8 +728,8 @@ body {
 }
 
 .div-input:focus {
-  box-shadow: 0 0 8px #f0d06066;
-  background: #2a1a50;
+  box-shadow: 0 0 8px #e8a0c866;
+  background: #fff8fc;
 }
 
 .div-input.correct {
@@ -739,7 +743,7 @@ body {
 }
 
 .div-zero {
-  color: #44aaff;
+  color: #6a9acc;
   font-weight: bold;
 }
 
@@ -752,9 +756,9 @@ body {
 }
 
 .geo-canvas {
-  background: #0a0a20;
-  border: 2px solid #3a2860;
-  border-radius: 6px;
+  background: #f8f0ff;
+  border: 2px solid #d0b8e0;
+  border-radius: 10px;
 }
 
 /* ─── POTION EFFECT ─── */
@@ -763,16 +767,16 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(180deg, #1a3a1a 0%, #0a1a0a 100%);
-  border: 3px solid #44cc44;
-  border-radius: 10px;
+  background: linear-gradient(180deg, #f0fff0 0%, #e0f8e0 100%);
+  border: 3px solid #88cc88;
+  border-radius: 14px;
   padding: 20px 30px;
   font-family: 'Press Start 2P', monospace;
   font-size: 12px;
-  color: #88ff88;
+  color: #4a8a4a;
   z-index: 500;
   text-align: center;
-  box-shadow: 0 0 30px rgba(68, 204, 68, 0.4);
+  box-shadow: 0 0 30px rgba(100, 200, 100, 0.3);
   animation: potionPop 2s ease-out forwards;
   pointer-events: none;
 }
@@ -796,7 +800,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(248, 240, 255, 0.95);
   z-index: 150;
   align-items: flex-start;
   justify-content: center;
@@ -806,32 +810,32 @@ body {
 }
 
 .shop-box {
-  background: linear-gradient(145deg, #2a2010 0%, #1a1208 100%);
-  border: 3px solid #d4a84a;
-  border-radius: 10px;
+  background: linear-gradient(145deg, #fff8f0 0%, #fff0e8 100%);
+  border: 3px solid #e8c080;
+  border-radius: 16px;
   padding: 24px 20px;
   width: min(600px, 95vw);
   text-align: center;
-  box-shadow: 0 0 40px rgba(212, 168, 74, 0.15);
+  box-shadow: 0 0 40px rgba(232, 192, 128, 0.15);
 }
 
 .shop-title {
   font-family: 'Press Start 2P', monospace;
   font-size: 13px;
-  color: #d4a84a;
+  color: #c8943a;
   margin-bottom: 6px;
 }
 
 .shop-subtitle {
   font-size: 13px;
-  color: #a09070;
+  color: #b0966a;
   margin-bottom: 18px;
 }
 
 .shop-gold {
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
-  color: #f0d060;
+  color: #c8943a;
   margin-bottom: 16px;
 }
 
@@ -844,9 +848,9 @@ body {
 }
 
 .shop-item {
-  background: #1a120a;
-  border: 2px solid #4a3a20;
-  border-radius: 8px;
+  background: #fffaf0;
+  border: 2px solid #e0c890;
+  border-radius: 12px;
   padding: 14px 12px;
   width: 160px;
   text-align: center;
@@ -856,9 +860,9 @@ body {
 }
 
 .shop-item:hover:not(.shop-item-disabled) {
-  border-color: #d4a84a;
+  border-color: #c8943a;
   transform: scale(1.04);
-  box-shadow: 0 0 15px rgba(212, 168, 74, 0.2);
+  box-shadow: 0 0 15px rgba(200, 148, 58, 0.2);
 }
 
 .shop-item-disabled {
@@ -875,13 +879,13 @@ body {
 .shop-item-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: #d4c4a0;
+  color: #8a7050;
   margin-bottom: 4px;
 }
 
 .shop-item-desc {
   font-size: 11px;
-  color: #88cc88;
+  color: #6a9a6a;
   margin-bottom: 8px;
   min-height: 16px;
 }
@@ -889,24 +893,24 @@ body {
 .shop-item-price {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #f0d060;
+  color: #c8943a;
 }
 
 .shop-skip-btn {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
   padding: 10px 24px;
-  background: linear-gradient(180deg, #3a2a10 0%, #1a1208 100%);
+  background: linear-gradient(180deg, #f0e8d8 0%, #e8dcc8 100%);
   color: #a09070;
-  border: 2px solid #5a4a30;
-  border-radius: 6px;
+  border: 2px solid #d0c0a0;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .shop-skip-btn:hover {
-  color: #d4a84a;
-  border-color: #8a6a3a;
+  color: #c8943a;
+  border-color: #c0a070;
 }
 
 /* ─── QUIZ ANSWERS ─── */
@@ -922,10 +926,10 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
   font-size: 14px;
   padding: 12px 16px;
-  background: #0a0a30;
-  color: #ccccee;
-  border: 2px solid #3a2860;
-  border-radius: 6px;
+  background: #f8f0ff;
+  color: #5a3a6a;
+  border: 2px solid #d0b8e0;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   text-align: left;
@@ -933,13 +937,13 @@ body {
 }
 
 .quiz-answer-btn:hover {
-  background: #1a1a4a;
-  border-color: #6a4a8a;
+  background: #f0e4ff;
+  border-color: #b898d8;
 }
 
 .quiz-hint {
   font-size: 12px;
-  color: #8888aa;
+  color: #9a80b0;
   margin-top: 10px;
   font-style: italic;
 }
@@ -973,21 +977,21 @@ body {
 }
 
 .attack-easy {
-  background: linear-gradient(180deg, #0c1e0c 0%, #060f06 100%);
-  color: #66dd66;
-  border-color: #2a6a2a;
+  background: linear-gradient(180deg, #e8ffe8 0%, #d8f8d8 100%);
+  color: #4a9a4a;
+  border-color: #a0d8a0;
 }
 
 .attack-medium {
-  background: linear-gradient(180deg, #1e1a0c 0%, #0f0e06 100%);
-  color: #ddbb44;
-  border-color: #6a5a22;
+  background: linear-gradient(180deg, #fff8e0 0%, #f8f0d0 100%);
+  color: #b89830;
+  border-color: #e0cc80;
 }
 
 .attack-hard {
-  background: linear-gradient(180deg, #1e0c0c 0%, #0f0606 100%);
-  color: #dd6666;
-  border-color: #6a2a2a;
+  background: linear-gradient(180deg, #ffe8f0 0%, #f8d8e0 100%);
+  color: #cc5588;
+  border-color: #e0a0b8;
 }
 
 .dmg-badge {
@@ -1005,9 +1009,9 @@ body {
 }
 
 .attack-choice-btn.potion-btn {
-  background: linear-gradient(180deg, #0c0c1e 0%, #06060f 100%);
-  color: #6688dd;
-  border-color: #2a3a6a;
+  background: linear-gradient(180deg, #e8f0ff 0%, #d8e8ff 100%);
+  color: #5578bb;
+  border-color: #a0b8e0;
 }
 
 .attack-choice-btn.potion-btn:disabled {
@@ -1021,54 +1025,54 @@ body {
   min-height: 24px;
   margin-top: 10px;
   transition: all 0.3s;
-  color: #ffffff;
+  color: #7a4a6a;
   text-align: center;
 }
 
 #challenge-panel .answer-input {
-  background: #050505;
-  color: #ffffff;
-  border: 3px solid #ffffff;
+  background: #ffffff;
+  color: #5a3a6a;
+  border: 3px solid #d4699e;
 }
 
 #challenge-panel .answer-input:focus {
-  box-shadow: 0 0 0 2px #050505, 0 0 0 4px #ffffff;
+  box-shadow: 0 0 0 2px #fff8fc, 0 0 0 4px #d4699e;
 }
 
 #challenge-panel .attack-btn {
-  background: #111111;
+  background: linear-gradient(180deg, #e8a0c8 0%, #d480b0 100%);
   color: #ffffff;
-  border: 3px solid #ffffff;
+  border: 3px solid #f0c0d8;
 }
 
 #challenge-panel .attack-btn:hover {
-  background: #1b1b1b;
+  background: linear-gradient(180deg, #f0b8d8 0%, #e090c0 100%);
 }
 
 #challenge-panel .quiz-answer-btn {
-  background: #050505;
-  color: #ffffff;
-  border: 3px solid #ffffff;
+  background: #f8f0ff;
+  color: #5a3a6a;
+  border: 3px solid #d0b8e0;
 }
 
 #challenge-panel .quiz-answer-btn:hover {
-  background: #151515;
-  border-color: #ffffff;
+  background: #f0e4ff;
+  border-color: #b898d8;
 }
 
 #challenge-panel .quiz-hint {
-  color: #d0d0d0;
+  color: #9a80b0;
 }
 
-.feedback-hit { color: #44ff44; }
-.feedback-miss { color: #ff4444; }
+.feedback-hit { color: #44aa44; }
+.feedback-miss { color: #cc4444; }
 
 /* ─── VICTORY / GAME OVER ─── */
 #victory-screen, #gameover-screen {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(248, 240, 255, 0.97);
   z-index: 300;
   flex-direction: column;
   align-items: center;
@@ -1079,15 +1083,15 @@ body {
 #victory-screen h1 {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(16px, 3vw, 28px);
-  color: #f0d060;
-  text-shadow: 0 0 30px #f0d06088;
+  color: #d4699e;
+  text-shadow: 0 0 30px #e8a0c888;
   margin-bottom: 20px;
 }
 
 #gameover-screen h2 {
   font-family: 'Press Start 2P', monospace;
   font-size: 24px;
-  color: #ff4444;
+  color: #c07ab0;
   margin-bottom: 20px;
 }
 
@@ -1118,7 +1122,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(248, 240, 255, 0.9);
   z-index: 250;
   align-items: center;
   justify-content: center;
@@ -1129,8 +1133,8 @@ body {
 #levelup-overlay h2 {
   font-family: 'Press Start 2P', monospace;
   font-size: 28px;
-  color: #f0d060;
-  text-shadow: 0 0 30px #f0d060;
+  color: #d4699e;
+  text-shadow: 0 0 30px #e8a0c8;
   animation: levelPulse 0.5s ease-in-out infinite alternate;
 }
 
@@ -1144,7 +1148,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(248, 240, 255, 0.95);
   z-index: 200;
   align-items: flex-start;
   justify-content: center;
@@ -1154,12 +1158,12 @@ body {
 }
 
 .hero-box {
-  background: linear-gradient(145deg, #2a1a10 0%, #1a1208 40%, #2a1a10 100%);
-  border: 4px solid #8a6a3a;
-  border-radius: 12px;
+  background: linear-gradient(145deg, #fff8fc 0%, #fff0f8 40%, #fff8fc 100%);
+  border: 4px solid #e0a0c0;
+  border-radius: 16px;
   padding: 20px;
   width: min(580px, 95vw);
-  box-shadow: 0 0 40px #8a6a3a22, inset 0 0 80px rgba(0,0,0,0.4);
+  box-shadow: 0 0 40px rgba(212, 105, 158, 0.12);
   position: relative;
 }
 
@@ -1168,11 +1172,11 @@ body {
   content: '';
   position: absolute;
   inset: 4px;
-  border-radius: 8px;
+  border-radius: 12px;
   background: repeating-linear-gradient(
     0deg,
     transparent, transparent 20px,
-    rgba(139, 105, 58, 0.05) 20px, rgba(139, 105, 58, 0.05) 21px
+    rgba(212, 105, 158, 0.03) 20px, rgba(212, 105, 158, 0.03) 21px
   );
   pointer-events: none;
 }
@@ -1180,10 +1184,9 @@ body {
 .hero-title {
   font-family: 'Press Start 2P', monospace;
   font-size: 12px;
-  color: #d4a84a;
+  color: #d4699e;
   text-align: center;
   margin-bottom: 16px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 /* Main layout: left stats | center hero | right stats */
@@ -1230,7 +1233,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse, rgba(212, 168, 74, 0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(212, 105, 158, 0.08) 0%, transparent 70%);
   border-radius: 12px;
 }
 
@@ -1241,7 +1244,7 @@ body {
 .hero-name-tag {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
-  color: #d4a84a;
+  color: #d4699e;
   margin-top: 4px;
 }
 
@@ -1254,9 +1257,9 @@ body {
 }
 
 .hero-stat-badge {
-  background: #1a120a;
-  border: 2px solid #5a4020;
-  border-radius: 8px;
+  background: #fff8fc;
+  border: 2px solid #e0b8d0;
+  border-radius: 10px;
   padding: 8px 12px;
   text-align: center;
   width: 100%;
@@ -1265,7 +1268,7 @@ body {
 .hero-stat-badge .stat-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 6px;
-  color: #8a7a5a;
+  color: #a088a0;
   display: block;
   margin-bottom: 4px;
   text-transform: uppercase;
@@ -1274,7 +1277,7 @@ body {
 .hero-stat-badge .stat-val {
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
-  color: #d4a84a;
+  color: #d4699e;
 }
 
 /* Equipment slots — positioned around hero */
@@ -1286,9 +1289,9 @@ body {
 }
 
 .equip-slot {
-  background: #1a120a;
-  border: 2px solid #4a3020;
-  border-radius: 8px;
+  background: #fff8fc;
+  border: 2px solid #e0c0d8;
+  border-radius: 10px;
   padding: 10px 6px;
   text-align: center;
   transition: all 0.3s;
@@ -1296,8 +1299,8 @@ body {
 }
 
 .equip-slot.equipped {
-  border-color: #d4a84a;
-  box-shadow: 0 0 12px rgba(212, 168, 74, 0.2);
+  border-color: #d4699e;
+  box-shadow: 0 0 12px rgba(212, 105, 158, 0.2);
 }
 
 .equip-icon {
@@ -1309,14 +1312,14 @@ body {
 .equip-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
-  color: #b8a070;
+  color: #a080a0;
   margin-bottom: 2px;
 }
 
 .equip-level {
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
-  color: #d4a84a;
+  color: #d4699e;
   margin-bottom: 3px;
 }
 
@@ -1331,16 +1334,16 @@ body {
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
   padding: 5px 8px;
-  background: linear-gradient(180deg, #4a3a1a 0%, #2a2010 100%);
-  color: #d4a84a;
-  border: 1px solid #8a6a3a;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #f0d0e0 0%, #e8b8d0 100%);
+  color: #9a5080;
+  border: 1px solid #d8a0c0;
+  border-radius: 6px;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .equip-upgrade-btn:hover {
-  background: linear-gradient(180deg, #6a5a2a 0%, #4a3a1a 100%);
+  background: linear-gradient(180deg, #f8d8e8 0%, #f0c8d8 100%);
 }
 
 .equip-upgrade-btn:disabled {
@@ -1354,18 +1357,18 @@ body {
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  background: #1a1208;
-  border: 2px solid #8a6a3a;
-  border-radius: 6px;
+  background: #fff8fc;
+  border: 2px solid #d4699e;
+  border-radius: 10px;
   padding: 8px 12px;
   font-size: 11px;
-  color: #d4c4a0;
+  color: #7a4a6a;
   width: 180px;
   text-align: center;
   line-height: 1.5;
   z-index: 10;
   pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  box-shadow: 0 4px 12px rgba(212, 105, 158, 0.2);
 }
 
 .equip-tooltip::after {
@@ -1375,7 +1378,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: #8a6a3a;
+  border-top-color: #d4699e;
 }
 
 .equip-slot:hover .equip-tooltip,
@@ -1386,20 +1389,20 @@ body {
 .equip-max {
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
-  color: #d4a84a;
-  background: rgba(212, 168, 74, 0.1);
+  color: #d4699e;
+  background: rgba(212, 105, 158, 0.1);
   padding: 4px 8px;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .hero-close-btn {
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
   padding: 10px 30px;
-  background: linear-gradient(180deg, #4a3a1a 0%, #2a2010 100%);
-  color: #d4a84a;
-  border: 2px solid #8a6a3a;
-  border-radius: 6px;
+  background: linear-gradient(180deg, #e8a0c8 0%, #d480b0 100%);
+  color: #ffffff;
+  border: 2px solid #f0c0d8;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   display: block;
@@ -1407,7 +1410,7 @@ body {
 }
 
 .hero-close-btn:hover {
-  background: linear-gradient(180deg, #6a5a2a 0%, #4a3a1a 100%);
+  background: linear-gradient(180deg, #f0b8d8 0%, #e090c0 100%);
 }
 
 /* ─── REWARD POPUP ─── */
@@ -1416,16 +1419,16 @@ body {
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, #2a2010 0%, #1a1208 100%);
-  border: 2px solid #d4a84a;
-  border-radius: 8px;
+  background: linear-gradient(180deg, #fff8fc 0%, #fff0f8 100%);
+  border: 2px solid #d4699e;
+  border-radius: 12px;
   padding: 12px 24px;
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
-  color: #f0d060;
+  color: #d4699e;
   z-index: 500;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(212, 168, 74, 0.3);
+  box-shadow: 0 4px 20px rgba(212, 105, 158, 0.25);
   animation: rewardSlide 2.5s ease-out forwards;
   pointer-events: none;
 }
@@ -1438,15 +1441,15 @@ body {
 }
 
 .hud-hero-btn {
-  background: none;
-  border: 1px solid #f0d060;
-  color: #f0d060;
+  background: #fff0f8;
+  border: 1px solid #e0a0c0;
+  color: #d4699e;
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
   padding: 4px 8px;
   cursor: pointer;
   touch-action: manipulation;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 /* ─── CHARACTER CREATION ─── */
@@ -1454,7 +1457,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, #1a1040 0%, #0a0a1a 70%);
+  background: radial-gradient(ellipse at center, #fff0f8 0%, #f0e6ff 70%);
   z-index: 300;
   flex-direction: column;
   align-items: center;
@@ -1466,7 +1469,7 @@ body {
 .cc-title {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(12px, 2.5vw, 18px);
-  color: #f0d060;
+  color: #d4699e;
   margin-bottom: 16px;
   text-align: center;
 }
@@ -1482,7 +1485,7 @@ body {
 .cc-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: #a0a0c0;
+  color: #9a7bb5;
   margin-bottom: 6px;
 }
 
@@ -1491,15 +1494,15 @@ body {
   font-size: 14px;
   padding: 10px 14px;
   width: 100%;
-  background: #0a0a20;
-  color: #f0d060;
-  border: 2px solid #f0d060;
-  border-radius: 4px;
+  background: #ffffff;
+  color: #7a4a6a;
+  border: 2px solid #d4699e;
+  border-radius: 8px;
   text-align: center;
   outline: none;
 }
 
-.cc-name-input:focus { box-shadow: 0 0 12px #f0d06044; }
+.cc-name-input:focus { box-shadow: 0 0 12px #e8a0c844; }
 
 .cc-gender-row {
   display: flex;
@@ -1511,19 +1514,19 @@ body {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
   padding: 10px 20px;
-  background: #12103a;
-  color: #888;
-  border: 2px solid #3a2860;
-  border-radius: 6px;
+  background: #f8f0ff;
+  color: #9a80b0;
+  border: 2px solid #d0b8e0;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   transition: all 0.2s;
 }
 
 .cc-gender-btn.selected {
-  border-color: #f0d060;
-  color: #f0d060;
-  background: #1e1450;
+  border-color: #d4699e;
+  color: #d4699e;
+  background: #fff0f8;
 }
 
 .cc-preview {
@@ -1554,9 +1557,9 @@ body {
 }
 
 .cc-color-btn.selected {
-  border-color: #f0d060;
+  border-color: #d4699e;
   transform: scale(1.2);
-  box-shadow: 0 0 10px #f0d06066;
+  box-shadow: 0 0 10px #e8a0c866;
 }
 
 /* ─── CATEGORY SELECTOR ─── */
@@ -1564,7 +1567,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, #1a1040 0%, #0a0a1a 70%);
+  background: radial-gradient(ellipse at center, #fff0f8 0%, #f0e6ff 70%);
   z-index: 300;
   flex-direction: column;
   align-items: center;
@@ -1576,14 +1579,14 @@ body {
 .catsel-title {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(12px, 2.5vw, 18px);
-  color: #f0d060;
+  color: #d4699e;
   margin-bottom: 6px;
   text-align: center;
 }
 
 .catsel-subtitle {
   font-size: 13px;
-  color: #a0a0c0;
+  color: #9a7bb5;
   margin-bottom: 18px;
   text-align: center;
 }
@@ -1599,9 +1602,9 @@ body {
   gap: 10px;
   padding: 10px 14px;
   margin-bottom: 6px;
-  background: #12103a;
-  border: 2px solid #2a1a50;
-  border-radius: 6px;
+  background: #fff8fc;
+  border: 2px solid #e0c0d8;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   transition: all 0.15s;
@@ -1609,30 +1612,30 @@ body {
 }
 
 .catsel-item:hover {
-  border-color: #4a3070;
+  border-color: #d0a0c0;
 }
 
 .catsel-item.checked {
-  border-color: #f0d060;
-  background: #1e1450;
+  border-color: #d4699e;
+  background: #fff0f8;
 }
 
 .catsel-check {
   width: 24px;
   height: 24px;
-  border: 2px solid #4a3860;
-  border-radius: 4px;
+  border: 2px solid #d0b8e0;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
-  background: #0a0a20;
+  background: #ffffff;
 }
 
 .catsel-item.checked .catsel-check {
-  background: #2a6a2a;
-  border-color: #44cc44;
+  background: #d8f0d8;
+  border-color: #88cc88;
 }
 
 .catsel-icon {
@@ -1643,7 +1646,7 @@ body {
 .catsel-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: #ccccee;
+  color: #7a5a8a;
 }
 
 .catsel-buttons {
@@ -1658,7 +1661,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, #1a1040 0%, #0a0a1a 70%);
+  background: radial-gradient(ellipse at center, #fff0f8 0%, #f0e6ff 70%);
   z-index: 300;
   flex-direction: column;
   align-items: center;
@@ -1670,7 +1673,7 @@ body {
 .practice-title {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(14px, 3vw, 20px);
-  color: #f0d060;
+  color: #d4699e;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -1687,10 +1690,10 @@ body {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
   padding: 14px 10px;
-  background: linear-gradient(180deg, #1e1450 0%, #12103a 100%);
-  color: #ccccee;
-  border: 2px solid #3a2860;
-  border-radius: 6px;
+  background: linear-gradient(180deg, #fff8fc 0%, #fff0f8 100%);
+  color: #7a5a8a;
+  border: 2px solid #e0c0d8;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   text-align: center;
@@ -1699,9 +1702,9 @@ body {
 }
 
 .practice-cat-btn:hover {
-  border-color: #f0d060;
-  background: linear-gradient(180deg, #2a1a60 0%, #1a1050 100%);
-  color: #f0d060;
+  border-color: #d4699e;
+  background: linear-gradient(180deg, #fff0f8 0%, #ffe8f4 100%);
+  color: #d4699e;
   transform: scale(1.03);
 }
 
@@ -1715,7 +1718,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(248, 240, 255, 0.97);
   z-index: 310;
   align-items: flex-start;
   justify-content: center;
@@ -1725,19 +1728,19 @@ body {
 }
 
 .practice-box {
-  background: linear-gradient(180deg, #1e1450 0%, #12103a 100%);
-  border: 3px solid #f0d060;
-  border-radius: 8px;
+  background: linear-gradient(180deg, #fff8fc 0%, #fff0f8 100%);
+  border: 3px solid #d4699e;
+  border-radius: 16px;
   padding: 24px 28px;
   width: min(640px, 95vw);
   text-align: center;
-  box-shadow: 0 0 40px #f0d06022;
+  box-shadow: 0 0 40px rgba(212, 105, 158, 0.12);
 }
 
 .practice-score {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
-  color: #88cc88;
+  color: #6a9a6a;
   margin-bottom: 12px;
 }
 
@@ -1745,9 +1748,10 @@ body {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
   padding: 10px 20px;
-  background: linear-gradient(180deg, #4a3080 0%, #2a1860 100%);
-  color: #f0d060;
-  border: 2px solid #f0d060;
+  background: linear-gradient(180deg, #e8a0c8 0%, #d480b0 100%);
+  color: #ffffff;
+  border: 2px solid #f0c0d8;
+  border-radius: 10px;
   cursor: pointer;
   touch-action: manipulation;
   margin-top: 10px;
@@ -1901,7 +1905,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(248, 240, 255, 0.95);
   z-index: 160;
   align-items: flex-start;
   justify-content: center;
@@ -1911,21 +1915,21 @@ body {
 }
 
 .achievements-box {
-  background: linear-gradient(145deg, #1a1040 0%, #0d0d2a 100%);
-  border: 3px solid #f0d060;
-  border-radius: 10px;
+  background: linear-gradient(145deg, #fff8fc 0%, #fff0f8 100%);
+  border: 3px solid #d4699e;
+  border-radius: 16px;
   padding: 24px 20px;
   width: min(620px, 95vw);
   max-height: 95vh;
   overflow-y: auto;
   text-align: center;
-  box-shadow: 0 0 40px rgba(240, 208, 96, 0.15);
+  box-shadow: 0 0 40px rgba(212, 105, 158, 0.12);
 }
 
 .achievements-title {
   font-family: 'Press Start 2P', monospace;
   font-size: 13px;
-  color: #f0d060;
+  color: #d4699e;
   margin-bottom: 16px;
 }
 
@@ -1940,18 +1944,18 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #0a0a20;
-  border: 2px solid #2a1860;
-  border-radius: 8px;
+  background: #f8f0ff;
+  border: 2px solid #e0c8e8;
+  border-radius: 10px;
   padding: 12px 14px;
   text-align: left;
   transition: all 0.2s;
 }
 
 .achievement-card.unlocked {
-  border-color: #f0d060;
-  background: linear-gradient(135deg, #1a1040 0%, #2a1a50 100%);
-  box-shadow: 0 0 10px rgba(240, 208, 96, 0.15);
+  border-color: #d4699e;
+  background: linear-gradient(135deg, #fff0f8 0%, #ffe8f4 100%);
+  box-shadow: 0 0 10px rgba(212, 105, 158, 0.15);
 }
 
 .achievement-icon {
@@ -1972,22 +1976,22 @@ body {
 .achievement-name {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #666;
+  color: #b0a0b8;
   margin-bottom: 4px;
 }
 
 .achievement-card.unlocked .achievement-name {
-  color: #f0d060;
+  color: #d4699e;
 }
 
 .achievement-desc {
   font-size: 12px;
-  color: #555;
+  color: #b0a0b8;
   line-height: 1.4;
 }
 
 .achievement-card.unlocked .achievement-desc {
-  color: #a0a0c0;
+  color: #7a5a8a;
 }
 
 .achievement-date {
@@ -2014,15 +2018,15 @@ body {
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, #2a1a50 0%, #1a1040 100%);
-  border: 3px solid #f0d060;
-  border-radius: 10px;
+  background: linear-gradient(180deg, #fff0f8 0%, #ffe8f4 100%);
+  border: 3px solid #d4699e;
+  border-radius: 14px;
   padding: 14px 24px;
   z-index: 600;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 0 30px rgba(240, 208, 96, 0.4);
+  box-shadow: 0 0 30px rgba(212, 105, 158, 0.3);
   animation: achievePop 3s ease-out forwards;
   pointer-events: none;
 }
@@ -2031,7 +2035,7 @@ body {
 .achievement-popup .ach-pop-text {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #f0d060;
+  color: #d4699e;
   line-height: 1.6;
 }
 
@@ -2047,7 +2051,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(248, 240, 255, 0.95);
   z-index: 160;
   align-items: flex-start;
   justify-content: center;
@@ -2057,27 +2061,27 @@ body {
 }
 
 .stats-box {
-  background: linear-gradient(145deg, #0a1a2a 0%, #0a0d1a 100%);
-  border: 3px solid #4488cc;
-  border-radius: 10px;
+  background: linear-gradient(145deg, #f0f8ff 0%, #f8f0ff 100%);
+  border: 3px solid #88aacc;
+  border-radius: 16px;
   padding: 24px 20px;
   width: min(650px, 95vw);
   max-height: 95vh;
   overflow-y: auto;
   text-align: center;
-  box-shadow: 0 0 40px rgba(68, 136, 204, 0.15);
+  box-shadow: 0 0 40px rgba(100, 150, 200, 0.12);
 }
 
 .stats-title {
   font-family: 'Press Start 2P', monospace;
   font-size: 13px;
-  color: #4488cc;
+  color: #6090b8;
   margin-bottom: 6px;
 }
 
 .stats-subtitle {
   font-size: 13px;
-  color: #6688aa;
+  color: #8098b0;
   margin-bottom: 16px;
 }
 
@@ -2090,9 +2094,9 @@ body {
 }
 
 .stats-summary-item {
-  background: #0a0a20;
-  border: 2px solid #2a3a50;
-  border-radius: 8px;
+  background: #f8f8ff;
+  border: 2px solid #c0d0e0;
+  border-radius: 10px;
   padding: 12px 16px;
   min-width: 120px;
 }
@@ -2100,13 +2104,13 @@ body {
 .stats-summary-value {
   font-family: 'Press Start 2P', monospace;
   font-size: 16px;
-  color: #4488cc;
+  color: #6090b8;
   margin-bottom: 4px;
 }
 
 .stats-summary-label {
   font-size: 11px;
-  color: #6688aa;
+  color: #8098b0;
 }
 
 .stats-categories {
@@ -2136,9 +2140,9 @@ body {
 .stats-cat-bar-shell {
   flex: 1;
   height: 16px;
-  background: #0a0a20;
-  border: 1px solid #2a3a50;
-  border-radius: 3px;
+  background: #f0f0ff;
+  border: 1px solid #c0d0e0;
+  border-radius: 5px;
   overflow: hidden;
   position: relative;
 }
@@ -2174,9 +2178,9 @@ body {
 }
 
 .stats-recommendation {
-  background: #0a1a2a;
-  border: 2px solid #2a4a6a;
-  border-radius: 8px;
+  background: #fff8f0;
+  border: 2px solid #e0c8a0;
+  border-radius: 10px;
   padding: 14px 18px;
   margin-bottom: 16px;
   text-align: left;
@@ -2185,13 +2189,13 @@ body {
 .stats-rec-title {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: #cc8844;
+  color: #c89050;
   margin-bottom: 8px;
 }
 
 .stats-rec-text {
   font-size: 13px;
-  color: #ccaa88;
+  color: #a08868;
   line-height: 1.6;
 }
 
@@ -2209,10 +2213,10 @@ body {
 
 <!-- TITLE SCREEN -->
 <div id="title-screen">
-  <div class="torch-left">🔥</div>
-  <div class="torch-right">🔥</div>
-  <h1>DUNGEON<br>MATEMATYCZNY</h1>
-  <div class="subtitle">Pokonaj potwory siłą matematyki!</div>
+  <div class="torch-left">🌸</div>
+  <div class="torch-right">🌸</div>
+  <h1>MAGICZNE ZOO<br>ZOSI</h1>
+  <div class="subtitle">Zaprzyjaźnij się ze zwierzątkami siłą matematyki!</div>
   <button class="menu-btn" onclick="Game.newGame()">NOWA GRA</button>
   <button class="menu-btn" id="continue-btn" onclick="Game.continueGame()" disabled>KONTYNUUJ</button>
   <button class="menu-btn" onclick="Practice.showCategories()" style="margin-top:10px;">📝 PYTANIA</button>
@@ -2224,17 +2228,17 @@ body {
 
 <!-- CHARACTER CREATION -->
 <div id="charcreate-screen">
-  <div class="cc-title">🛡️ STWÓRZ BOHATERA</div>
+  <div class="cc-title">🌟 STWÓRZ POSTAĆ</div>
   <div class="cc-body">
     <div class="cc-section">
       <div class="cc-label">IMIĘ:</div>
-      <input class="cc-name-input" id="cc-name" maxlength="12" value="Szymon" autocomplete="off">
+      <input class="cc-name-input" id="cc-name" maxlength="12" value="Zosia" autocomplete="off">
     </div>
     <div class="cc-section">
       <div class="cc-label">PŁEĆ:</div>
       <div class="cc-gender-row">
-        <button class="cc-gender-btn selected" id="cc-gender-m" onclick="CharCreate.setGender('m')">🧑 Chłopak</button>
-        <button class="cc-gender-btn" id="cc-gender-f" onclick="CharCreate.setGender('f')">👧 Dziewczyna</button>
+        <button class="cc-gender-btn" id="cc-gender-m" onclick="CharCreate.setGender('m')">🧑 Chłopak</button>
+        <button class="cc-gender-btn selected" id="cc-gender-f" onclick="CharCreate.setGender('f')">👧 Dziewczyna</button>
       </div>
     </div>
     <div class="cc-preview" id="cc-preview"></div>
@@ -2260,7 +2264,7 @@ body {
 
 <!-- CATEGORY SELECTOR (before new game) -->
 <div id="category-select-screen">
-  <div class="catsel-title">⚔️ NOWA GRA</div>
+  <div class="catsel-title">🌟 NOWA GRA</div>
   <div class="catsel-subtitle">Wybierz kategorie pytań:</div>
   <div class="catsel-list" id="catsel-list"></div>
   <div class="catsel-buttons">
@@ -2387,9 +2391,9 @@ body {
         </div>
 
         <!-- TASK PREVIEW (boots lvl 3) -->
-        <div id="task-preview" style="display:none; background:#050505; border:4px solid #ffffff; padding:10px 12px; margin-top:10px;">
-          <div style="font-family:'Press Start 2P',monospace; font-size:8px; color:#ffffff; margin-bottom:6px;">PODGLĄD ATAKÓW</div>
-          <div id="task-preview-text" style="font-size:13px; color:#ffffff; white-space:pre-line; line-height:1.6;"></div>
+        <div id="task-preview" style="display:none; background:#f8f0ff; border:4px solid #d0b8e0; border-radius:10px; padding:10px 12px; margin-top:10px;">
+          <div style="font-family:'Press Start 2P',monospace; font-size:8px; color:#9a7bb5; margin-bottom:6px;">PODGLĄD CZARÓW</div>
+          <div id="task-preview-text" style="font-size:13px; color:#5a3a6a; white-space:pre-line; line-height:1.6;"></div>
         </div>
 
         <!-- QUESTION (phase 2) -->
@@ -2532,7 +2536,7 @@ body {
 
 <script>
 // ═══════════════════════════════════════════
-//  DUNGEON MATEMATYCZNY — GAME ENGINE
+//  MAGICZNE ZOO ZOSI — GAME ENGINE
 // ═══════════════════════════════════════════
 
 // ─── SPRITE SYSTEM (pixel-art canvas with animation) ───
@@ -4211,11 +4215,11 @@ const DungeonMap = {
     const rs = this.roomSize;
 
     // Background
-    ctx.fillStyle = '#0a0a1a';
+    ctx.fillStyle = '#f8f0ff';
     ctx.fillRect(0, 0, w, h);
 
-    // Stone texture hints
-    ctx.fillStyle = '#0e0e22';
+    // Flower texture hints
+    ctx.fillStyle = '#f0e8f8';
     for (let i = 0; i < 40; i++) {
       ctx.fillRect((i * 137 + 50) % w, (i * 89 + 30) % h, 3, 3);
     }
@@ -4233,7 +4237,7 @@ const DungeonMap = {
         const pathCleared = room.cleared && target.cleared;
 
         // Outer line
-        ctx.strokeStyle = pathCleared ? '#2a4a2a' : pathActive ? '#4a3060' : '#1a1028';
+        ctx.strokeStyle = pathCleared ? '#b8e0b8' : pathActive ? '#e0b8d8' : '#e8e0f0';
         ctx.lineWidth = 6;
         ctx.beginPath();
         ctx.moveTo(from.x, from.y);
@@ -4243,7 +4247,7 @@ const DungeonMap = {
         ctx.stroke();
 
         // Inner line
-        ctx.strokeStyle = pathCleared ? '#1a3a1a' : pathActive ? '#3a2050' : '#0e0e1a';
+        ctx.strokeStyle = pathCleared ? '#c8e8c8' : pathActive ? '#e8c8e0' : '#f0e8f4';
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(from.x, from.y);
@@ -4263,33 +4267,33 @@ const DungeonMap = {
       ctx.roundRect(rx, ry, rs, rs, rad);
 
       if (room.active) {
-        ctx.fillStyle = room.isShop ? '#2a2a10' : room.isQuest ? '#1a3a20' : '#3a2060';
-        ctx.shadowColor = '#f0d060';
+        ctx.fillStyle = room.isShop ? '#fff8e8' : room.isQuest ? '#e8fff0' : '#ffe8f4';
+        ctx.shadowColor = '#d4699e';
         ctx.shadowBlur = 20;
       } else if (room.cleared) {
-        ctx.fillStyle = '#1a2a1a';
+        ctx.fillStyle = '#e8f8e8';
         ctx.shadowBlur = 0;
       } else if (room.locked) {
-        ctx.fillStyle = '#111120';
+        ctx.fillStyle = '#f0e8f4';
         ctx.shadowBlur = 0;
       } else if (room.isShop) {
-        ctx.fillStyle = '#2a2210';
-        ctx.shadowColor = '#d4a84a';
+        ctx.fillStyle = '#fff8e8';
+        ctx.shadowColor = '#e0c080';
         ctx.shadowBlur = 10;
       } else if (room.isQuest) {
-        ctx.fillStyle = '#142a18';
-        ctx.shadowColor = '#66cc66';
+        ctx.fillStyle = '#e8fff0';
+        ctx.shadowColor = '#88cc88';
         ctx.shadowBlur = 10;
       } else {
-        ctx.fillStyle = '#2a1a3a';
-        ctx.shadowColor = '#6a4a8a';
+        ctx.fillStyle = '#fff0f8';
+        ctx.shadowColor = '#e0a0c8';
         ctx.shadowBlur = 10;
       }
       ctx.fill();
       ctx.shadowBlur = 0;
 
       // Border
-      const borderColor = room.active ? '#f0d060' : room.cleared ? '#4a8a4a' : room.locked ? '#222233' : room.isShop ? '#d4a84a' : room.isQuest ? '#66cc66' : '#8a6aaa';
+      const borderColor = room.active ? '#d4699e' : room.cleared ? '#88cc88' : room.locked ? '#e0d8e8' : room.isShop ? '#e0c080' : room.isQuest ? '#88cc88' : '#e0a0c8';
       ctx.strokeStyle = borderColor;
       ctx.lineWidth = room.active ? 3 : 2;
       ctx.stroke();
@@ -4304,7 +4308,7 @@ const DungeonMap = {
 
       if (room.cleared) {
         ctx.font = '22px sans-serif';
-        ctx.fillStyle = '#4a8a4a';
+        ctx.fillStyle = '#88cc88';
         ctx.fillText('✓', cx, cy);
       } else {
         // Show generic icons (dimmed if locked)
@@ -4326,7 +4330,7 @@ const DungeonMap = {
 
       // Boss glow
       if (room.isBoss && !room.cleared && !room.locked) {
-        ctx.strokeStyle = '#ff4444';
+        ctx.strokeStyle = '#d4699e';
         ctx.lineWidth = 2;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
@@ -4341,17 +4345,17 @@ const DungeonMap = {
         ctx.font = '8px "Press Start 2P", monospace';
         ctx.textAlign = 'center';
         if (room.isShop) {
-          ctx.fillStyle = '#d4a84a';
+          ctx.fillStyle = '#c89850';
           ctx.fillText('SKLEP', cx, ry + rs + 12);
         } else if (room.isQuest) {
-          ctx.fillStyle = '#88cc88';
+          ctx.fillStyle = '#6aaa6a';
           ctx.fillText('QUEST', cx, ry + rs + 12);
         } else if (room.isBoss) {
-          ctx.fillStyle = '#ff6666';
+          ctx.fillStyle = '#d4699e';
           ctx.fillText('BOSS', cx, ry + rs + 12);
         } else {
-          ctx.fillStyle = '#888899';
-          ctx.fillText('WALKA', cx, ry + rs + 12);
+          ctx.fillStyle = '#b098c0';
+          ctx.fillText('SPOTKANIE', cx, ry + rs + 12);
         }
         ctx.globalAlpha = 1;
       }
@@ -4362,9 +4366,9 @@ const DungeonMap = {
     if (activeRoom) {
       const c = this.roomCenter(activeRoom);
       ctx.font = '18px sans-serif';
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#d4699e';
       ctx.textAlign = 'center';
-      ctx.fillText('⚔️', c.x, c.y - rs/2 - 10);
+      ctx.fillText('🌟', c.x, c.y - rs/2 - 10);
     }
   }
 };
@@ -5893,7 +5897,7 @@ const Battle = {
 
 // ─── CONFETTI ───
 function spawnConfetti() {
-  const colors = ['#f0d060', '#ff4444', '#44ff44', '#4488ff', '#ff44ff', '#ff8800'];
+  const colors = ['#e8a0c8', '#88ccaa', '#f0c080', '#a0b8e8', '#d0a0e0', '#f8b8a0'];
   for (let i = 0; i < 60; i++) {
     const el = document.createElement('div');
     el.className = 'confetti-piece';
@@ -5929,7 +5933,7 @@ const Game = {
     level: 1,
     potions: 0,
     equip: { sword: 0, armor: 0, shield: 0, boots: 0 },
-    appearance: { name: 'Bohater', gender: 'm', skin: 0, hat: 0, tunic: 2, boots: 0 }
+    appearance: { name: 'Zosia', gender: 'f', skin: 0, hat: 0, tunic: 2, boots: 0 }
   },
 
   newGame() {
@@ -5938,10 +5942,10 @@ const Game = {
 
   _startNewGame() {
     this.currentFloor = 1;
-    this.player = { hp: 3, maxHp: 3, gold: 0, xp: 0, xpToNext: 50, level: 1, potions: 0, equip: { sword: 0, armor: 0, shield: 0, boots: 0 }, appearance: { name: 'Bohater', gender: 'm', skin: 0, hat: 0, tunic: 2, boots: 0 } };
+    this.player = { hp: 3, maxHp: 3, gold: 0, xp: 0, xpToNext: 50, level: 1, potions: 0, equip: { sword: 0, armor: 0, shield: 0, boots: 0 }, appearance: { name: 'Zosia', gender: 'f', skin: 0, hat: 0, tunic: 2, boots: 0 } };
     this.gameStartTime = Date.now();
     this.bossTimes = {};
-    localStorage.removeItem('dungeonMath_save');
+    localStorage.removeItem('magiczneZoo_save');
     DungeonMap.init();
     this.startTimer();
     this.showFloorIntro();
@@ -5971,12 +5975,12 @@ const Game = {
     const elapsed = Math.floor((Date.now() - this.gameStartTime) / 1000);
     this.bossTimes[floor] = elapsed;
     // Save to localStorage ranking
-    const ranking = JSON.parse(localStorage.getItem('dungeonMath_ranking') || '{}');
+    const ranking = JSON.parse(localStorage.getItem('magiczneZoo_ranking') || '{}');
     const key = `floor${floor}`;
     if (!ranking[key] || elapsed < ranking[key].time) {
       ranking[key] = { time: elapsed, name: this.player.appearance?.name || 'Bohater', date: new Date().toLocaleDateString('pl-PL') };
     }
-    localStorage.setItem('dungeonMath_ranking', JSON.stringify(ranking));
+    localStorage.setItem('magiczneZoo_ranking', JSON.stringify(ranking));
   },
 
   formatTime(seconds) {
@@ -5986,7 +5990,7 @@ const Game = {
   },
 
   continueGame() {
-    const save = JSON.parse(localStorage.getItem('dungeonMath_save'));
+    const save = JSON.parse(localStorage.getItem('magiczneZoo_save'));
     if (!save) return;
     this.currentFloor = save.floor;
     this.player = save.player;
@@ -6116,7 +6120,7 @@ const Game = {
     document.getElementById('victory-times').innerHTML = timesHtml;
 
     // Show ranking (best times)
-    const ranking = JSON.parse(localStorage.getItem('dungeonMath_ranking') || '{}');
+    const ranking = JSON.parse(localStorage.getItem('magiczneZoo_ranking') || '{}');
     let rankHtml = '<div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:#d4a84a;margin-bottom:8px;">🏆 NAJLEPSZE CZASY:</div>';
     for (let f = 1; f <= 3; f++) {
       const r = ranking[`floor${f}`];
@@ -6130,7 +6134,7 @@ const Game = {
 
     this.state = 'victory';
     spawnConfetti();
-    localStorage.removeItem('dungeonMath_save');
+    localStorage.removeItem('magiczneZoo_save');
   },
 
   closeLevelUp() {
@@ -6156,7 +6160,7 @@ const Game = {
       isQuest: r.isQuest || false, quest: r.quest || null,
       isShop: r.isShop || false
     }));
-    localStorage.setItem('dungeonMath_save', JSON.stringify({
+    localStorage.setItem('magiczneZoo_save', JSON.stringify({
       floor: this.currentFloor,
       player: this.player,
       rooms: roomStates,
@@ -6167,7 +6171,7 @@ const Game = {
   },
 
   checkContinue() {
-    const raw = localStorage.getItem('dungeonMath_save');
+    const raw = localStorage.getItem('magiczneZoo_save');
     let valid = false;
     if (raw) {
       try {
@@ -6176,14 +6180,14 @@ const Game = {
         valid = save.rooms && save.rooms.length > 0 && save.rooms[0].connections != null;
       } catch(e) {}
     }
-    if (!valid && raw) localStorage.removeItem('dungeonMath_save');
+    if (!valid && raw) localStorage.removeItem('magiczneZoo_save');
     document.getElementById('continue-btn').disabled = !valid;
   }
 };
 
 // ─── CHARACTER CREATION ───
 const CharCreate = {
-  gender: 'm',
+  gender: 'f',
   skinIdx: 0,
   hatIdx: 0,
   tunicIdx: 2,
@@ -6195,7 +6199,7 @@ const CharCreate = {
   bootsColors: ['#4a3a2a', '#2a2a4a', '#3a1a1a', '#1a3a2a', '#4a4a2a'],
 
   show() {
-    this.gender = 'm';
+    this.gender = 'f';
     this.skinIdx = 0;
     this.hatIdx = 0;
     this.tunicIdx = 2;
@@ -6713,7 +6717,7 @@ const Practice = {
 
 // ─── STATS TRACKING ───
 const Stats = {
-  _key: 'dungeonMath_stats',
+  _key: 'magiczneZoo_stats',
 
   _default() {
     return { totalCorrect: 0, totalWrong: 0, categories: {} };
@@ -6832,7 +6836,7 @@ const Stats = {
 
 // ─── ACHIEVEMENTS ───
 const Achievements = {
-  _key: 'dungeonMath_achievements',
+  _key: 'magiczneZoo_achievements',
 
   definitions: [
     {
