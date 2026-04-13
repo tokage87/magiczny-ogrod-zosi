@@ -2541,18 +2541,18 @@ body {
 
     <div class="battle-bottom">
       <div class="battle-box battle-message-box">
-        <div class="battle-prompt" id="battle-prompt">Jaki czar rzuci Zosia?</div>
+        <div class="battle-prompt" id="battle-prompt">Jaki smaczek da Zosia?</div>
 
         <!-- ATTACK CHOICE (phase 1) -->
         <div id="attack-choice">
           <button class="attack-choice-btn battle-attack-btn attack-easy" onclick="Battle.chooseAttack('easy')">
-            🌸 Łatwy czar<br><span class="dmg-badge" id="easy-dmg-label">+1</span>
+            🍎 Jabłuszko<br><span class="dmg-badge" id="easy-dmg-label">+1</span>
           </button>
           <button class="attack-choice-btn battle-attack-btn attack-medium" onclick="Battle.chooseAttack('medium')">
-            ✨ Średni czar<br><span class="dmg-badge" id="medium-dmg-label">+2</span>
+            🧁 Ciasteczko<br><span class="dmg-badge" id="medium-dmg-label">+2</span>
           </button>
           <button class="attack-choice-btn battle-attack-btn attack-hard" onclick="Battle.chooseAttack('hard')" id="attack-hard-btn">
-            🌟 Mocny czar<br><span class="dmg-badge" id="hard-dmg-label">+3</span>
+            🎂 Torcik<br><span class="dmg-badge" id="hard-dmg-label">+3</span>
           </button>
           <button class="attack-choice-btn potion-btn" onclick="Battle.usePotion()" id="potion-battle-btn">
             🧪 Mikstura<br><span class="dmg-badge" id="potion-count-battle">(0)</span>
@@ -2561,7 +2561,7 @@ body {
 
         <!-- TASK PREVIEW (boots lvl 3) -->
         <div id="task-preview" style="display:none; background:#f8f0ff; border:4px solid #d0b8e0; border-radius:10px; padding:10px 12px; margin-top:10px;">
-          <div style="font-family:'Press Start 2P',monospace; font-size:8px; color:#9a7bb5; margin-bottom:6px;">PODGLĄD CZARÓW</div>
+          <div style="font-family:'Press Start 2P',monospace; font-size:8px; color:#9a7bb5; margin-bottom:6px;">PODGLĄD SMACZKÓW</div>
           <div id="task-preview-text" style="font-size:13px; color:#5a3a6a; white-space:pre-line; line-height:1.6;"></div>
         </div>
 
@@ -2572,7 +2572,7 @@ body {
           </div>
           <div class="answer-area" id="answer-area">
             <input type="text" class="answer-input" id="answer-input" autocomplete="off" inputmode="text">
-            <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
+            <button class="attack-btn" onclick="Battle.submitAnswer()">DAJ SMACZEK! 🍪</button>
           </div>
         </div>
 
@@ -2619,7 +2619,7 @@ body {
       <!-- Left: hearts -->
       <div class="hero-left">
         <div class="hero-hearts" id="hero-hearts-display"></div>
-        <div class="hero-stat-badge" title="Magiczne Mikstury — użyj przy oswajaniu! Losowy efekt: mocniejszy czar, leczenie lub magia.">
+        <div class="hero-stat-badge" title="Magiczne Mikstury — użyj przy oswajaniu! Losowy efekt: lepszy smaczek, leczenie lub magia.">
           <span class="stat-label">Mikstury</span>
           <span class="stat-val" id="hero-potions-display">🧪 0</span>
         </div>
@@ -2638,7 +2638,7 @@ body {
           <span class="stat-label">Gwiazdki</span>
           <span class="stat-val" id="hero-gold-display">0</span>
         </div>
-        <div class="hero-stat-badge" title="Doświadczenie — zdobywaj za oswajanie zwierzątek i questy. Po zapełnieniu paska awansujesz na kolejny poziom (+1 do czarów, pełna energia).">
+        <div class="hero-stat-badge" title="Doświadczenie — zdobywaj za oswajanie zwierzątek i questy. Po zapełnieniu paska awansujesz na kolejny poziom (+1 do smaczków, pełna energia).">
           <span class="stat-label">Doświadczenie</span>
           <span class="stat-val" id="hero-xp-display">0/50</span>
         </div>
@@ -2656,7 +2656,7 @@ body {
 <div id="levelup-overlay" onclick="Game.closeLevelUp()">
   <h2>POZIOM W GÓRĘ!</h2>
   <div style="font-size:48px; margin:20px;">⬆️✨</div>
-  <div style="color:#6aaa6a; margin-bottom:8px;">Wszystkie czary +1 💖!</div>
+  <div style="color:#6aaa6a; margin-bottom:8px;">Wszystkie smaczki +1 💖!</div>
   <div style="color:#d4699e; margin-bottom:16px;">❤️ Pełna energia!</div>
   <div style="color:#9a7bb5; font-size:12px;">Kliknij aby kontynuować.</div>
 </div>
@@ -2666,7 +2666,7 @@ body {
   <h1>GRATULACJE!</h1>
   <div style="font-size:64px; margin:20px;">🌈</div>
   <div style="font-size:18px; color:#9a7bb5; margin-bottom:10px;">Wszystkie zwierzątka są Twoimi przyjaciółmi!</div>
-  <div style="font-size:16px; color:#6aaa6a; margin-bottom:30px;">Jesteś najlepszą czarodziejką! 🌟</div>
+  <div style="font-size:16px; color:#6aaa6a; margin-bottom:30px;">Jesteś najlepszą opiekunką zoo! 🌟</div>
   <div style="font-size:14px; color:#a0a0c0; margin-bottom:15px;" id="victory-stats"></div>
   <div id="victory-times" style="margin-bottom:15px;"></div>
   <div id="victory-ranking" style="margin-bottom:30px;"></div>
@@ -5240,11 +5240,11 @@ const Battle = {
     PixelArt._currentBattleSprite = room.monster.sprite;
     PixelArt.drawOnCanvas(document.getElementById('monster-anim-canvas'), room.monster.sprite, imgSize);
     PixelArt.startAnimation();
-    const immuneNames = { easy: 'łatwy czar', medium: 'średni czar', hard: 'mocny czar' };
+    const immuneNames = { easy: 'jabłuszko', medium: 'ciasteczko', hard: 'torcik' };
     const immuneType = room.monster.immune;
     document.getElementById('monster-name').textContent = room.monster.name;
     document.getElementById('monster-extra-info').textContent =
-      room.monster.onlyEasy ? 'Lubi tylko łatwe czary!'
+      room.monster.onlyEasy ? 'Lubi tylko jabłuszka!'
         : immuneType ? `Nie lubi: ${immuneNames[immuneType]}` : '';
     document.getElementById('monster-level-display').textContent = `Lv.${room.isBoss ? Game.currentFloor + 2 : Game.currentFloor}`;
     this.updatePlayerBattleUI();
@@ -5260,7 +5260,7 @@ const Battle = {
   showAttackChoice() {
     document.getElementById('attack-choice').style.display = 'grid';
     document.getElementById('question-phase').style.display = 'none';
-    document.getElementById('battle-prompt').textContent = 'Jaki czar rzuci Zosia?';
+    document.getElementById('battle-prompt').textContent = 'Jaki smaczek da Zosia?';
     this.updatePlayerBattleUI();
 
     // Update DMG labels with level + sword bonus
@@ -5285,7 +5285,7 @@ const Battle = {
       ];
       // Store previewed questions to reuse when player picks
       this._previewedQuestions = samples;
-      const labels = ['🌸 Łatwy', '✨ Średni', '🌟 Mocny'];
+      const labels = ['🍎 Jabłuszko', '🧁 Ciasteczko', '🎂 Torcik'];
       let txt = '';
       for (let i = 0; i < 3; i++) {
         const q = samples[i];
@@ -5379,7 +5379,7 @@ const Battle = {
     document.getElementById('attack-choice').style.display = 'none';
     document.getElementById('question-phase').style.display = 'block';
     document.getElementById('feedback-text').textContent = '';
-    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby rzucić czar!';
+    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby dać smaczek!';
 
     this.renderQuestion();
   },
@@ -5557,7 +5557,7 @@ const Battle = {
             <div class="frac-line"></div>
             <input type="number" id="frac-den" inputmode="numeric" autocomplete="off" placeholder="?">
           </div>
-          <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
+          <button class="attack-btn" onclick="Battle.submitAnswer()">DAJ SMACZEK! 🍪</button>
         </div>
       `;
       setTimeout(() => {
@@ -5581,7 +5581,7 @@ const Battle = {
       drawNumberLine('numline-canvas', q.marks);
       answerArea.innerHTML = `
         <input type="text" class="answer-input" id="answer-input" autocomplete="off" inputmode="numeric">
-        <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
+        <button class="attack-btn" onclick="Battle.submitAnswer()">DAJ SMACZEK! 🍪</button>
       `;
       setTimeout(() => {
         document.getElementById('answer-input').focus();
@@ -5750,7 +5750,7 @@ const Battle = {
         </div>
       `;
       qText.className = 'question-text';
-      answerArea.innerHTML = `<button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>`;
+      answerArea.innerHTML = `<button class="attack-btn" onclick="Battle.submitAnswer()">DAJ SMACZEK! 🍪</button>`;
       setTimeout(() => document.getElementById('frac-num').focus(), 100);
       qText.querySelectorAll('input').forEach(inp => {
         inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') Battle.submitAnswer(); });
@@ -5759,7 +5759,7 @@ const Battle = {
       const isText = q.type === 'text';
       answerArea.innerHTML = `
         <input type="text" class="answer-input${isText ? ' text-input' : ''}" id="answer-input" autocomplete="off" inputmode="${isText ? 'text' : 'numeric'}" placeholder="${isText ? 'wpisz słownie...' : ''}">
-        <button class="attack-btn" onclick="Battle.submitAnswer()">CZARUJ! ✨</button>
+        <button class="attack-btn" onclick="Battle.submitAnswer()">DAJ SMACZEK! 🍪</button>
       `;
       setTimeout(() => document.getElementById('answer-input').focus(), 100);
       document.getElementById('answer-input').addEventListener('keydown', (e) => {
@@ -5785,7 +5785,7 @@ const Battle = {
       this._potionBonus = bonus;
       this.potionDoubleNext = true;
       icon = '⚔️✨';
-      text = `Następny czar +${bonus} 💖!`;
+      text = `Następny smaczek +${bonus} 💖!`;
     } else if (effect === 'heal') {
       const heal = _weightedRoll();
       Game.player.hp = Math.min(Game.player.hp + heal, Game.player.maxHp);
@@ -5919,7 +5919,7 @@ const Battle = {
       this._potionBonus = 0;
     }
     this.monsterHP = Math.max(0, this.monsterHP - dmg);
-    fb.textContent = dmg >= 4 ? `Super czar! Oswajanie +${dmg} 💖✨` : `Udany czar! Oswajanie +${dmg} 💖`;
+    fb.textContent = dmg >= 4 ? `Pyszne! Oswajanie +${dmg} 💖✨` : `Mniam! Oswajanie +${dmg} 💖`;
     fb.className = 'feedback-text feedback-hit';
     this.updateMonsterHP();
     // Track stats
