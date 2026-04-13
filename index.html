@@ -5115,11 +5115,15 @@ const Battle = {
         .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e')
         .replace(/ł/g, 'l').replace(/ń/g, 'n').replace(/ó/g, 'o')
         .replace(/ś/g, 's').replace(/ź/g, 'z').replace(/ż/g, 'z');
-      const a1 = q.answer.toLowerCase().trim().replace(/\s+/g, ' ');
-      const a2 = normalize(q.answer);
       const p1 = playerAnswer.toLowerCase().trim().replace(/\s+/g, ' ');
       const p2 = normalize(playerAnswer);
-      return p1 === a1 || p2 === a2;
+      const candidates = q.acceptAlternatives ? q.acceptAlternatives : [q.answer];
+      for (const ans of candidates) {
+        const a1 = ans.toLowerCase().trim().replace(/\s+/g, ' ');
+        const a2 = normalize(ans);
+        if (p1 === a1 || p2 === a2) return true;
+      }
+      return false;
     } else {
       return playerAnswer.replace(/\s/g, '') === q.answer.replace(/\s/g, '');
     }

@@ -321,6 +321,69 @@ const PolishGen3 = {
     };
   },
 
+  // P5: Wyrazy pokrewne
+  wordFamilies(floor) {
+    const fam = WORD_FAMILIES[Math.floor(Math.random() * WORD_FAMILIES.length)];
+    if (floor === 1) return this._wfTier1(fam);
+    if (floor === 2) return this._wfTier2(fam);
+    return this._wfTier3(fam);
+  },
+
+  _wfTier1(fam) {
+    // Pick one family member (not root) and one intruder
+    const members = fam.family.filter(w => w !== fam.root);
+    const correct = members[Math.floor(Math.random() * members.length)];
+    const wrong = fam.intruders[Math.floor(Math.random() * fam.intruders.length)];
+    const answers = Math.random() < 0.5 ? [correct, wrong] : [wrong, correct];
+    const correctIndex = answers.indexOf(correct);
+    return {
+      text: `📖 Który wyraz jest pokrewny\ndo „${fam.root}"?`,
+      type: 'quiz',
+      answers,
+      correctIndex,
+      answer: ['A', 'B'][correctIndex],
+      hint: `Wyrazy pokrewne mają wspólny rdzeń`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _wfTier2(fam) {
+    // 3 family members + 1 intruder, find the intruder
+    const members = fam.family.filter(w => w !== fam.root);
+    const picked = [];
+    const pool = [...members];
+    while (picked.length < 3 && pool.length > 0) {
+      const i = Math.floor(Math.random() * pool.length);
+      picked.push(pool.splice(i, 1)[0]);
+    }
+    const intruder = fam.intruders[Math.floor(Math.random() * fam.intruders.length)];
+    const answers = [...picked, intruder].sort(() => Math.random() - 0.5);
+    const correctIndex = answers.indexOf(intruder);
+    const labels = ['A', 'B', 'C', 'D'];
+    return {
+      text: `📖 Który wyraz NIE pasuje\ndo rodziny „${fam.root}"?`,
+      type: 'quiz',
+      answers,
+      correctIndex,
+      answer: labels[correctIndex],
+      hint: `Szukaj wyrazu, który nie ma wspólnego rdzenia`,
+      cssClass: 'word-problem'
+    };
+  },
+
+  _wfTier3(fam) {
+    // Input: type a related word
+    const acceptable = fam.family.filter(w => w !== fam.root);
+    return {
+      text: `📖 Podaj wyraz pokrewny do:\n\n„${fam.root}"`,
+      type: 'text',
+      answer: acceptable[0],
+      acceptAlternatives: acceptable,
+      hint: `Pomyśl o wyrazie z tym samym rdzeniem`,
+      cssClass: 'word-problem'
+    };
+  },
+
   // P3: Ortografia ch/h
   ortografiaCHH(floor) {
     const tier = floor === 1 ? ORTHO_CHH.tier1
@@ -460,6 +523,22 @@ const ORTHO_RZZ = {
     { word: "łó_ko",     answer: "ż",  hint: "łóżko — ż" },
   ],
 };
+
+// ─── P5: WYRAZY POKREWNE ───
+const WORD_FAMILIES = [
+  { root: "las",    family: ["las","leśnik","leśny","leśniczówka","lasek","zalesienie"], intruders: ["list","laska","lis"] },
+  { root: "morze",  family: ["morze","morski","nadmorski","marynarz","pomorze"], intruders: ["marzec","morwa","marchew"] },
+  { root: "dom",    family: ["dom","domek","domowy","domownik","bezdomny"], intruders: ["donica","domena","domin"] },
+  { root: "rower",  family: ["rower","rowerzysta","rowerowy"], intruders: ["równy","rów","rewolucja"] },
+  { root: "woda",   family: ["woda","wodny","wodnik","wodospad","podwodny"], intruders: ["wolny","wołać","wosk"] },
+  { root: "góra",   family: ["góra","góral","górski","górka","pogórze"], intruders: ["goryl","gorący","gość"] },
+  { root: "pies",   family: ["pies","piesek","pieski","psi","psiarnia"], intruders: ["piasek","pisać","pieśń"] },
+  { root: "szkoła", family: ["szkoła","szkolny","szkolak","przeszkolenie"], intruders: ["szkło","szklanka","szkoda"] },
+  { root: "zima",   family: ["zima","zimowy","zimno","zimowisko","przezimować"], intruders: ["zamek","zebra","ziemia"] },
+  { root: "kwiat",  family: ["kwiat","kwiatek","kwiatowy","kwiaciarnia"], intruders: ["kwadrat","kwaśny","kwota"] },
+  { root: "droga",  family: ["droga","drogowy","dróżka","podróż","podróżnik"], intruders: ["drewno","drabina","dreszcz"] },
+  { root: "noc",    family: ["noc","nocny","nocleg","nocować","północ"], intruders: ["nos","noga","nowy"] },
+];
 
 // ─── P3: ORTOGRAFIA ch/h ───
 const ORTHO_CHH = {
@@ -960,6 +1039,7 @@ Subjects.register('class3', {
     { id: 'orthoRZZ', icon: '✏️', name: 'Ortografia rz/ż', desc: 'Wpisz rz lub ż w brakujące miejsce', gen: (f) => PolishGen3.ortografiaRZZ(f) },
     { id: 'orthoCHH', icon: '✏️', name: 'Ortografia ch/h', desc: 'Wpisz ch lub h w brakujące miejsce', gen: (f) => PolishGen3.ortografiaCHH(f) },
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
+    { id: 'wordFamilies', icon: '🌳', name: 'Wyrazy pokrewne', desc: 'Rodziny wyrazów — wspólny rdzeń', gen: (f) => PolishGen3.wordFamilies(f) },
   ],
 
   easyPool: [
@@ -981,6 +1061,8 @@ Subjects.register('class3', {
     { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(1) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
@@ -1014,6 +1096,8 @@ Subjects.register('class3', {
     { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(2) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
@@ -1047,6 +1131,8 @@ Subjects.register('class3', {
     { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(3) },
+    { id: 'wordFamilies', gen: () => PolishGen3.wordFamilies(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
