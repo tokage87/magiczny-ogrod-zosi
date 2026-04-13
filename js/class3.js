@@ -139,27 +139,44 @@ const MathGen3 = {
     };
   },
 
-  // Dodawanie/odejmowanie pisemne do 1000
-  writtenCalc() {
-    const isAdd = Math.random() < 0.5;
-    if (isAdd) {
-      const a = randInt(100, 999);
-      const b = randInt(10, 999);
+  // Dodawanie/odejmowanie pisemne (w słupku)
+  writtenCalc(floor) {
+    if (floor === 1) {
+      // Tier 1: dwie liczby dwucyfrowe, dodawanie
+      const a = randInt(20, 70);
+      const b = randInt(20, 70);
       const result = a + b;
-      const aStr = String(a);
-      const bStr = String(b);
-      const maxLen = Math.max(aStr.length, bStr.length);
+      const maxLen = 2;
       const line = '─'.repeat(maxLen + 2);
-      return { text: `  ${aStr.padStart(maxLen)}\n+ ${bStr.padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
+      return { text: `  ${String(a).padStart(maxLen)}\n+ ${String(b).padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
+    } else if (floor === 2) {
+      // Tier 2: liczba trzycyfrowa + dwucyfrowa
+      const a = randInt(100, 400);
+      const b = randInt(20, 99);
+      const result = a + b;
+      const maxLen = String(a).length;
+      const line = '─'.repeat(maxLen + 2);
+      return { text: `  ${String(a).padStart(maxLen)}\n+ ${String(b).padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
     } else {
-      const a = randInt(200, 999);
-      const b = randInt(10, a - 1);
-      const result = a - b;
-      const aStr = String(a);
-      const bStr = String(b);
-      const maxLen = Math.max(aStr.length, bStr.length);
-      const line = '─'.repeat(maxLen + 2);
-      return { text: `  ${aStr.padStart(maxLen)}\n− ${bStr.padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
+      // Tier 3: trzy liczby lub odejmowanie pisemne
+      if (Math.random() < 0.5) {
+        // Trzy liczby
+        const a = randInt(100, 400);
+        const b = randInt(100, 400);
+        const c = randInt(10, 99);
+        const result = a + b + c;
+        const maxLen = Math.max(String(a).length, String(b).length, String(c).length);
+        const line = '─'.repeat(maxLen + 2);
+        return { text: `  ${String(a).padStart(maxLen)}\n  ${String(b).padStart(maxLen)}\n+ ${String(c).padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
+      } else {
+        // Odejmowanie pisemne
+        const a = randInt(200, 999);
+        const b = randInt(20, a - 10);
+        const result = a - b;
+        const maxLen = String(a).length;
+        const line = '─'.repeat(maxLen + 2);
+        return { text: `  ${String(a).padStart(maxLen)}\n− ${String(b).padStart(maxLen)}\n${line}\n  ???`, answer: String(result), type: 'number', cssClass: 'written-calc' };
+      }
     }
   },
 
@@ -545,7 +562,7 @@ Subjects.register('class3', {
     { id: 'multiplyDivide', icon: '✖️', name: 'Tabliczka mnożenia i dzielenie', desc: '×÷ do 5 / do 10 / brakujący czynnik', gen: (f) => MathGen3.multiplyDivide(f) },
     { id: 'comparison', icon: '⚖️', name: 'Porównywanie liczb', desc: 'Który znak: < > =', gen: (f) => MathGen3.comparison() },
     { id: 'fractionFigure3', icon: '🟦', name: 'Ułamki z obrazka', desc: 'Jaka część figury jest zakolorowana?', gen: (f) => MathGen3.fractionFigure() },
-    { id: 'writtenCalc3', icon: '📝', name: 'Pisemne +/− do 1000', desc: 'Dodawanie i odejmowanie w słupku', gen: (f) => MathGen3.writtenCalc() },
+    { id: 'writtenCalc3', icon: '📝', name: 'Działania pisemne', desc: '2-cyfrowe / 3-cyfrowe / trzy liczby i odejmowanie', gen: (f) => MathGen3.writtenCalc(f) },
     { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: (f) => MathGen3.orderOfOps() },
     { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: (f) => MathGen3.numberSequence() },
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: (f) => MathGen3.wordProblem() },
@@ -581,9 +598,9 @@ Subjects.register('class3', {
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(2) },
     { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
     { id: 'fractionFigure3', gen: () => MathGen3.fractionFigure() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(2) },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
@@ -605,9 +622,9 @@ Subjects.register('class3', {
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
     { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
-    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc() },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
+    { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'orderOfOps3', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
