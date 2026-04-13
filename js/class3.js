@@ -172,6 +172,83 @@ const MathGen3 = {
   },
 };
 
+// ─── P4: CZĘŚCI MOWY ───
+const PARTS_OF_SPEECH = {
+  tier1: [
+    { word: "dom",       answer: "rzeczownik",  hint: "dom — co? → rzeczownik" },
+    { word: "kot",       answer: "rzeczownik",  hint: "kot — kto? → rzeczownik" },
+    { word: "mama",      answer: "rzeczownik",  hint: "mama — kto? → rzeczownik" },
+    { word: "drzewo",    answer: "rzeczownik",  hint: "drzewo — co? → rzeczownik" },
+    { word: "szkoła",    answer: "rzeczownik",  hint: "szkoła — co? → rzeczownik" },
+    { word: "biegać",    answer: "czasownik",   hint: "biegać — co robić? → czasownik" },
+    { word: "jeść",      answer: "czasownik",   hint: "jeść — co robić? → czasownik" },
+    { word: "skakać",    answer: "czasownik",   hint: "skakać — co robić? → czasownik" },
+    { word: "pisać",     answer: "czasownik",   hint: "pisać — co robić? → czasownik" },
+    { word: "spać",      answer: "czasownik",   hint: "spać — co robić? → czasownik" },
+    { word: "piękny",    answer: "przymiotnik",  hint: "piękny — jaki? → przymiotnik" },
+    { word: "mały",      answer: "przymiotnik",  hint: "mały — jaki? → przymiotnik" },
+    { word: "zielony",   answer: "przymiotnik",  hint: "zielony — jaki? → przymiotnik" },
+    { word: "wysoki",    answer: "przymiotnik",  hint: "wysoki — jaki? → przymiotnik" },
+    { word: "smaczny",   answer: "przymiotnik",  hint: "smaczny — jaki? → przymiotnik" },
+  ],
+  tier2: [
+    { word: "radość",    answer: "rzeczownik",  hint: "radość — co? → rzeczownik" },
+    { word: "pogoda",    answer: "rzeczownik",  hint: "pogoda — co? → rzeczownik" },
+    { word: "wycieczka", answer: "rzeczownik",  hint: "wycieczka — co? → rzeczownik" },
+    { word: "zwierzę",   answer: "rzeczownik",  hint: "zwierzę — kto? → rzeczownik" },
+    { word: "podróż",    answer: "rzeczownik",  hint: "podróż — co? → rzeczownik" },
+    { word: "śpiewał",   answer: "czasownik",   hint: "śpiewał — co robił? → czasownik" },
+    { word: "latała",    answer: "czasownik",   hint: "latała — co robiła? → czasownik" },
+    { word: "marzyć",    answer: "czasownik",   hint: "marzyć — co robić? → czasownik" },
+    { word: "rysowali",  answer: "czasownik",   hint: "rysowali — co robili? → czasownik" },
+    { word: "odpoczywać",answer: "czasownik",   hint: "odpoczywać — co robić? → czasownik" },
+    { word: "drewniany", answer: "przymiotnik",  hint: "drewniany — jaki? → przymiotnik" },
+    { word: "gorący",    answer: "przymiotnik",  hint: "gorący — jaki? → przymiotnik" },
+    { word: "kolorowy",  answer: "przymiotnik",  hint: "kolorowy — jaki? → przymiotnik" },
+    { word: "wspaniały", answer: "przymiotnik",  hint: "wspaniały — jaki? → przymiotnik" },
+    { word: "drogi",     answer: "przymiotnik",  hint: "drogi — jaki? → przymiotnik" },
+  ],
+  tier3: [
+    { word: "bieg",      answer: "rzeczownik",  hint: "bieg — co? → rzeczownik (nie: co robić?)" },
+    { word: "spacer",    answer: "rzeczownik",  hint: "spacer — co? → rzeczownik (nie: co robić?)" },
+    { word: "cisza",     answer: "rzeczownik",  hint: "cisza — co? → rzeczownik" },
+    { word: "myślenie",  answer: "rzeczownik",  hint: "myślenie — co? → rzeczownik (choć pochodzi od 'myśleć')" },
+    { word: "pomoc",     answer: "rzeczownik",  hint: "pomoc — co? → rzeczownik" },
+    { word: "budować",   answer: "czasownik",   hint: "budować — co robić? → czasownik" },
+    { word: "padało",    answer: "czasownik",   hint: "padało — co się działo? → czasownik" },
+    { word: "świeci",    answer: "czasownik",   hint: "świeci — co robi? → czasownik" },
+    { word: "rosło",     answer: "czasownik",   hint: "rosło — co się działo? → czasownik" },
+    { word: "pachnieć",  answer: "czasownik",   hint: "pachnieć — co robić? → czasownik" },
+    { word: "zmęczony",  answer: "przymiotnik",  hint: "zmęczony — jaki? → przymiotnik (nie: co zrobił?)" },
+    { word: "leniwy",    answer: "przymiotnik",  hint: "leniwy — jaki? → przymiotnik" },
+    { word: "uśmiechnięty",answer:"przymiotnik", hint: "uśmiechnięty — jaki? → przymiotnik" },
+    { word: "głodny",    answer: "przymiotnik",  hint: "głodny — jaki? → przymiotnik" },
+    { word: "złoty",     answer: "przymiotnik",  hint: "złoty — jaki? → przymiotnik" },
+  ],
+};
+
+const PolishGen3 = {
+  // P4: Części mowy — picks from tier based on floor (1=easy, 2=medium, 3=hard)
+  partsOfSpeech(floor) {
+    const tier = floor === 1 ? PARTS_OF_SPEECH.tier1
+               : floor === 2 ? PARTS_OF_SPEECH.tier2
+               : PARTS_OF_SPEECH.tier3;
+    const item = tier[Math.floor(Math.random() * tier.length)];
+    const answers = ['Rzeczownik', 'Czasownik', 'Przymiotnik'];
+    const correctIndex = item.answer === 'rzeczownik' ? 0 : item.answer === 'czasownik' ? 1 : 2;
+    const labels = ['A', 'B', 'C'];
+    return {
+      text: `📖 Jaka to część mowy?\n\n„${item.word}"`,
+      type: 'quiz',
+      answers,
+      correctIndex,
+      hint: item.hint,
+      answer: labels[correctIndex],
+      cssClass: 'word-problem'
+    };
+  },
+};
+
 // ─── REGISTER CLASS 3 ───
 Subjects.register('class3', {
   name: 'Klasa 3',
@@ -190,6 +267,8 @@ Subjects.register('class3', {
     { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: () => MathGen3.orderOfOps() },
     { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: () => MathGen3.numberSequence() },
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: () => MathGen3.wordProblem() },
+    // POLSKI
+    { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: () => PolishGen3.partsOfSpeech(randInt(1,3)) },
   ],
 
   easyPool: [
@@ -209,6 +288,8 @@ Subjects.register('class3', {
     { id: 'missingNumber3', gen: () => MathGen3.missingNumber() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
   ],
 
   mediumPool: [
@@ -228,6 +309,8 @@ Subjects.register('class3', {
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
     { id: 'comparison', gen: () => MathGen3.comparison() },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
   ],
 
   hardPool: [
@@ -247,6 +330,8 @@ Subjects.register('class3', {
     { id: 'sequence', gen: () => MathGen3.numberSequence() },
     { id: 'multiplication', gen: () => MathGen3.multiplication() },
     { id: 'multiplication', gen: () => MathGen3.multiplication() },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
+    { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
   ],
 });
 
