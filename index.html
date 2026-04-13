@@ -3822,42 +3822,42 @@ const Hero = {
   // Equipment definitions
   items: {
     sword: {
-      icon: '🗡️', name: 'Miecz',
+      icon: '🧺', name: 'Koszyk',
       levels: [
-        { label: 'Brak', stat: '', tip: 'Nie masz miecza. Kup, by zwiększyć obrażenia.' },
-        { label: 'Miecz Giermka', stat: 'Atak +1', tip: 'Prosty miecz wykuty przez kowala. +1 do każdego ataku.' },
-        { label: 'Ostrze Rycerza', stat: 'Atak +2', tip: 'Stalowy miecz hartowany w ogniu smoka. +2 do każdego ataku.' },
-        { label: 'Ostrze Mithrylowe', stat: 'Atak +3', tip: 'Legendarne ostrze z mithrylowej rudy. +3 do każdego ataku.' },
+        { label: 'Brak', stat: '', tip: 'Nie masz koszyka. Kup, by dawać lepsze smaczki!' },
+        { label: 'Mały koszyk', stat: 'Smaczek +1', tip: 'Wiklinowy koszyczek na smaczki. +1 do każdego smaczka.' },
+        { label: 'Leśny koszyk', stat: 'Smaczek +2', tip: 'Duży koszyk pleciony z wikliny. +2 do każdego smaczka.' },
+        { label: 'Złoty koszyk', stat: 'Smaczek +3', tip: 'Magiczny koszyk — smaczki nigdy się nie kończą! +3 do smaczka.' },
       ],
       costs: [25, 60, 120]
     },
     armor: {
-      icon: '🦺', name: 'Zbroja',
+      icon: '🧥', name: 'Peleryna',
       levels: [
-        { label: 'Brak', stat: '', tip: 'Bez ochrony. Kup zbroję, by zyskać więcej serc.' },
-        { label: 'Skórzana Kurtka', stat: '+1 ❤️', tip: 'Wzmocniona skóra gryfona. +1 do maksymalnych serc.' },
-        { label: 'Kolczuga', stat: '+2 ❤️', tip: 'Kolcze ogniwa wykute przez krasnoludy. +2 do max serc.' },
-        { label: 'Zbroja Płytowa', stat: '+3 ❤️', tip: 'Pełna zbroja ze stali smoczej. +3 do max serc.' },
+        { label: 'Brak', stat: '', tip: 'Bez peleryny. Kup, by mieć więcej serc!' },
+        { label: 'Lniana peleryna', stat: '+1 ❤️', tip: 'Lekka peleryna z lnu. +1 do maksymalnych serc.' },
+        { label: 'Leśna peleryna', stat: '+2 ❤️', tip: 'Peleryna z leśnego jedwabiu. +2 do max serc.' },
+        { label: 'Tęczowa peleryna', stat: '+3 ❤️', tip: 'Magiczna peleryna w kolorach tęczy. +3 do max serc.' },
       ],
       costs: [30, 65, 130]
     },
     shield: {
-      icon: '🛡️', name: 'Tarcza',
+      icon: '🍀', name: 'Amulet',
       levels: [
-        { label: 'Brak', stat: '', tip: 'Bez peleryny. Kup, by chronić się przed błędami.' },
-        { label: 'Drewniana Tarcza', stat: '25% bloku', tip: 'Dębowa tarcza. 25% szans na zablokowanie ataku po błędzie.' },
-        { label: 'Tarcza z Żelaza', stat: '50% bloku', tip: 'Żelazna tarcza z herbem. 50% szans na blok.' },
-        { label: 'Smocza Tarcza', stat: '75% bloku', tip: 'Tarcza z łuski smoka. 75% szans na zablokowanie obrażeń.' },
+        { label: 'Brak', stat: '', tip: 'Bez amuletu. Kup, by chronić się przed błędami.' },
+        { label: 'Koniczynka', stat: '25% ochrony', tip: 'Czterolistna koniczynka. 25% szans na ochronę po błędzie.' },
+        { label: 'Bursztynowy amulet', stat: '50% ochrony', tip: 'Amulet z bałtyckiego bursztynu. 50% szans na ochronę.' },
+        { label: 'Amulet Puszczy', stat: '75% ochrony', tip: 'Starożytny amulet puszczy. 75% szans na ochronę!' },
       ],
       costs: [30, 70, 140]
     },
     boots: {
-      icon: '🥾', name: 'Buty',
+      icon: '👟', name: 'Trampki',
       levels: [
-        { label: 'Brak', stat: '', tip: 'Boso po dungeonie? Czas na buty!' },
-        { label: 'Buty Podróżnika', stat: 'Szybkość +1', tip: 'Wygodne buty na długie wyprawy.' },
-        { label: 'Elfickie Trzewiki', stat: 'Widać HP', tip: 'Magiczne buty elfów. Na mapie widzisz HP wrogów.' },
-        { label: 'Buty Arcymaga', stat: 'Podgląd zadań', tip: 'Widzisz treść zadania PRZED wyborem ataku!' },
+        { label: 'Brak', stat: '', tip: 'Boso po lesie? Czas na trampki!' },
+        { label: 'Leśne trampki', stat: 'Szybkość +1', tip: 'Wygodne trampki na leśne ścieżki.' },
+        { label: 'Trampki zwiadowcy', stat: 'Widać HP', tip: 'Magiczne trampki. Na mapie widzisz HP zwierzątek.' },
+        { label: 'Trampki eksplortera', stat: 'Podgląd zadań', tip: 'Widzisz treść zadania PRZED wyborem smaczka!' },
       ],
       costs: [15, 45, 100]
     }
@@ -3981,7 +3981,7 @@ const Hero = {
 
     const palette = { c: '#222244', f: '#cc4444' }; // eyes + mouth
 
-    // Hat — override with armor if equipped
+    // Hat — override with peleryna if equipped
     if (eq.armor >= 3) palette.a = '#c0c0e0';
     else if (eq.armor >= 2) palette.a = '#8888aa';
     else if (eq.armor >= 1) palette.a = '#6a5a4a';
@@ -3990,7 +3990,7 @@ const Hero = {
     // Skin
     palette.b = skinColors[app.skin] || skinColors[0];
 
-    // Tunic — override with armor if equipped
+    // Tunic — override with peleryna if equipped
     if (eq.armor >= 3) palette.d = '#a0a0c0';
     else if (eq.armor >= 2) palette.d = '#888899';
     else if (eq.armor >= 1) palette.d = '#7a6a5a';
@@ -4018,25 +4018,26 @@ const Hero = {
       }
     }
 
-    // Draw sword on right side (adjusted for 16-wide sprite)
+    // Draw basket on right side
     if (eq.sword > 0) {
-      const sColors = ['', '#aaaaaa', '#ccccdd', '#eeddff'];
-      ctx.fillStyle = sColors[eq.sword];
-      ctx.fillRect(14 * px, 4 * px, px, px * 6);
-      ctx.fillRect(14 * px, 3 * px, px, px);
+      const bColors = ['', '#b08840', '#c0a050', '#f0d060'];
+      ctx.fillStyle = bColors[eq.sword];
+      ctx.fillRect(13 * px, 9 * px, px * 3, px * 3);
+      ctx.fillRect(14 * px, 8 * px, px, px);
+      // Handle
       ctx.fillStyle = '#8a6a3a';
-      ctx.fillRect(14 * px, 10 * px, px, px * 2);
-      ctx.fillStyle = '#f0d060';
-      ctx.fillRect(13 * px, 10 * px, px * 3, px);
+      ctx.fillRect(14 * px, 7 * px, px, px);
+      ctx.fillRect(13 * px, 8 * px, px, px);
+      ctx.fillRect(15 * px, 8 * px, px, px);
     }
 
-    // Draw shield on left side (adjusted for 16-wide sprite)
+    // Draw amulet glow on left side
     if (eq.shield > 0) {
-      const shColors = ['', '#6a5a3a', '#8888aa', '#44aa44'];
-      ctx.fillStyle = shColors[eq.shield];
-      ctx.fillRect(1 * px, 9 * px, px * 2, px * 4);
-      ctx.fillRect(2 * px, 8 * px, px, px);
-      ctx.fillRect(2 * px, 13 * px, px, px);
+      const amColors = ['', '#88cc44', '#ddaa22', '#44ddaa'];
+      ctx.fillStyle = amColors[eq.shield];
+      ctx.fillRect(2 * px, 9 * px, px, px);
+      ctx.fillRect(1 * px, 10 * px, px * 3, px);
+      ctx.fillRect(2 * px, 11 * px, px, px);
     }
 
     return c;
@@ -5045,7 +5046,7 @@ const Battle = {
     const blocked = Math.random() < blockChance;
 
     if (blocked) {
-      fb.textContent = 'Oj! Ale peleryna chroni! 🛡️';
+      fb.textContent = 'Oj! Ale amulet chroni! 🍀';
       fb.className = 'feedback-text feedback-miss';
     } else {
       fb.textContent = 'Oj! Zwierzątko się wystraszyło! 😿';
