@@ -206,19 +206,40 @@ const MathGen3 = {
     return { text: q.text, answer: q.answer, type: 'number' };
   },
 
-  // Zadania z treścią (proste, klasa 3)
-  wordProblem() {
-    const problems = [
-      () => { const a = randInt(10, 40); const b = randInt(5, 30); return { text: `Zosia ma ${a} naklejek.\nDostała od koleżanki jeszcze ${b}.\nIle naklejek ma teraz?`, answer: String(a + b) }; },
-      () => { const a = randInt(30, 80); const b = randInt(10, a - 5); return { text: `W pudełku było ${a} kredek.\nDzieci zabrały ${b} kredek.\nIle zostało w pudełku?`, answer: String(a - b) }; },
+  // Zadania z treścią — 3 tiery
+  wordProblem(floor) {
+    const tier1 = [
+      () => { const a = randInt(20, 50); const b = randInt(5, 30); return { text: `Ania ma ${a} naklejek,\nKasia o ${b} więcej.\nIle naklejek ma Kasia?`, answer: String(a + b) }; },
+      () => { const a = randInt(30, 80); const b = randInt(10, a - 5); return { text: `W pudełku było ${a} cukierków.\nDzieci zjadły ${b}.\nIle zostało?`, answer: String(a - b) }; },
+      () => { const a = randInt(15, 40); const b = randInt(10, 30); return { text: `Zosia przeczytała ${a} stron,\na Kuba ${b} stron.\nIle stron przeczytali razem?`, answer: String(a + b) }; },
+      () => { const a = randInt(50, 90); const b = randInt(10, 30); return { text: `Tomek miał ${a} zł.\nKupił zeszyt za ${b} zł.\nIle mu zostało?`, answer: String(a - b) }; },
       () => { const n = randInt(3, 8); const each = randInt(3, 10); return { text: `Na stole jest ${n} talerzy.\nNa każdym leży ${each} ciasteczek.\nIle jest ciasteczek łącznie?`, answer: String(n * each) }; },
-      () => { const total = randInt(12, 36); const groups = [2, 3, 4, 6][Math.floor(Math.random() * 4)]; const each = Math.floor(total / groups) * groups === total ? total / groups : null; if (!each) return this.wordProblem(); return { text: `${total} jabłek rozdzielono równo\nmiędzy ${groups} dzieci.\nIle jabłek dostało każde dziecko?`, answer: String(each) }; },
-      () => { const price = randInt(3, 12); const count = randInt(2, 5); const paid = Math.ceil(price * count / 10) * 10; return { text: `Mama kupiła ${count} bułek po ${price} zł.\nZapłaciła ${paid} zł.\nIle dostała reszty?`, answer: String(paid - price * count) }; },
-      () => { const a = randInt(10, 50); const b = randInt(10, 50); const c = randInt(10, 50); return { text: `Janek zebrał ${a} kasztanów,\nOla ${b}, a Kasia ${c}.\nIle kasztanów zebrali razem?`, answer: String(a + b + c) }; },
-      () => { const total = randInt(40, 90); const boys = randInt(15, total - 15); return { text: `W szkole jest ${total} uczniów.\nChłopców jest ${boys}.\nIle jest dziewcząt?`, answer: String(total - boys) }; },
-      () => { const rows = randInt(3, 6); const perRow = randInt(4, 8); return { text: `W ogrodzie posadzono kwiaty\nw ${rows} rzędach po ${perRow} kwiatów.\nIle kwiatów posadzono?`, answer: String(rows * perRow) }; },
+      () => { const total = randInt(40, 90); const boys = randInt(15, total - 15); return { text: `W klasie jest ${total} uczniów.\nChłopców jest ${boys}.\nIle jest dziewcząt?`, answer: String(total - boys) }; },
+      () => { const rows = randInt(3, 6); const perRow = randInt(4, 8); return { text: `W ogrodzie posadzono kwiaty\nw ${rows} rzędach po ${perRow}.\nIle kwiatów posadzono?`, answer: String(rows * perRow) }; },
+      () => { const a = randInt(20, 60); const b = randInt(10, 25); return { text: `Ola ma ${a} koralików.\nDostała od babci jeszcze ${b}.\nIle ma teraz?`, answer: String(a + b) }; },
     ];
-    const gen = problems[Math.floor(Math.random() * problems.length)];
+    const tier2 = [
+      () => { const a = randInt(20, 40); const b = randInt(25, 45); const c = randInt(10, 25); return { text: `Jaś ma ${a} zł, Maciek ${b} zł.\nKażdy zarobił jeszcze ${c} zł.\nIle mają razem?`, answer: String(a + b + 2 * c) }; },
+      () => { const a = randInt(60, 95); const b = randInt(10, 20); return { text: `Babcia zrobiła szalik ${a} cm.\nDrugi jest o ${b} cm krótszy.\nIle cm ma drugi szalik?`, answer: String(a - b) }; },
+      () => { const price = randInt(3, 12); const count = randInt(2, 5); const paid = Math.ceil(price * count / 10) * 10; return { text: `Mama kupiła ${count} bułek po ${price} zł.\nZapłaciła ${paid} zł.\nIle dostała reszty?`, answer: String(paid - price * count) }; },
+      () => { const a = randInt(15, 35); const b = randInt(10, 20); const c = randInt(5, 15); return { text: `W poniedziałek padało ${a} mm deszczu,\nwe wtorek ${b} mm, w środę ${c} mm.\nIle łącznie?`, answer: String(a + b + c) }; },
+      () => { const each = randInt(4, 8); const n = randInt(3, 6); const extra = randInt(2, 10); return { text: `Tata kupił ${n} paczek ciastek\npo ${each} sztuk w każdej.\n${extra} ciastek zjadły dzieci.\nIle zostało?`, answer: String(each * n - extra) }; },
+      () => { const a = randInt(30, 60); const b = randInt(10, 25); return { text: `Ola miała ${a} zł.\nWydała ${b} zł na książkę,\na resztę na zeszyt i długopis.\nIle wydała na zeszyt i długopis?`, answer: String(a - b) }; },
+      () => { const g = [2, 3, 4, 6][randInt(0, 3)]; const each = randInt(3, 8); const total = g * each; return { text: `${total} orzechów rozdzielono\nrówno na ${g} torebek.\nIle orzechów w każdej?`, answer: String(each) }; },
+      () => { const a = randInt(20, 50); const b = randInt(10, 30); const c = randInt(5, 20); return { text: `Zosia zebrała ${a} kasztanów,\nKuba o ${b} mniej.\nIle zebrali razem?`, answer: String(a + (a - b)) }; },
+    ];
+    const tier3 = [
+      () => { const age = randInt(7, 12); const mDiff = randInt(20, 28); const tDiff = randInt(23, 32); return { text: `Adam ma ${age} lat.\nMama jest o ${mDiff} lat starsza,\ntata o ${tDiff} lat starszy.\nIle lat mają wszyscy razem?`, answer: String(age + (age + mDiff) + (age + tDiff)) }; },
+      () => { const a = randInt(30, 60); const b = randInt(20, 50); const c = randInt(30, 60); const d = randInt(20, c - 1); return { text: `Do sumy ${a} i ${b}\ndodaj różnicę ${c} i ${d}.`, answer: String(a + b + (c - d)) }; },
+      () => { const a = randInt(10, 50); const b = randInt(10, 50); const c = randInt(10, 50); return { text: `Janek zebrał ${a} kasztanów,\nOla ${b}, a Kasia ${c}.\nIle kasztanów zebrali razem?`, answer: String(a + b + c) }; },
+      () => { const n = randInt(3, 6); const price = randInt(4, 12); const budget = n * price + randInt(5, 20); return { text: `Mama ma ${budget} zł.\nKupuje ${n} zeszytów po ${price} zł.\nIle złotych jej zostanie?`, answer: String(budget - n * price) }; },
+      () => { const a = randInt(100, 300); const b = randInt(50, 150); const c = randInt(20, 80); return { text: `W sklepie było ${a} jabłek.\nRano sprzedano ${b},\npo południu jeszcze ${c}.\nIle zostało?`, answer: String(a - b - c) }; },
+      () => { const perDay = randInt(5, 15); const days = randInt(3, 7); const extra = randInt(10, 30); return { text: `Ola czyta ${perDay} stron dziennie.\nCzytała tak przez ${days} dni,\npotem jednego dnia ${extra} stron.\nIle stron przeczytała łącznie?`, answer: String(perDay * days + extra) }; },
+      () => { const a = randInt(20, 40); const diff = randInt(5, 15); return { text: `Kasia ma ${a} lat.\nJej brat jest o ${diff} lat młodszy.\nIle lat będą mieli razem\nza 5 lat?`, answer: String((a + 5) + (a - diff + 5)) }; },
+      () => { const a = randInt(50, 90); const b = randInt(30, 60); const c = randInt(20, 40); return { text: `Od sumy ${a} i ${b}\nodejmij ${c}.\nIle wyszło?`, answer: String(a + b - c) }; },
+    ];
+    const pool = floor === 1 ? tier1 : floor === 2 ? tier2 : tier3;
+    const gen = pool[Math.floor(Math.random() * pool.length)];
     const p = gen();
     return { text: p.text, answer: p.answer, type: 'number', cssClass: 'word-problem' };
   },
@@ -680,7 +701,7 @@ Subjects.register('class3', {
     { id: 'writtenCalc3', icon: '📝', name: 'Działania pisemne', desc: '2-cyfrowe / 3-cyfrowe / trzy liczby i odejmowanie', gen: (f) => MathGen3.writtenCalc(f) },
     { id: 'orderOfOps3', icon: '🔢', name: 'Kolejność działań', desc: 'Mnożenie przed dodawaniem', gen: (f) => MathGen3.orderOfOps() },
     { id: 'sequence', icon: '🔗', name: 'Ciągi liczbowe', desc: 'Uzupełnij brakującą liczbę w ciągu', gen: (f) => MathGen3.numberSequence() },
-    { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: (f) => MathGen3.wordProblem() },
+    { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Jedno- / dwu- / wieloetapowe', gen: (f) => MathGen3.wordProblem(f) },
     { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
     { id: 'digits', icon: '🔢', name: 'Cyfry i liczby', desc: 'Ile cyfr, suma cyfr, układanie liczb', gen: (f) => DigitsGen.digitsAndNumbers(f) },
     { id: 'units', icon: '⚖️', name: 'Jednostki miary (masa)', desc: 'kg, dag, g — przeliczanie i zadania', gen: (f) => UnitsGen.units(f) },
@@ -739,9 +760,9 @@ Subjects.register('class3', {
     { id: 'addSub100', gen: () => MathGen3.addSub100(3) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(3) },
     { id: 'multiplyDivide', gen: () => MathGen3.multiplyDivide(3) },
-    { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
-    { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
-    { id: 'wordProblem3', gen: () => MathGen3.wordProblem() },
+    { id: 'wordProblem3', gen: () => MathGen3.wordProblem(3) },
+    { id: 'wordProblem3', gen: () => MathGen3.wordProblem(3) },
+    { id: 'wordProblem3', gen: () => MathGen3.wordProblem(3) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
     { id: 'writtenCalc3', gen: () => MathGen3.writtenCalc(3) },
