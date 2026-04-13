@@ -321,6 +321,23 @@ const PolishGen3 = {
     };
   },
 
+  // P3: Ortografia ch/h
+  ortografiaCHH(floor) {
+    const tier = floor === 1 ? ORTHO_CHH.tier1
+               : floor === 2 ? ORTHO_CHH.tier2
+               : ORTHO_CHH.tier3;
+    const item = tier[Math.floor(Math.random() * tier.length)];
+    return {
+      text: `📝 Wpisz ch lub h\n\n„${item.word}"`,
+      type: 'quiz',
+      answers: ['ch', 'h'],
+      correctIndex: item.answer === 'ch' ? 0 : 1,
+      hint: item.hint,
+      answer: item.answer === 'ch' ? 'A' : 'B',
+      cssClass: 'word-problem'
+    };
+  },
+
   // P2: Ortografia rz/ż
   ortografiaRZZ(floor) {
     const tier = floor === 1 ? ORTHO_RZZ.tier1
@@ -441,6 +458,44 @@ const ORTHO_RZZ = {
     { word: "ka_dy",     answer: "ż",  hint: "każdy — ż (zapamiętaj)" },
     { word: "ostro_ny",  answer: "ż",  hint: "ostrożny — ż" },
     { word: "łó_ko",     answer: "ż",  hint: "łóżko — ż" },
+  ],
+};
+
+// ─── P3: ORTOGRAFIA ch/h ───
+const ORTHO_CHH = {
+  tier1: [
+    { word: "_leb",      answer: "ch", hint: "chleb — ch" },
+    { word: "mu_a",      answer: "ch", hint: "mucha — ch" },
+    { word: "u_o",       answer: "ch", hint: "ucho — ch" },
+    { word: "_erbata",   answer: "h",  hint: "herbata — h" },
+    { word: "_ałas",     answer: "h",  hint: "hałas — h" },
+    { word: "_amak",     answer: "h",  hint: "hamak — h" },
+    { word: "_odnik",    answer: "ch", hint: "chodnik — ch" },
+    { word: "su_o",      answer: "ch", hint: "sucho — ch" },
+  ],
+  tier2: [
+    { word: "_ata",      answer: "ch", hint: "chata — ch" },
+    { word: "_yba",      answer: "ch", hint: "chyba — ch" },
+    { word: "_mura",     answer: "ch", hint: "chmura — ch" },
+    { word: "_wila",     answer: "ch", hint: "chwila — ch" },
+    { word: "_ustka",    answer: "ch", hint: "chustka — ch" },
+    { word: "_uśtawka",  answer: "h",  hint: "huśtawka — h" },
+    { word: "_ełm",      answer: "h",  hint: "hełm — h" },
+    { word: "_uragan",   answer: "h",  hint: "huragan — h" },
+    { word: "_arcerz",   answer: "h",  hint: "harcerz — h" },
+    { word: "gro_",      answer: "ch", hint: "groch — ch" },
+  ],
+  tier3: [
+    { word: "_oinka",    answer: "ch", hint: "choinka — ch" },
+    { word: "_łopiec",   answer: "ch", hint: "chłopiec — ch" },
+    { word: "wy_owanie", answer: "ch", hint: "wychowanie — ch" },
+    { word: "_arakterystyczny", answer: "ch", hint: "charakter — ch (z greki, ale piszemy ch!)" },
+    { word: "_andel",    answer: "h",  hint: "handel — h" },
+    { word: "_istoria",  answer: "h",  hint: "historia — h (z greki)" },
+    { word: "_ipopotam", answer: "h",  hint: "hipopotam — h (z greki)" },
+    { word: "_armonijka",answer: "h",  hint: "harmonijka — h" },
+    { word: "_ymn",      answer: "h",  hint: "hymn — h" },
+    { word: "_oragiew",  answer: "ch", hint: "chorągiew — ch" },
   ],
 };
 
@@ -903,6 +958,7 @@ Subjects.register('class3', {
     // POLSKI
     { id: 'orthoOU', icon: '✏️', name: 'Ortografia ó/u', desc: 'Wpisz ó lub u w brakujące miejsce', gen: (f) => PolishGen3.ortografiaOU(f) },
     { id: 'orthoRZZ', icon: '✏️', name: 'Ortografia rz/ż', desc: 'Wpisz rz lub ż w brakujące miejsce', gen: (f) => PolishGen3.ortografiaRZZ(f) },
+    { id: 'orthoCHH', icon: '✏️', name: 'Ortografia ch/h', desc: 'Wpisz ch lub h w brakujące miejsce', gen: (f) => PolishGen3.ortografiaCHH(f) },
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
 
@@ -921,6 +977,8 @@ Subjects.register('class3', {
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(1) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(1) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(1) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(1) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(1) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
@@ -952,6 +1010,8 @@ Subjects.register('class3', {
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(2) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(2) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(2) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(2) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(2) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
@@ -983,6 +1043,8 @@ Subjects.register('class3', {
     { id: 'orthoOU', gen: () => PolishGen3.ortografiaOU(3) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(3) },
     { id: 'orthoRZZ', gen: () => PolishGen3.ortografiaRZZ(3) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(3) },
+    { id: 'orthoCHH', gen: () => PolishGen3.ortografiaCHH(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'partsOfSpeech', gen: () => PolishGen3.partsOfSpeech(3) },
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
