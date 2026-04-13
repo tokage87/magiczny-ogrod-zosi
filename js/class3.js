@@ -369,25 +369,47 @@ const ClockCalGen = {
   _clockQuestion(minuteOptions) {
     const h = randInt(1, 12);
     const m = minuteOptions[Math.floor(Math.random() * minuteOptions.length)];
-    const ans = `${h}:${String(m).padStart(2, '0')}`;
-    return {
-      text: '',
-      html: `<div style="text-align:center;"><div style="font-size:14px;color:#aaa;margin-bottom:8px;">🕐 Która jest godzina?</div>${clockSVG(h, m)}</div>`,
-      type: 'text',
-      answer: ans,
-      hint: `Krótka wskazówka = godziny, długa = minuty`
-    };
+    return this._clockQuiz(h, m, minuteOptions);
   },
 
   _clockQuestion5min() {
     const h = randInt(1, 12);
     const m = randInt(0, 11) * 5;
-    const ans = `${h}:${String(m).padStart(2, '0')}`;
+    const allMin = [];
+    for (let i = 0; i < 12; i++) allMin.push(i * 5);
+    return this._clockQuiz(h, m, allMin);
+  },
+
+  _clockQuiz(h, m, minutePool) {
+    const fmt = (hh, mm) => `${hh}:${String(mm).padStart(2, '0')}`;
+    const correct = fmt(h, m);
+    const wrongs = new Set();
+    let safety = 0;
+    while (wrongs.size < 2 && safety++ < 50) {
+      // Wrong hour or wrong minutes
+      if (Math.random() < 0.5) {
+        let wh;
+        do { wh = randInt(1, 12); } while (wh === h);
+        const w = fmt(wh, m);
+        if (w !== correct) wrongs.add(w);
+      } else {
+        let wm;
+        do { wm = minutePool[Math.floor(Math.random() * minutePool.length)]; } while (wm === m);
+        const w = fmt(h, wm);
+        if (w !== correct) wrongs.add(w);
+      }
+    }
+    const answers = [correct, ...wrongs];
+    answers.sort(() => Math.random() - 0.5);
+    const correctIndex = answers.indexOf(correct);
+    const labels = ['A', 'B', 'C'];
     return {
       text: '',
       html: `<div style="text-align:center;"><div style="font-size:14px;color:#aaa;margin-bottom:8px;">🕐 Która jest godzina?</div>${clockSVG(h, m)}</div>`,
-      type: 'text',
-      answer: ans,
+      type: 'quiz',
+      answers,
+      correctIndex,
+      answer: labels[correctIndex],
       hint: `Krótka wskazówka = godziny, długa = minuty`
     };
   },
