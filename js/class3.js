@@ -572,7 +572,100 @@ const DigitsGen = {
   },
 };
 
-// ─── REGISTER CLASS 3 ───
+// ─── M13: JEDNOSTKI MIARY (masa) ───
+const UnitsGen = {
+  units(floor) {
+    if (floor === 1) return this._basicConversion();
+    if (floor === 2) return this._conversion();
+    return Math.random() < 0.5 ? this._unitCalc() : this._unitWord();
+  },
+
+  _basicConversion() {
+    const facts = [
+      { text: '1 kg = ☐ dag', answer: '100', hint: '1 kilogram = 100 dekagramów' },
+      { text: '1 dag = ☐ g', answer: '10', hint: '1 dekagram = 10 gramów' },
+      { text: '1 kg = ☐ g', answer: '1000', hint: '1 kg = 100 dag = 1000 g' },
+      { text: '10 dag = ☐ g', answer: '100', hint: '1 dag = 10 g, więc 10 dag = ?' },
+      { text: '100 g = ☐ dag', answer: '10', hint: '10 g = 1 dag' },
+      { text: '1000 g = ☐ kg', answer: '1', hint: '1000 g = 1 kg' },
+      { text: '50 dag = ☐ kg', answer: '0', hint: '50 dag to pół kilograma, ale ile pełnych kg?' },
+      { text: '100 dag = ☐ kg', answer: '1', hint: '100 dag = 1 kg' },
+    ];
+    const f = facts[Math.floor(Math.random() * facts.length)];
+    return { text: f.text, answer: f.answer, type: 'number', hint: f.hint };
+  },
+
+  _conversion() {
+    const templates = [
+      () => { const n = randInt(1, 9) * 50; return { text: `${n} g = ☐ dag`, answer: String(n / 10), hint: '10 g = 1 dag' }; },
+      () => { const n = randInt(2, 9); return { text: `${n} kg = ☐ dag`, answer: String(n * 100), hint: '1 kg = 100 dag' }; },
+      () => { const n = randInt(1, 9) * 10; return { text: `${n} dag = ☐ g`, answer: String(n * 10), hint: '1 dag = 10 g' }; },
+      () => { const n = randInt(2, 9) * 100; return { text: `${n} g = ☐ dag`, answer: String(n / 10), hint: '10 g = 1 dag' }; },
+      () => { const n = randInt(2, 5); return { text: `${n} kg = ☐ g`, answer: String(n * 1000), hint: '1 kg = 1000 g' }; },
+      () => { const n = randInt(2, 9) * 100; return { text: `${n} dag = ☐ kg`, answer: String(n / 100), hint: '100 dag = 1 kg' }; },
+    ];
+    const gen = templates[Math.floor(Math.random() * templates.length)];
+    const q = gen();
+    return { text: q.text, answer: q.answer, type: 'number', hint: q.hint };
+  },
+
+  _unitCalc() {
+    const kgA = randInt(3, 15);
+    const dagA = randInt(10, 90);
+    const kgB = randInt(1, kgA - 1);
+    const dagB = randInt(5, 80);
+    const isAdd = Math.random() < 0.5;
+    let rKg, rDag;
+    if (isAdd) {
+      rDag = dagA + dagB;
+      rKg = kgA + kgB;
+      if (rDag >= 100) { rKg++; rDag -= 100; }
+      return {
+        text: `${kgA} kg ${dagA} dag + ${kgB} kg ${dagB} dag = ?\n\nWpisz TYLKO dag (łącznie)`,
+        answer: String(rKg * 100 + rDag),
+        type: 'number',
+        hint: `Zamień wszystko na dag: ${kgA}×100+${dagA} + ${kgB}×100+${dagB}`,
+        cssClass: 'word-problem'
+      };
+    } else {
+      // Ensure a > b
+      const totalA = kgA * 100 + dagA;
+      const totalB = kgB * 100 + dagB;
+      if (totalA <= totalB) return this._unitCalc();
+      const result = totalA - totalB;
+      return {
+        text: `${kgA} kg ${dagA} dag − ${kgB} kg ${dagB} dag = ?\n\nWpisz TYLKO dag (łącznie)`,
+        answer: String(result),
+        type: 'number',
+        hint: `Zamień na dag: ${totalA} − ${totalB}`,
+        cssClass: 'word-problem'
+      };
+    }
+  },
+
+  _unitWord() {
+    const problems = [
+      () => {
+        const kgVal = randInt(1, 3);
+        const gVal = randInt(1, 9) * 100;
+        return { text: `Ola kupiła ${kgVal} kg jabłek\ni ${gVal} g pomidorów.\nIle gramów ważą razem?`, answer: String(kgVal * 1000 + gVal), hint: `${kgVal} kg = ${kgVal * 1000} g` };
+      },
+      () => {
+        const dagVal = randInt(20, 80);
+        const kgVal = randInt(1, 2);
+        return { text: `Paczka waży ${kgVal} kg ${dagVal} dag.\nIle to gramów łącznie?`, answer: String(kgVal * 1000 + dagVal * 10), hint: `${kgVal} kg = ${kgVal * 1000} g, ${dagVal} dag = ${dagVal * 10} g` };
+      },
+      () => {
+        const total = randInt(2, 5) * 1000;
+        const used = randInt(1, total / 1000 - 1) * 1000 + randInt(1, 9) * 100;
+        return { text: `Mama miała ${total / 1000} kg mąki.\nZużyła ${used} g.\nIle gramów zostało?`, answer: String(total - used), hint: `${total / 1000} kg = ${total} g` };
+      },
+    ];
+    const gen = problems[Math.floor(Math.random() * problems.length)];
+    const q = gen();
+    return { text: q.text, answer: q.answer, type: 'number', hint: q.hint, cssClass: 'word-problem' };
+  },
+};
 Subjects.register('class3', {
   name: 'Klasa 3',
   icon: '🧮',
@@ -590,6 +683,7 @@ Subjects.register('class3', {
     { id: 'wordProblem3', icon: '📖', name: 'Zadania z treścią', desc: 'Proste zadania tekstowe', gen: (f) => MathGen3.wordProblem() },
     { id: 'clockCalendar', icon: '🕐', name: 'Zegar i kalendarz', desc: 'Odczytaj godzinę, miesiące, kwartały', gen: (f) => ClockCalGen.clockAndCalendar(f) },
     { id: 'digits', icon: '🔢', name: 'Cyfry i liczby', desc: 'Ile cyfr, suma cyfr, układanie liczb', gen: (f) => DigitsGen.digitsAndNumbers(f) },
+    { id: 'units', icon: '⚖️', name: 'Jednostki miary (masa)', desc: 'kg, dag, g — przeliczanie i zadania', gen: (f) => UnitsGen.units(f) },
     // POLSKI
     { id: 'partsOfSpeech', icon: '📗', name: 'Części mowy', desc: 'Rzeczownik, czasownik czy przymiotnik?', gen: (f) => PolishGen3.partsOfSpeech(f) },
   ],
@@ -611,6 +705,8 @@ Subjects.register('class3', {
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(1) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(1) },
+    { id: 'units', gen: () => UnitsGen.units(1) },
+    { id: 'units', gen: () => UnitsGen.units(1) },
   ],
 
   mediumPool: [
@@ -634,6 +730,8 @@ Subjects.register('class3', {
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(2) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(2) },
+    { id: 'units', gen: () => UnitsGen.units(2) },
+    { id: 'units', gen: () => UnitsGen.units(2) },
   ],
 
   hardPool: [
@@ -657,6 +755,8 @@ Subjects.register('class3', {
     { id: 'clockCalendar', gen: () => ClockCalGen.clockAndCalendar(3) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
     { id: 'digits', gen: () => DigitsGen.digitsAndNumbers(3) },
+    { id: 'units', gen: () => UnitsGen.units(3) },
+    { id: 'units', gen: () => UnitsGen.units(3) },
   ],
 });
 
