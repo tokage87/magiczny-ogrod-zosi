@@ -4843,7 +4843,6 @@ const Battle = {
         html += `<button class="quiz-answer-btn" onclick="Battle.submitQuizAnswer('${labels[i]}')">${labels[i]}) ${q.answers[i]}</button>`;
       }
       html += '</div>';
-      if (q.hint) html += `<div class="quiz-hint">💡 ${q.hint}</div>`;
       answerArea.innerHTML = html;
       return;
     }
@@ -4859,7 +4858,6 @@ const Battle = {
         html += `<button class="quiz-answer-btn" onclick="Battle.submitQuizAnswer('${labels[i]}')">${labels[i]}) ${q.answers[i]}</button>`;
       }
       html += '</div>';
-      if (q.hint) html += `<div class="quiz-hint">💡 ${q.hint}</div>`;
       answerArea.innerHTML = html;
     } else if (q.type === 'fraction') {
       // Show fraction vertically in question area
@@ -5006,6 +5004,14 @@ const Battle = {
         btn.style.background = '#2a0a0a';
       }
     });
+    // Show hint after answering
+    if (q.hint) {
+      const answerArea = document.getElementById('answer-area');
+      const hintDiv = document.createElement('div');
+      hintDiv.className = 'quiz-hint';
+      hintDiv.textContent = '💡 ' + q.hint;
+      answerArea.appendChild(hintDiv);
+    }
     // Process result after a brief pause to show correct answer
     setTimeout(() => {
       if (correct) {
@@ -5072,6 +5078,15 @@ const Battle = {
     const fb = document.getElementById('feedback-text');
     Audio_.miss();
     this.flawless = false;
+    // Show hint after wrong answer
+    const q = this.currentQuestion;
+    if (q && q.hint && !document.querySelector('#answer-area .quiz-hint')) {
+      const area = document.getElementById('answer-area');
+      const hintDiv = document.createElement('div');
+      hintDiv.className = 'quiz-hint';
+      hintDiv.textContent = '💡 ' + q.hint;
+      area.appendChild(hintDiv);
+    }
     // Track stats
     if (this.currentQuestion && this.currentQuestion._categoryId) {
       Stats.record(this.currentQuestion._categoryId, false);
@@ -5997,7 +6012,6 @@ const Practice = {
       let html = '<div class="quiz-answers">';
       for (let i = 0; i < q.answers.length; i++) html += `<button class="quiz-answer-btn" onclick="Practice.submitQuiz('${labels[i]}')">${labels[i]}) ${q.answers[i]}</button>`;
       html += '</div>';
-      if (q.hint) html += `<div class="quiz-hint">💡 ${q.hint}</div>`;
       answerArea.innerHTML = html;
     } else if (q.type === 'fraction') {
       qText.innerHTML = `
@@ -6055,6 +6069,13 @@ const Practice = {
       if (i === q.correctIndex) { btn.style.borderColor = '#44ff44'; btn.style.background = '#0a2a0a'; }
       else if (labels[i] === letter && !correct) { btn.style.borderColor = '#ff4444'; btn.style.background = '#2a0a0a'; }
     });
+    if (q.hint) {
+      const area = document.getElementById('practice-answer-area');
+      const hintDiv = document.createElement('div');
+      hintDiv.className = 'quiz-hint';
+      hintDiv.textContent = '💡 ' + q.hint;
+      area.appendChild(hintDiv);
+    }
     setTimeout(() => this.checkAndShow(correct), 500);
   },
 
@@ -6090,6 +6111,15 @@ const Practice = {
       Audio_.miss();
     }
     this.updateScore();
+    // Show hint after answering (for non-quiz types; quiz adds it before calling this)
+    const q = this.currentQ;
+    if (q.hint && !document.querySelector('#practice-answer-area .quiz-hint')) {
+      const area = document.getElementById('practice-answer-area');
+      const hintDiv = document.createElement('div');
+      hintDiv.className = 'quiz-hint';
+      hintDiv.textContent = '💡 ' + q.hint;
+      area.appendChild(hintDiv);
+    }
     document.getElementById('practice-next-btn').style.display = 'inline-block';
   },
 
