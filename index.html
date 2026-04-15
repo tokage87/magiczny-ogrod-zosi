@@ -2517,12 +2517,12 @@ body {
         </div>
         <div class="monster-name" id="monster-extra-info"></div>
         <div class="battle-hp-row">
-          <div class="battle-hp-label">HP:</div>
+          <div class="battle-hp-label">🤎</div>
           <div class="battle-hp-shell">
             <div class="battle-hp-bar" id="monster-hp-bar"></div>
           </div>
         </div>
-        <div class="battle-hp-value" id="monster-hp-text"></div>
+        <div class="battle-hp-value" id="monster-hp-text" style="display:none;"></div>
       </div>
 
       <div class="monster-area">
@@ -4470,55 +4470,54 @@ const DungeonMap = {
   },
 
   getMonster(floor) {
-    // immune: 'easy'|'medium'|'hard' — this spell type deals 0 progress
     const monsters = {
       1: [
-        { sprite: 'butterfly', name: 'Motyl', immune: null, onlyEasy: true, hpOverride: [1, 3] },
-        { sprite: 'bunny', name: 'Króliczek', immune: 'hard' },
-        { sprite: 'turtle', name: 'Żółw', immune: null },
-        { sprite: 'ladybug', name: 'Biedronka', immune: 'medium' },
-        { sprite: 'frog', name: 'Żabka', immune: null },
-        { sprite: 'snail', name: 'Ślimak', immune: 'easy', hpOverride: [1, 3] },
-        { sprite: 'caterpillar', name: 'Gąsienica', immune: null, onlyEasy: true },
-        { sprite: 'firefly', name: 'Świetlik', immune: 'medium' },
-        { sprite: 'duckling', name: 'Kaczuszka', immune: null },
-        { sprite: 'hamster', name: 'Chomik', immune: 'hard' },
-        { sprite: 'bee', name: 'Pszczółka', immune: 'easy' },
-        { sprite: 'mouse', name: 'Myszka', immune: 'medium' },
-        { sprite: 'robin', name: 'Rudzik', immune: null },
-        { sprite: 'dragonfly', name: 'Ważka', immune: 'hard' },
+        { sprite: 'butterfly', name: 'Motyl' },
+        { sprite: 'bunny', name: 'Króliczek' },
+        { sprite: 'turtle', name: 'Żółw' },
+        { sprite: 'ladybug', name: 'Biedronka' },
+        { sprite: 'frog', name: 'Żabka' },
+        { sprite: 'snail', name: 'Ślimak' },
+        { sprite: 'caterpillar', name: 'Gąsienica' },
+        { sprite: 'firefly', name: 'Świetlik' },
+        { sprite: 'duckling', name: 'Kaczuszka' },
+        { sprite: 'hamster', name: 'Chomik' },
+        { sprite: 'bee', name: 'Pszczółka' },
+        { sprite: 'mouse', name: 'Myszka' },
+        { sprite: 'robin', name: 'Rudzik' },
+        { sprite: 'dragonfly', name: 'Ważka' },
       ],
       2: [
-        { sprite: 'owl', name: 'Sowa', immune: 'hard' },
-        { sprite: 'kitten', name: 'Koteczek', immune: 'easy' },
-        { sprite: 'hedgehog', name: 'Jeż', immune: 'medium' },
-        { sprite: 'squirrel', name: 'Wiewiórka', immune: 'hard' },
-        { sprite: 'fox', name: 'Lisek', immune: null },
-        { sprite: 'deer', name: 'Sarenka', immune: 'easy' },
-        { sprite: 'badger', name: 'Borsuk', immune: 'medium' },
-        { sprite: 'woodpecker', name: 'Dzięcioł', immune: 'hard' },
-        { sprite: 'raccoon', name: 'Szop', immune: null },
-        { sprite: 'beaver', name: 'Bóbr', immune: 'easy', hpOverride: [2, 5] },
-        { sprite: 'hare', name: 'Zając', immune: 'medium' },
-        { sprite: 'magpie', name: 'Sroka', immune: null },
-        { sprite: 'boar', name: 'Dziczek', immune: 'hard' },
-        { sprite: 'mole', name: 'Krecik', immune: null, onlyEasy: true },
+        { sprite: 'owl', name: 'Sowa' },
+        { sprite: 'kitten', name: 'Koteczek' },
+        { sprite: 'hedgehog', name: 'Jeż' },
+        { sprite: 'squirrel', name: 'Wiewiórka' },
+        { sprite: 'fox', name: 'Lisek' },
+        { sprite: 'deer', name: 'Sarenka' },
+        { sprite: 'badger', name: 'Borsuk' },
+        { sprite: 'woodpecker', name: 'Dzięcioł' },
+        { sprite: 'raccoon', name: 'Szop' },
+        { sprite: 'beaver', name: 'Bóbr' },
+        { sprite: 'hare', name: 'Zając' },
+        { sprite: 'magpie', name: 'Sroka' },
+        { sprite: 'boar', name: 'Dziczek' },
+        { sprite: 'mole', name: 'Krecik' },
       ],
       3: [
-        { sprite: 'phoenix', name: 'Feniks', immune: 'hard' },
-        { sprite: 'pegasus', name: 'Pegaz', immune: 'easy' },
-        { sprite: 'fairy', name: 'Wróżka', immune: 'medium' },
-        { sprite: 'peacock', name: 'Paw', immune: 'hard' },
-        { sprite: 'griffin', name: 'Gryf', immune: 'hard' },
-        { sprite: 'mooncat', name: 'Księżycowy Kot', immune: 'medium' },
-        { sprite: 'starbird', name: 'Gwiazdoptak', immune: null },
-        { sprite: 'crystaldeer', name: 'Kryształowa Sarenka', immune: 'easy' },
-        { sprite: 'cloudrabbit', name: 'Chmurowy Królik', immune: null },
-        { sprite: 'sunfox', name: 'Słoneczny Lis', immune: 'hard' },
-        { sprite: 'rainbowfish', name: 'Tęczowa Rybka', immune: 'easy', hpOverride: [2, 4] },
-        { sprite: 'glowowl', name: 'Świecąca Sówka', immune: 'medium' },
-        { sprite: 'flamebird', name: 'Ognisty Ptak', immune: 'hard' },
-        { sprite: 'shadowwolf', name: 'Cień Wilka', immune: 'medium' },
+        { sprite: 'phoenix', name: 'Feniks' },
+        { sprite: 'pegasus', name: 'Pegaz' },
+        { sprite: 'fairy', name: 'Wróżka' },
+        { sprite: 'peacock', name: 'Paw' },
+        { sprite: 'griffin', name: 'Gryf' },
+        { sprite: 'mooncat', name: 'Księżycowy Kot' },
+        { sprite: 'starbird', name: 'Gwiazdoptak' },
+        { sprite: 'crystaldeer', name: 'Kryształowa Sarenka' },
+        { sprite: 'cloudrabbit', name: 'Chmurowy Królik' },
+        { sprite: 'sunfox', name: 'Słoneczny Lis' },
+        { sprite: 'rainbowfish', name: 'Tęczowa Rybka' },
+        { sprite: 'glowowl', name: 'Świecąca Sówka' },
+        { sprite: 'flamebird', name: 'Ognisty Ptak' },
+        { sprite: 'shadowwolf', name: 'Cień Wilka' },
       ]
     };
     const list = monsters[floor];
@@ -4527,9 +4526,9 @@ const DungeonMap = {
 
   getBossMonster(floor) {
     const bosses = {
-      1: { sprite: 'unicorn', name: 'WIELKI JEDNOROŻEC', immune: null },
-      2: { sprite: 'babydragon', name: 'SMOK-MALUSZEK', immune: null },
-      3: { sprite: 'rainbowqueen', name: 'KRÓLOWA TĘCZY', immune: null },
+      1: { sprite: 'unicorn', name: 'WIELKI JEDNOROŻEC' },
+      2: { sprite: 'babydragon', name: 'SMOK-MALUSZEK' },
+      3: { sprite: 'rainbowqueen', name: 'KRÓLOWA TĘCZY' },
     };
     return bosses[floor];
   },
@@ -5403,12 +5402,8 @@ const Battle = {
     PixelArt._currentBattleSprite = room.monster.sprite;
     PixelArt.drawOnCanvas(document.getElementById('monster-anim-canvas'), room.monster.sprite, imgSize);
     PixelArt.startAnimation();
-    const immuneNames = { easy: 'jabłuszko', medium: 'ciasteczko', hard: 'torcik' };
-    const immuneType = room.monster.immune;
     document.getElementById('monster-name').textContent = room.monster.name;
-    document.getElementById('monster-extra-info').textContent =
-      room.monster.onlyEasy ? 'Lubi tylko jabłuszka!'
-        : immuneType ? `Nie lubi: ${immuneNames[immuneType]}` : '';
+    document.getElementById('monster-extra-info').textContent = '';
     document.getElementById('monster-level-display').textContent = `Lv.${room.isBoss ? Game.currentFloor + 2 : Game.currentFloor}`;
     this.updatePlayerBattleUI();
     this.updateMonsterHP();
@@ -5423,19 +5418,14 @@ const Battle = {
   showAttackChoice() {
     document.getElementById('attack-choice').style.display = 'grid';
     document.getElementById('question-phase').style.display = 'none';
-    document.getElementById('battle-prompt').textContent = 'Jaki smaczek da Zosia?';
+    document.getElementById('battle-prompt').textContent = 'Jaki smaczek dasz zwierzątku?';
     this.updatePlayerBattleUI();
 
-    // Update DMG labels with level + sword bonus
-    const lvlBonus = Math.max(0, Game.player.level - 1);
-    const swordBonus = Hero.getSwordBonus();
-    const easyDmg = 1 + lvlBonus + swordBonus;
-    const medDmg = 2 + lvlBonus + swordBonus;
-    const hardDmg = 3 + lvlBonus + swordBonus;
-    document.getElementById('easy-dmg-label').textContent = `+${easyDmg} 💖`;
-    document.getElementById('medium-dmg-label').textContent = `+${medDmg} 💖`;
-    const hardLabel = document.getElementById('hard-dmg-label');
-    hardLabel.textContent = `+${hardDmg} 💖`;
+    // Update labels — show ranges (treat effectiveness varies)
+    const sb = Hero.getSwordBonus();
+    document.getElementById('easy-dmg-label').textContent = `+${1+sb}–${2+sb} 💖`;
+    document.getElementById('medium-dmg-label').textContent = `+${2+sb}–${3+sb} 💖`;
+    document.getElementById('hard-dmg-label').textContent = `+${3+sb}–${4+sb} 💖`;
 
     // Boots tier 3: show preview of available tasks
     const preview = document.getElementById('task-preview');
@@ -5462,44 +5452,14 @@ const Battle = {
       this._previewedQuestions = null;
     }
 
-    // Disable last-used attack AND immune attack
-    const immune = this.currentRoom ? this.currentRoom.monster?.immune : null;
-    const immuneLabels = { easy: 'Lekki', medium: 'Mocny', hard: 'Potężny' };
-    const diffKeys = ['easy', 'medium', 'hard'];
-
-    document.querySelectorAll('.battle-attack-btn').forEach((btn, i) => {
+    // Reset all attack buttons (no immune, no last-used disable)
+    document.querySelectorAll('.battle-attack-btn').forEach((btn) => {
       btn.disabled = false;
       btn.style.opacity = '1';
       btn.style.cursor = 'pointer';
-      // Remove old immune badge
       const oldBadge = btn.querySelector('.immune-badge');
       if (oldBadge) oldBadge.remove();
-
-      // Disable immune attack
-      const onlyEasy = this.currentRoom?.monster?.onlyEasy;
-      const shouldDisable = (immune && diffKeys[i] === immune) ||
-                            (onlyEasy && diffKeys[i] !== 'easy');
-      if (shouldDisable) {
-        btn.disabled = true;
-        btn.style.opacity = '0.3';
-        btn.style.cursor = 'not-allowed';
-        const badge = document.createElement('div');
-        badge.className = 'immune-badge';
-        badge.textContent = onlyEasy && diffKeys[i] !== 'easy' ? '💤 NIE LUBI' : '💤 NIE LUBI';
-        btn.appendChild(badge);
-      }
     });
-
-    const onlyEasyMonster = this.currentRoom?.monster?.onlyEasy;
-    if (this.lastAttack && !onlyEasyMonster) {
-      const map = { easy: 0, medium: 1, hard: 2 };
-      const btn = document.querySelectorAll('.battle-attack-btn')[map[this.lastAttack]];
-      if (btn && !btn.disabled) {
-        btn.disabled = true;
-        btn.style.opacity = '0.35';
-        btn.style.cursor = 'not-allowed';
-      }
-    }
 
     // Show/hide potion button
     const potionBtn = document.getElementById('potion-battle-btn');
@@ -5518,10 +5478,10 @@ const Battle = {
 
   chooseAttack(difficulty) {
     const floor = Game.currentFloor;
-    const baseDmg = difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3;
-    const levelBonus = Math.max(0, Game.player.level - 1);
+    // Each treat has a base range — varies per encounter for surprise
+    const baseDmg = difficulty === 'easy' ? randInt(1, 2) : difficulty === 'medium' ? randInt(2, 3) : randInt(3, 4);
     const swordBonus = Hero.getSwordBonus();
-    this.currentDamage = baseDmg + levelBonus + swordBonus;
+    this.currentDamage = baseDmg + swordBonus;
     this.lastAttack = difficulty;
     this.currentDifficulty = difficulty;
 
@@ -5542,7 +5502,7 @@ const Battle = {
     document.getElementById('attack-choice').style.display = 'none';
     document.getElementById('question-phase').style.display = 'block';
     document.getElementById('feedback-text').textContent = '';
-    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby dać smaczek!';
+    document.getElementById('battle-prompt').textContent = 'Rozwiąż zadanie, żeby nakarmić zwierzątko!';
 
     this.renderQuestion();
   },
@@ -6055,11 +6015,12 @@ const Battle = {
   },
 
   updateMonsterHP() {
-    const pct = (this.monsterHP / this.monsterMaxHP) * 100;
+    // Progress bar fills UP (taming progress = max - current)
+    const tamed = this.monsterMaxHP - this.monsterHP;
+    const pct = (tamed / this.monsterMaxHP) * 100;
     document.getElementById('monster-hp-bar').style.width = pct + '%';
-    document.getElementById('monster-hp-text').textContent = `${this.monsterHP}/${this.monsterMaxHP}`;
     const bar = document.getElementById('monster-hp-bar');
-    bar.style.background = pct <= 20 ? '#d05050' : pct <= 50 ? '#d0b040' : '#58b858';
+    bar.style.background = pct >= 80 ? '#58b858' : pct >= 40 ? '#d0b040' : '#e8a860';
   },
 
   updatePlayerBattleUI() {
