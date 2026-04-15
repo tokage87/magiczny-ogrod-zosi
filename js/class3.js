@@ -625,18 +625,18 @@ const ORTHO_RZZ = {
 
 // ─── P5: WYRAZY POKREWNE ───
 const WORD_FAMILIES = [
-  { root: "las",    family: ["las","leśnik","leśny","leśniczówka","lasek","zalesienie"], intruders: ["list","laska","lis"] },
-  { root: "morze",  family: ["morze","morski","nadmorski","marynarz","pomorze"], intruders: ["marzec","morwa","marchew"] },
-  { root: "dom",    family: ["dom","domek","domowy","domownik","bezdomny"], intruders: ["donica","domena","domin"] },
-  { root: "rower",  family: ["rower","rowerzysta","rowerowy"], intruders: ["równy","rów","rewolucja"] },
-  { root: "woda",   family: ["woda","wodny","wodnik","wodospad","podwodny"], intruders: ["wolny","wołać","wosk"] },
-  { root: "góra",   family: ["góra","góral","górski","górka","pogórze"], intruders: ["goryl","gorący","gość"] },
-  { root: "pies",   family: ["pies","piesek","pieski","psi","psiarnia"], intruders: ["piasek","pisać","pieśń"] },
-  { root: "szkoła", family: ["szkoła","szkolny","szkolak","przeszkolenie"], intruders: ["szkło","szklanka","szkoda"] },
-  { root: "zima",   family: ["zima","zimowy","zimno","zimowisko","przezimować"], intruders: ["zamek","zebra","ziemia"] },
-  { root: "kwiat",  family: ["kwiat","kwiatek","kwiatowy","kwiaciarnia"], intruders: ["kwadrat","kwaśny","kwota"] },
-  { root: "droga",  family: ["droga","drogowy","dróżka","podróż","podróżnik"], intruders: ["drewno","drabina","dreszcz"] },
-  { root: "noc",    family: ["noc","nocny","nocleg","nocować","północ"], intruders: ["nos","noga","nowy"] },
+  { root: "las",    family: ["las","lasy","leśnik","leśny","leśniczówka","lasek","zalesienie"], intruders: ["list","laska","lis"] },
+  { root: "morze",  family: ["morze","morza","morski","nadmorski","marynarz","pomorze"], intruders: ["marzec","morwa","marchew"] },
+  { root: "dom",    family: ["dom","domy","domek","domowy","domownik","bezdomny"], intruders: ["donica","domena","domin"] },
+  { root: "rower",  family: ["rower","rowery","rowerzysta","rowerowy"], intruders: ["równy","rów","rewolucja"] },
+  { root: "woda",   family: ["woda","wody","wodny","wodnik","wodospad","podwodny"], intruders: ["wolny","wołać","wosk"] },
+  { root: "góra",   family: ["góra","góry","góral","górski","górka","pogórze"], intruders: ["goryl","gorący","gość"] },
+  { root: "pies",   family: ["pies","psy","piesek","pieski","psi","psiarnia","psiak"], intruders: ["piasek","pisać","pieśń"] },
+  { root: "szkoła", family: ["szkoła","szkoły","szkolny","szkolak","szkolenie","przeszkolenie"], intruders: ["szkło","szklanka","szkoda"] },
+  { root: "zima",   family: ["zima","zimy","zimowy","zimno","zimowisko","przezimować","zimować"], intruders: ["zamek","zebra","ziemia"] },
+  { root: "kwiat",  family: ["kwiat","kwiaty","kwiatek","kwiatowy","kwiaciarnia"], intruders: ["kwadrat","kwaśny","kwota"] },
+  { root: "droga",  family: ["droga","drogi","drogowy","dróżka","podróż","podróżnik"], intruders: ["drewno","drabina","dreszcz"] },
+  { root: "noc",    family: ["noc","noce","nocny","nocleg","nocować","północ"], intruders: ["nos","noga","nowy"] },
 ];
 
 // ─── P3: ORTOGRAFIA ch/h ───

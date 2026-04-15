@@ -5146,6 +5146,16 @@ const Shop = {
   }
 };
 
+// Polish number agreement: plN(5, 'gniazdo', 'gniazda', 'gniazd') → "5 gniazd"
+function plN(n, one, two4, five) {
+  if (n === 1) return `${n} ${one}`;
+  const lastTwo = n % 100;
+  const lastOne = n % 10;
+  if (lastTwo >= 12 && lastTwo <= 14) return `${n} ${five}`;
+  if (lastOne >= 2 && lastOne <= 4) return `${n} ${two4}`;
+  return `${n} ${five}`;
+}
+
 // ─── QUEST SYSTEM ───
 const Quest = {
   currentRoom: null,
@@ -5161,7 +5171,7 @@ const Quest = {
         const total = apples * aCost + cookies * cCost;
         return {
           npc: '🦊', name: 'Lisek Rudi',
-          story: `"Chcę przygotować smaczki na przyjęcie!\nPotrzebuję ${apples} jabłuszek po ${aCost} monet\ni ${cookies} ciasteczek po ${cCost} monet.\n\nIle monet wydasz na wszystkie smaczki?"`,
+          story: `"Chcę przygotować smaczki na przyjęcie!\nPotrzebuję ${plN(apples, 'jabłuszko', 'jabłuszka', 'jabłuszek')} po ${aCost} monet\ni ${plN(cookies, 'ciasteczko', 'ciasteczka', 'ciasteczek')} po ${cCost} monet.\n\nIle monet wydasz na wszystkie smaczki?"`,
           question: ``, answer: String(total),
           reward: { type: 'gold', amount: 20 + floor * 10 }
         };
@@ -5172,7 +5182,7 @@ const Quest = {
         const total = nests * eggsEach;
         return {
           npc: '🦉', name: 'Sowa Mądralka',
-          story: `"W lesie jest ${nests} gniazd, w każdym ${eggsEach} jajek.\nZ ${hatched} jajek już wyklułe się pisklęta.\n\nIle jajek jeszcze czeka na wyklucje?"`,
+          story: `"W lesie ${nests <= 4 ? 'są' : 'jest'} ${plN(nests, 'gniazdo', 'gniazda', 'gniazd')}, w każdym po ${eggsEach} jajek.\nZ ${hatched} jajek wykluły się już pisklęta.\n\nIle jajek jeszcze czeka na wyklucie?"`,
           question: ``, answer: String(total - hatched),
           reward: { type: 'xp', amount: 15 + floor * 5 }
         };
@@ -5182,7 +5192,7 @@ const Quest = {
         const berriesPer = randInt(5, 15) * m;
         return {
           npc: '🐻', name: 'Miś Jagódka',
-          story: `"Mam ${groups} rodzin niedźwiedzi, po ${perGroup} misiów.\nKażdy miś potrzebuje ${berriesPer} jagód dziennie.\n\nIle jagód trzeba zebrać na jeden dzień?"`,
+          story: `"Mam ${plN(groups, 'rodzinę', 'rodziny', 'rodzin')} niedźwiedzi, po ${perGroup} misiów w każdej.\nKażdy miś potrzebuje ${berriesPer} jagód dziennie.\n\nIle jagód trzeba zebrać na jeden dzień?"`,
           question: ``, answer: String(groups * perGroup * berriesPer),
           reward: { type: 'gold', amount: 25 + floor * 10 }
         };
@@ -5196,7 +5206,7 @@ const Quest = {
         const pond3 = realTotal - pond1 - pond2;
         return {
           npc: '🐸', name: 'Żabka Kum',
-          story: `"Złapaliśmy muchówki z trzech stawów:\n• pierwszy: ${pond1} sztuk\n• drugi: ${pond2} sztuk\n• trzeci: ${pond3} sztuk\n\nDzielimy je równo między ${animals} żabek.\nIle muchówek dostanie każda?"`,
+          story: `"Złapaliśmy muchówki z trzech stawów:\n• pierwszy: ${pond1} sztuk\n• drugi: ${pond2} sztuk\n• trzeci: ${pond3} sztuk\n\nDzielimy je równo między ${plN(animals, 'żabkę', 'żabki', 'żabek')}.\nIle muchówek dostanie każda?"`,
           question: ``, answer: String(each),
           reward: { type: 'gold', amount: 30 + floor * 10 }
         };
@@ -5208,7 +5218,7 @@ const Quest = {
         const bird = randInt(2, Math.floor(total / 4));
         return {
           npc: '🐿️', name: 'Wiewiórka Orzeszka',
-          story: `"W sadzie jest ${trees} drzew, na każdym ${perTree} orzechów.\nZebrałam już ${squirrel} orzechów,\na dzięcioł zabrał ${bird}.\n\nIle orzechów zostało na drzewach?"`,
+          story: `"W sadzie ${trees <= 4 ? 'rosną' : 'rośnie'} ${plN(trees, 'drzewo', 'drzewa', 'drzew')}, na każdym po ${perTree} orzechów.\nZebrałam już ${squirrel} orzechów,\na dzięcioł zabrał ${bird}.\n\nIle orzechów zostało na drzewach?"`,
           question: ``, answer: String(total - squirrel - bird),
           reward: { type: 'xp', amount: 15 + floor * 5 }
         };
@@ -5218,7 +5228,7 @@ const Quest = {
         const berries = randInt(2, 5); const berryCost = randInt(5, 15) * m;
         return {
           npc: '🦔', name: 'Jeżyk Zielarz',
-          story: `"Do leśnych lekarstw potrzebuję:\n${herbs} wiązek ziół po ${herbCost} monet\ni ${berries} garści jagód po ${berryCost} monet.\n\nIle monet wydasz na składniki?"`,
+          story: `"Do leśnych lekarstw potrzebuję:\n${plN(herbs, 'wiązkę', 'wiązki', 'wiązek')} ziół po ${herbCost} monet\ni ${plN(berries, 'garść', 'garście', 'garści')} jagód po ${berryCost} monet.\n\nIle monet wydasz na składniki?"`,
           question: ``, answer: String(herbs * herbCost + berries * berryCost),
           reward: { type: 'potion', amount: 1 }
         };
@@ -5242,7 +5252,7 @@ const Quest = {
         const found = randInt(5, 30) * m;
         return {
           npc: '🐝', name: 'Pszczółka Bzykalka',
-          story: `"Na ${shelves} półkach mam po ${perShelf} nasionek kwiatów.\nPosadziłam ${planted} nasionek,\na ${found} nowych znalazłam na łące.\n\nIle nasionek mam teraz?"`,
+          story: `"Na ${plN(shelves, 'półce', 'półkach', 'półkach')} mam po ${perShelf} nasionek kwiatów.\nPosadziłam ${planted} nasionek,\na ${found} nowych znalazłam na łące.\n\nIle nasionek mam teraz?"`,
           question: ``, answer: String(totalSeeds - planted + found),
           reward: { type: 'potion', amount: 1 }
         };
@@ -5252,7 +5262,7 @@ const Quest = {
         const butterflies = randInt(8, 25); const dragonflies = randInt(5, 15);
         return {
           npc: '🦋', name: 'Motyl Tęczowy',
-          story: `"Na polance jest ${rows} rzędów kwiatów po ${perRow}.\nPrzylatuje ${butterflies} motyli i ${dragonflies} ważek.\n\nIle istot jest łącznie na polance\n(kwiaty + owady)?"`,
+          story: `"Na polance ${rows <= 4 ? 'są' : 'jest'} ${plN(rows, 'rząd', 'rzędy', 'rzędów')} kwiatów po ${perRow}.\nPrzylatuje ${butterflies} motyli i ${dragonflies} ważek.\n\nIle istot jest łącznie na polance\n(kwiaty + owady)?"`,
           question: ``, answer: String(rows * perRow + butterflies + dragonflies),
           reward: { type: 'gold', amount: 20 + floor * 10 }
         };
@@ -5264,7 +5274,7 @@ const Quest = {
         const rotten = randInt(2, Math.min(5, perTeam - 3));
         return {
           npc: '🦡', name: 'Borsuk Strażnik',
-          story: `"Zebraliśmy ${real} grzybów i dzielimy je\nrówno między ${teams} rodzin zwierzątek.\nAle z każdej porcji ${rotten} grzybów jest zepsutych!\n\nIle dobrych grzybów dostanie każda rodzina?"`,
+          story: `"Zebraliśmy ${real} grzybów i dzielimy je\nrówno między ${plN(teams, 'rodzinę', 'rodziny', 'rodzin')} zwierzątek.\nAle z każdej porcji ${plN(rotten, 'grzyb jest zepsuty', 'grzyby są zepsute', 'grzybów jest zepsutych')}!\n\nIle dobrych grzybów dostanie każda rodzina?"`,
           question: ``, answer: String(perTeam - rotten),
           reward: { type: 'gold', amount: 25 + floor * 10 }
         };
